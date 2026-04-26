@@ -1,0 +1,302 @@
+{
+  "pl": {
+    "Zestawy": [
+      {
+        "id": "set-1-mini-phila",
+        "name": "Zestaw 1 Mini Phila",
+        "price": "80 PLN",
+        "desc": "16 szt: Philadelphia Krewetka, Philadelphia Węgorz, Philadelphia Tuńczyk, Philadelphia Łosoś"
+      },
+      {
+        "id": "set-4-phila",
+        "name": "Zestaw 4 Philadelphia",
+        "price": "160 PLN",
+        "desc": "32 szt: Philadelphia Krewetka, Philadelphia Węgorz, Philadelphia Łosoś, Philadelphia Tuńczyk"
+      },
+      {
+        "id": "set-8-california",
+        "name": "Zestaw 8 Kalifornia",
+        "price": "150 PLN",
+        "desc": "32 szt: Łosoś, Krewetka, Tuńczyk, Węgorz (w tobiko/sezam)"
+      },
+      {
+        "id": "set-11-family",
+        "name": "Zestaw 11 Family",
+        "price": "320 PLN",
+        "desc": "82 szt: Wielki mix rolów, futomaków i hosomaków"
+      },
+      {
+        "id": "set-14-topchik",
+        "name": "Zestaw 14 Topchik",
+        "price": "140 PLN",
+        "desc": "32 szt: Kalifornia łosoś, Phila łosoś, Futomak tuńczyk panko, Łosoś Tempura"
+      }
+    ],
+    "Philadelphia": [
+      {
+        "id": "phila-classic",
+        "name": "Philadelphia Classic",
+        "price": "39 PLN",
+        "desc": "Ryż, nori, philadelphia, ogórek, łosoś"
+      },
+      {
+        "id": "phila-shrimp",
+        "name": "Philadelphia Krewetka",
+        "price": "42 PLN",
+        "desc": "Ryż, nori, philadelphia, ogórek, łosoś, krewetka"
+      },
+      {
+        "id": "phila-xl",
+        "name": "Philadelphia XL",
+        "price": "59 PLN",
+        "desc": "Ryż, nori, philadelphia, ogórek, łosoś, tuńczyk, krewetka"
+      }
+    ],
+    "Kalifornia / Burger": [
+      {
+        "id": "cal-salmon-tobiko",
+        "name": "Kalifornia z łososiem w tobiko",
+        "price": "39 PLN",
+        "desc": "Łosoś, philadelphia, żółta rzepa, ogórek, tobiko"
+      },
+      {
+        "id": "sushi-burger-salmon",
+        "name": "Sushi Burger z łososiem",
+        "price": "45 PLN",
+        "desc": "Ryż, nori, philadelphia, ogórek, łosoś"
+      },
+      {
+        "id": "burger-shrimp-avocado",
+        "name": "Burger z krewetkami i awokado",
+        "price": "50 PLN",
+        "desc": "Krewetki, awokado, teriyaki, tobiko"
+      }
+    ],
+    "Przystawki / Inne": [
+      {
+        "id": "shrimp-panko",
+        "name": "Krewetki w Panko (6/9 szt)",
+        "price": "45/55 PLN",
+        "desc": "Chrupiące krewetki w japońskiej panierce"
+      },
+      {
+        "id": "fries-large",
+        "name": "Frytki (Duże)",
+        "price": "10 PLN",
+        "desc": "Złociste frytki"
+      },
+      {
+        "id": "onion-rings",
+        "name": "Krążki Cebulowe (8 szt)",
+        "price": "25 PLN",
+        "desc": "Chrupiące krążki cebulowe"
+      },
+      {
+        "id": "gunkan-2",
+        "name": "Gunkan (2 szt)",
+        "price": "30 PLN",
+        "desc": "1. Tuńczyk, 2. Łosoś, 3. Krewetka, 4. Węgorz"
+      }
+    ]
+  },
+  "en": {
+    "Zestawy": [
+      {
+        "id": "set-1-mini-phila",
+        "name": "Set 1 Mini Philadelphia",
+        "price": "80 PLN",
+        "desc": "16 pcs: Philadelphia Shrimp, Philadelphia Eel, Philadelphia Tuna, Philadelphia Salmon"
+      },
+      {
+        "id": "set-4-phila",
+        "name": "Set 4 Philadelphia",
+        "price": "160 PLN",
+        "desc": "32 pcs: Philadelphia Shrimp, Philadelphia Eel, Philadelphia Salmon, Philadelphia Tuna"
+      },
+      {
+        "id": "set-8-california",
+        "name": "Set 8 California",
+        "price": "150 PLN",
+        "desc": "32 pcs: Salmon, Shrimp, Tuna, Eel (with tobiko/sesame)"
+      },
+      {
+        "id": "set-11-family",
+        "name": "Set 11 Family",
+        "price": "320 PLN",
+        "desc": "82 pcs: Large mix of rolls, futomaki and hosomaki"
+      },
+      {
+        "id": "set-14-topchik",
+        "name": "Set 14 Topchik",
+        "price": "140 PLN",
+        "desc": "32 pcs: California salmon, Phila salmon, Futomaki tuna panko, Salmon tempura"
+      }
+    ],
+    "Philadelphia": [
+      {
+        "id": "phila-classic",
+        "name": "Philadelphia Classic",
+        "price": "39 PLN",
+        "desc": "Rice, nori, cream cheese, cucumber, salmon"
+      },
+      {
+        "id": "phila-shrimp",
+        "name": "Philadelphia Shrimp",
+        "price": "42 PLN",
+        "desc": "Rice, nori, cream cheese, cucumber, salmon, shrimp"
+      },
+      {
+        "id": "phila-xl",
+        "name": "Philadelphia XL",
+        "price": "59 PLN",
+        "desc": "Rice, nori, cream cheese, cucumber, salmon, tuna, shrimp"
+      }
+    ],
+    "Kalifornia / Burger": [
+      {
+        "id": "cal-salmon-tobiko",
+        "name": "California with salmon in tobiko",
+        "price": "39 PLN",
+        "desc": "Salmon, cream cheese, pickled daikon, cucumber, tobiko"
+      },
+      {
+        "id": "sushi-burger-salmon",
+        "name": "Sushi burger with salmon",
+        "price": "45 PLN",
+        "desc": "Rice, nori, cream cheese, cucumber, salmon"
+      },
+      {
+        "id": "burger-shrimp-avocado",
+        "name": "Burger with shrimp and avocado",
+        "price": "50 PLN",
+        "desc": "Shrimp, avocado, teriyaki, tobiko"
+      }
+    ],
+    "Przystawki / Inne": [
+      {
+        "id": "shrimp-panko",
+        "name": "Panko shrimp (6/9 pcs)",
+        "price": "45/55 PLN",
+        "desc": "Crispy shrimp in Japanese panko coating"
+      },
+      {
+        "id": "fries-large",
+        "name": "French fries (large)",
+        "price": "10 PLN",
+        "desc": "Golden fries"
+      },
+      {
+        "id": "onion-rings",
+        "name": "Onion rings (8 pcs)",
+        "price": "25 PLN",
+        "desc": "Crispy onion rings"
+      },
+      {
+        "id": "gunkan-2",
+        "name": "Gunkan (2 pcs)",
+        "price": "30 PLN",
+        "desc": "1. Tuna, 2. Salmon, 3. Shrimp, 4. Eel"
+      }
+    ]
+  },
+  "uk": {
+    "Zestawy": [
+      {
+        "id": "set-1-mini-phila",
+        "name": "Сет 1 Міні Філадельфія",
+        "price": "80 PLN",
+        "desc": "16 шт: Філадельфія креветка, Філадельфія вугор, Філадельфія тунець, Філадельфія лосось"
+      },
+      {
+        "id": "set-4-phila",
+        "name": "Сет 4 Філадельфія",
+        "price": "160 PLN",
+        "desc": "32 шт: Філадельфія креветка, Філадельфія вугор, Філадельфія лосось, Філадельфія тунець"
+      },
+      {
+        "id": "set-8-california",
+        "name": "Сет 8 Каліфорнія",
+        "price": "150 PLN",
+        "desc": "32 шт: Лосось, креветка, тунець, вугор (у тобіко/кунжуті)"
+      },
+      {
+        "id": "set-11-family",
+        "name": "Сет 11 Family",
+        "price": "320 PLN",
+        "desc": "82 шт: Великий мікс ролів, футомакі та хосомакі"
+      },
+      {
+        "id": "set-14-topchik",
+        "name": "Сет 14 Topchik",
+        "price": "140 PLN",
+        "desc": "32 шт: Каліфорнія лосось, Філа лосось, Футомакі тунець панко, лосось темпура"
+      }
+    ],
+    "Philadelphia": [
+      {
+        "id": "phila-classic",
+        "name": "Філадельфія класична",
+        "price": "39 PLN",
+        "desc": "Рис, норі, вершковий сир, огірок, лосось"
+      },
+      {
+        "id": "phila-shrimp",
+        "name": "Філадельфія з креветкою",
+        "price": "42 PLN",
+        "desc": "Рис, норі, вершковий сир, огірок, лосось, креветка"
+      },
+      {
+        "id": "phila-xl",
+        "name": "Філадельфія XL",
+        "price": "59 PLN",
+        "desc": "Рис, норі, вершковий сир, огірок, лосось, тунець, креветка"
+      }
+    ],
+    "Kalifornia / Burger": [
+      {
+        "id": "cal-salmon-tobiko",
+        "name": "Каліфорнія з лососем у тобіко",
+        "price": "39 PLN",
+        "desc": "Лосось, вершковий сир, жовта редька, огірок, тобіко"
+      },
+      {
+        "id": "sushi-burger-salmon",
+        "name": "Суші-бургер з лососем",
+        "price": "45 PLN",
+        "desc": "Рис, норі, вершковий сир, огірок, лосось"
+      },
+      {
+        "id": "burger-shrimp-avocado",
+        "name": "Бургер з креветками та авокадо",
+        "price": "50 PLN",
+        "desc": "Креветки, авокадо, теріякі, тобіко"
+      }
+    ],
+    "Przystawki / Inne": [
+      {
+        "id": "shrimp-panko",
+        "name": "Креветки в панко (6/9 шт)",
+        "price": "45/55 PLN",
+        "desc": "Хрусткі креветки в японській паніровці"
+      },
+      {
+        "id": "fries-large",
+        "name": "Картопля фрі (велика)",
+        "price": "10 PLN",
+        "desc": "Золотиста картопля фрі"
+      },
+      {
+        "id": "onion-rings",
+        "name": "Цибулеві кільця (8 шт)",
+        "price": "25 PLN",
+        "desc": "Хрусткі цибулеві кільця"
+      },
+      {
+        "id": "gunkan-2",
+        "name": "Гункан (2 шт)",
+        "price": "30 PLN",
+        "desc": "1. Тунець, 2. Лосось, 3. Креветка, 4. Вугор"
+      }
+    ]
+  }
+}
