@@ -1,6 +1,16 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 
 const CartContext = createContext(null);
+
+const CART_STORAGE_KEY =
+  process.env.REACT_APP_CART_STORAGE_KEY || 'sushi-love-cart';
 
 const parsePrice = (priceText) => {
   const [firstPart] = priceText.split('/');
@@ -8,12 +18,66 @@ const parsePrice = (priceText) => {
   return Number.isNaN(numericPrice) ? 0 : numericPrice;
 };
 
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+function readStoredCart() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return [];
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data)) return [];
+    return data
+      .filter(
+        (it) =>
+          it &&
+          it.id != null &&
+          typeof it.name === 'string' &&
+          typeof it.priceValue === 'number' &&
+          !Number.isNaN(it.priceValue) &&
+          typeof it.quantity === 'number' &&
+          it.quantity > 0
+      )
+      .map((it) => ({
+        id: String(it.id),
+        name: it.name,
+        priceLabel: typeof it.priceLabel === 'string' ? it.priceLabel : String(it.priceValue),
+        priceValue: it.priceValue,
+        quantity: Math.max(1, Math.floor(it.quantity))
+      }));
+  } catch {
+    return [];
+  }
+}
 
-  const addToCart = useCallback((item, category) => {
-    const itemId = item.id ?? `${category}-${item.name}`;
-    const priceValue = parsePrice(item.price);
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState(() => readStoredCart());
+
+  useEffect(() => {
+    try {
+      if (cart.length === 0) {
+        localStorage.removeItem(CART_STORAGE_KEY);
+      } else {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      }
+    } catch {
+      /* quota / private mode */
+    }
+  }, [cart]);
+
+  const addToCart = useCallback((item, category, opts = {}) => {
+    const variantKey = opts.variantKey;
+    let itemId = String(item.id ?? `${category}-${item.name}`);
+    let priceStr = item.price;
+    let lineName = item.name;
+
+    if (item.variantOptions?.length) {
+      const key = variantKey || item.variantOptions[0]?.key;
+      const opt = item.variantOptions.find((o) => o.key === key);
+      if (!opt) return;
+      itemId = `${item.id}__${opt.key}`;
+      priceStr = opt.price;
+      lineName = `${item.name} — ${opt.label}`;
+    }
+
+    const priceValue = parsePrice(priceStr);
 
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === itemId);
@@ -30,8 +94,8 @@ export const CartProvider = ({ children }) => {
         ...prevCart,
         {
           id: itemId,
-          name: item.name,
-          priceLabel: item.price,
+          name: lineName,
+          priceLabel: priceStr,
           priceValue,
           quantity: 1
         }
@@ -40,25 +104,28 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const increaseItem = useCallback((itemId) => {
+    const id = String(itemId);
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   }, []);
 
   const decreaseItem = useCallback((itemId) => {
+    const id = String(itemId);
     setCart((prevCart) =>
       prevCart
         .map((item) =>
-          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
         )
         .filter((item) => item.quantity > 0)
     );
   }, []);
 
   const removeItem = useCallback((itemId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
+    const id = String(itemId);
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   }, []);
 
   const clearCart = useCallback(() => {

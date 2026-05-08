@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { findMenuItemById } from '../DaneMenu/menuUtils';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -17,45 +17,165 @@ const CartPage = () => {
     clearCart
   } = useCart();
   const { lang, t } = useLanguage();
+  const [formData, setFormData] = useState({
+    orderType: 'delivery',
+    paymentMethod: 'cash',
+    timeMode: 'asap',
+    name: '',
+    phone: '',
+    email: '',
+    privacyAccepted: false,
+    address: '',
+    preferredTime: '',
+    comment: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const lineLabel = (item) =>
-    findMenuItemById(lang, item.id)?.name ?? item.name ?? item.id;
+  const orderEndpoint =
+    process.env.REACT_APP_ORDER_ENDPOINT || '/.netlify/functions/create-order';
 
-  const linePriceLabel = (item) =>
-    findMenuItemById(lang, item.id)?.price ?? item.priceLabel;
+  const lineLabel = (item) => {
+    const base = findMenuItemById(lang, item.id);
+    if (base?.variantOptions?.length) {
+      const key = String(item.id).split('__')[1];
+      const opt = base.variantOptions.find((o) => o.key === key);
+      if (opt) return `${base.name} — ${opt.label}`;
+    }
+    return base?.name ?? item.name ?? item.id;
+  };
 
-  const sendTelegram = (e) => {
+  const linePriceLabel = (item) => {
+    const base = findMenuItemById(lang, item.id);
+    if (base?.variantOptions?.length) {
+      const key = String(item.id).split('__')[1];
+      const opt = base.variantOptions.find((o) => o.key === key);
+      if (opt) return opt.price;
+    }
+    return item.priceLabel ?? base?.price;
+  };
+
+  const cartLines = useMemo(
+    () =>
+      cart.map((item) => ({
+        id: item.id,
+        name: lineLabel(item),
+        price: item.priceValue,
+        quantity: item.quantity
+      })),
+    [cart, lang]
+  );
+
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => {
+      const next = { ...prev, [name]: value };
+      if (name === 'timeMode' && value === 'asap') {
+        next.preferredTime = '';
+      }
+      return next;
+    });
+  };
+
+  const sendTelegram = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    const token = 'ТВІЙ_ТОКЕН_З_BOTFATHER';
-    const chatId = 'ТВІЙ_ID_З_USERINFOBOT';
+    setIsSubmitting(true);
+    setSubmitState('idle');
+    setErrorMessage('');
 
-    const name = e.target[0].value;
-    const phone = e.target[1].value;
-    const cartSummary = cart.length
-      ? cart
-          .map(
-            (item) =>
-              `• ${lineLabel(item)} x${item.quantity} = ${item.priceValue * item.quantity} PLN`
-          )
-          .join('%0A')
-      : t('cart.telegramEmpty');
+    try {
+      const payload = {
+        orderType: formData.orderType,
+        paymentMethod: formData.paymentMethod,
+        timeMode: formData.timeMode,
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        privacyAccepted: formData.privacyAccepted,
+        address: formData.address,
+        preferredTime: formData.preferredTime,
+        comment: formData.comment,
+        lang,
+        cart: cartLines,
+        total: Number(cartTotal.toFixed(2)),
+        currency: 'PLN'
+      };
+      const response = await fetch(orderEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
 
-    const message =
-      `🚀 *${t('cart.telegramNew')}*%0A👤 ${t('cart.telegramName')}: ${name}%0A📞 ${t('cart.telegramPhone')}: ${phone}%0A%0A🛒 *${t('cart.telegramCart')}:*%0A${cartSummary}%0A%0A💰 *${t('cart.telegramTotal')}:* ${cartTotal.toFixed(2)} PLN`;
-    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=Markdown`;
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
 
-    fetch(url)
-      .then((res) => {
-        if (res.ok) {
-          alert(t('cart.alertOk'));
-          e.target.reset();
-          clearCart();
-        } else {
-          alert(t('cart.alertError'));
+      if (!response.ok) {
+        setSubmitState('error');
+        if (response.status === 404) {
+          setErrorMessage(t('cart.errorEndpoint404'));
+          return;
         }
-      })
-      .catch(() => alert(t('cart.alertNetwork')));
+        if (
+          response.status === 500 &&
+          data?.error === 'Server configuration error'
+        ) {
+          setErrorMessage(t('cart.errorServerConfig'));
+          return;
+        }
+        if (response.status === 502) {
+          const base = t('cart.errorTelegram');
+          const detail =
+            typeof data?.detail === 'string' && data.detail.trim()
+              ? data.detail.trim()
+              : '';
+          setErrorMessage(detail ? `${base} ${detail}` : base);
+          return;
+        }
+        if (response.status === 400) {
+          if (data?.error === 'Privacy consent required') {
+            setErrorMessage(t('cart.errorPrivacy'));
+            return;
+          }
+          if (data?.error === 'Valid email is required') {
+            setErrorMessage(t('cart.errorInvalidEmail'));
+            return;
+          }
+        }
+        setErrorMessage(
+          typeof data?.error === 'string' ? data.error : t('cart.alertError')
+        );
+        return;
+      }
+
+      setSubmitState('success');
+      setFormData({
+        orderType: 'delivery',
+        paymentMethod: 'cash',
+        timeMode: 'asap',
+        name: '',
+        phone: '',
+        email: '',
+        privacyAccepted: false,
+        address: '',
+        preferredTime: '',
+        comment: ''
+      });
+      clearCart();
+    } catch (error) {
+      setSubmitState('error');
+      setErrorMessage(t('cart.alertNetwork'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -128,17 +248,119 @@ const CartPage = () => {
           )}
         </div>
 
-        {cart.length > 0 && (
+        {cart.length > 0 && submitState !== 'success' && (
           <div className="cart-checkout">
             <h3 className="cart-checkout-title">{t('cart.checkoutTitle')}</h3>
             <p className="cart-checkout-desc">{t('cart.checkoutDesc')}</p>
             <form className="contact-form" onSubmit={sendTelegram}>
-              <input type="text" placeholder={t('cart.namePlaceholder')} required />
-              <input type="tel" placeholder={t('cart.phonePlaceholder')} required />
-              <button type="submit" className="submit-btn">
-                {t('cart.submit')}
+              <label>
+                {t('cart.deliveryTypeLabel')}
+                <select name="orderType" value={formData.orderType} onChange={onInputChange}>
+                  <option value="delivery">{t('cart.deliveryTypeDelivery')}</option>
+                  <option value="pickup">{t('cart.deliveryTypePickup')}</option>
+                </select>
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={onInputChange}
+                placeholder={t('cart.namePlaceholder')}
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={onInputChange}
+                placeholder={t('cart.phonePlaceholder')}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={onInputChange}
+                placeholder={t('cart.emailPlaceholder')}
+                autoComplete="email"
+                required
+              />
+              <label className="cart-privacy-row">
+                <input
+                  type="checkbox"
+                  name="privacyAccepted"
+                  checked={formData.privacyAccepted}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      privacyAccepted: e.target.checked
+                    }))
+                  }
+                  required
+                />
+                <span>{t('cart.privacyCheckbox')}</span>
+              </label>
+              {formData.orderType === 'delivery' && (
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={onInputChange}
+                  placeholder={t('cart.addressPlaceholder')}
+                  required
+                />
+              )}
+              <label>
+                {t('cart.paymentLabel')}
+                <select
+                  name="paymentMethod"
+                  value={formData.paymentMethod}
+                  onChange={onInputChange}
+                >
+                  <option value="cash">{t('cart.paymentCash')}</option>
+                  <option value="card">{t('cart.paymentCard')}</option>
+                </select>
+              </label>
+              <label>
+                {t('cart.timeModeLabel')}
+                <select name="timeMode" value={formData.timeMode} onChange={onInputChange}>
+                  <option value="asap">{t('cart.timeModeAsap')}</option>
+                  <option value="scheduled">{t('cart.timeModeScheduled')}</option>
+                </select>
+              </label>
+              {formData.timeMode === 'scheduled' && (
+                <input
+                  type="text"
+                  name="preferredTime"
+                  value={formData.preferredTime}
+                  onChange={onInputChange}
+                  placeholder={t('cart.timeScheduledPlaceholder')}
+                  required
+                />
+              )}
+              <textarea
+                name="comment"
+                value={formData.comment}
+                onChange={onInputChange}
+                placeholder={t('cart.commentPlaceholder')}
+                rows={3}
+              />
+              <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                {isSubmitting ? t('cart.submitting') : t('cart.submit')}
               </button>
             </form>
+            {submitState === 'error' && errorMessage && (
+              <p className="cart-checkout-desc" role="alert">
+                {errorMessage}
+              </p>
+            )}
+          </div>
+        )}
+        {submitState === 'success' && (
+          <div className="cart-checkout">
+            <h3 className="cart-checkout-title">{t('cart.successTitle')}</h3>
+            <p className="cart-checkout-desc">{t('cart.successEmailHint')}</p>
+            <p className="cart-checkout-desc">{t('cart.phoneCta')}</p>
           </div>
         )}
       </section>

@@ -8,6 +8,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(MENU_CATEGORY_KEYS[0]);
+  const [variantChoice, setVariantChoice] = useState({});
   const { addToCart, cartItemsCount } = useCart();
   const { lang, t, categoryLabel } = useLanguage();
   const menuData = useMemo(() => getMenuForLocale(lang), [lang]);
@@ -53,17 +54,69 @@ const HomePage = () => {
 
         <div className="menu-list fade-in">
           {menuData[activeCategory].map((item) => (
-            <div key={item.id} className="menu-item">
+            <div
+              key={item.id}
+              className={item.image ? 'menu-item menu-item--has-image' : 'menu-item'}
+            >
+              {item.image ? (
+                <div className="menu-item__media">
+                  <img src={item.image} alt={item.name} loading="lazy" decoding="async" />
+                </div>
+              ) : null}
               <div className="item-info">
                 <h4>{item.name}</h4>
                 <p>{item.desc}</p>
               </div>
-              <div className="item-actions">
+              <div
+                className={
+                  item.variantOptions?.length
+                    ? 'item-actions item-actions--variants'
+                    : 'item-actions'
+                }
+              >
                 <div className="item-price">{item.price}</div>
+                {item.variantOptions?.length ? (
+                  <div
+                    className="menu-item-variants"
+                    role="group"
+                    aria-label={item.name}
+                  >
+                    {item.variantOptions.map((opt) => {
+                      const chosen =
+                        variantChoice[item.id] ?? item.variantOptions[0].key;
+                      const isActive = chosen === opt.key;
+                      return (
+                        <button
+                          key={opt.key}
+                          type="button"
+                          className={
+                            isActive
+                              ? 'menu-variant-btn menu-variant-btn--active'
+                              : 'menu-variant-btn'
+                          }
+                          onClick={() =>
+                            setVariantChoice((prev) => ({
+                              ...prev,
+                              [item.id]: opt.key
+                            }))
+                          }
+                        >
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : null}
                 <button
                   type="button"
                   className="add-btn"
-                  onClick={() => addToCart(item, activeCategory)}
+                  onClick={() =>
+                    addToCart(item, activeCategory, {
+                      variantKey: item.variantOptions?.length
+                        ? variantChoice[item.id] ?? item.variantOptions[0].key
+                        : undefined
+                    })
+                  }
                 >
                   {t('home.addToCart')}
                 </button>

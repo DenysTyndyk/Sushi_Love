@@ -11,13 +11,15 @@
         "id": "set-4-phila",
         "name": "Zestaw 4 Philadelphia",
         "price": "160 PLN",
-        "desc": "32 szt: Philadelphia Krewetka, Philadelphia Węgorz, Philadelphia Łosoś, Philadelphia Tuńczyk"
+        "desc": "32 szt: Philadelphia Krewetka, Philadelphia Węgorz, Philadelphia Łosoś, Philadelphia Tuńczyk",
+        "image": "/sets_img/PhiladelphiaSet.PNG"
       },
       {
         "id": "set-8-california",
         "name": "Zestaw 8 Kalifornia",
         "price": "150 PLN",
-        "desc": "32 szt: Łosoś, Krewetka, Tuńczyk, Węgorz (w tobiko/sezam)"
+        "desc": "32 szt: Łosoś, Krewetka, Tuńczyk, Węgorz (w tobiko/sezam)",
+        "image": "/sets_img/KaliforniaSet.JPG"
       },
       {
         "id": "set-11-family",
@@ -29,7 +31,8 @@
         "id": "set-14-topchik",
         "name": "Zestaw 14 Topchik",
         "price": "140 PLN",
-        "desc": "32 szt: Kalifornia łosoś, Phila łosoś, Futomak tuńczyk panko, Łosoś Tempura"
+        "desc": "32 szt: Kalifornia łosoś, Phila łosoś, Futomak tuńczyk panko, Łosoś Tempura",
+        "image": "/sets_img/TempuraSet.PNG"
       }
     ],
     "Philadelphia": [
@@ -77,7 +80,11 @@
         "id": "shrimp-panko",
         "name": "Krewetki w Panko (6/9 szt)",
         "price": "45/55 PLN",
-        "desc": "Chrupiące krewetki w japońskiej panierce"
+        "desc": "Chrupiące krewetki w japońskiej panierce",
+        "variantOptions": [
+          { "key": "6", "label": "6 szt", "price": "45 PLN" },
+          { "key": "9", "label": "9 szt", "price": "55 PLN" }
+        ]
       },
       {
         "id": "fries-large",
@@ -111,13 +118,15 @@
         "id": "set-4-phila",
         "name": "Set 4 Philadelphia",
         "price": "160 PLN",
-        "desc": "32 pcs: Philadelphia Shrimp, Philadelphia Eel, Philadelphia Salmon, Philadelphia Tuna"
+        "desc": "32 pcs: Philadelphia Shrimp, Philadelphia Eel, Philadelphia Salmon, Philadelphia Tuna",
+        "image": "/sets_img/PhiladelphiaSet.PNG"
       },
       {
         "id": "set-8-california",
         "name": "Set 8 California",
         "price": "150 PLN",
-        "desc": "32 pcs: Salmon, Shrimp, Tuna, Eel (with tobiko/sesame)"
+        "desc": "32 pcs: Salmon, Shrimp, Tuna, Eel (with tobiko/sesame)",
+        "image": "/sets_img/KaliforniaSet.JPG"
       },
       {
         "id": "set-11-family",
@@ -129,7 +138,8 @@
         "id": "set-14-topchik",
         "name": "Set 14 Topchik",
         "price": "140 PLN",
-        "desc": "32 pcs: California salmon, Phila salmon, Futomaki tuna panko, Salmon tempura"
+        "desc": "32 pcs: California salmon, Phila salmon, Futomaki tuna panko, Salmon tempura",
+        "image": "/sets_img/TempuraSet.PNG"
       }
     ],
     "Philadelphia": [
@@ -177,7 +187,11 @@
         "id": "shrimp-panko",
         "name": "Panko shrimp (6/9 pcs)",
         "price": "45/55 PLN",
-        "desc": "Crispy shrimp in Japanese panko coating"
+        "desc": "Crispy shrimp in Japanese panko coating",
+        "variantOptions": [
+          { "key": "6", "label": "6 pcs", "price": "45 PLN" },
+          { "key": "9", "label": "9 pcs", "price": "55 PLN" }
+        ]
       },
       {
         "id": "fries-large",
@@ -211,13 +225,15 @@
         "id": "set-4-phila",
         "name": "Сет 4 Філадельфія",
         "price": "160 PLN",
-        "desc": "32 шт: Філадельфія креветка, Філадельфія вугор, Філадельфія лосось, Філадельфія тунець"
+        "desc": "32 шт: Філадельфія креветка, Філадельфія вугор, Філадельфія лосось, Філадельфія тунець",
+        "image": "/sets_img/PhiladelphiaSet.PNG"
       },
       {
         "id": "set-8-california",
         "name": "Сет 8 Каліфорнія",
         "price": "150 PLN",
-        "desc": "32 шт: Лосось, креветка, тунець, вугор (у тобіко/кунжуті)"
+        "desc": "32 шт: Лосось, креветка, тунець, вугор (у тобіко/кунжуті)",
+        "image": "/sets_img/KaliforniaSet.JPG"
       },
       {
         "id": "set-11-family",
@@ -229,7 +245,8 @@
         "id": "set-14-topchik",
         "name": "Сет 14 Topchik",
         "price": "140 PLN",
-        "desc": "32 шт: Каліфорнія лосось, Філа лосось, Футомакі тунець панко, лосось темпура"
+        "desc": "32 шт: Каліфорнія лосось, Філа лосось, Футомакі тунець панко, лосось темпура",
+        "image": "/sets_img/TempuraSet.PNG"
       }
     ],
     "Philadelphia": [
@@ -277,7 +294,11 @@
         "id": "shrimp-panko",
         "name": "Креветки в панко (6/9 шт)",
         "price": "45/55 PLN",
-        "desc": "Хрусткі креветки в японській паніровці"
+        "desc": "Хрусткі креветки в японській паніровці",
+        "variantOptions": [
+          { "key": "6", "label": "6 шт", "price": "45 PLN" },
+          { "key": "9", "label": "9 шт", "price": "55 PLN" }
+        ]
       },
       {
         "id": "fries-large",

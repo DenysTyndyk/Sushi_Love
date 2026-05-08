@@ -7,7 +7,11 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "dev": "npx --yes concurrently@8.2.2 -k \"npx --yes netlify-cli functions:serve --port 9999\" \"BROWSER=none react-scripts start\"",
+    "dev:netlify": "BROWSER=none npx --yes netlify-cli dev --no-open",
+    "build": "react-scripts build",
+    "test": "react-scripts test --watchAll=false"
   },
   "browserslist": {
     "production": [

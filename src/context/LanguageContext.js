@@ -8,7 +8,8 @@ import React, {
 } from 'react';
 import { LANGS, translations } from '../i18n/translations';
 
-const STORAGE_KEY = 'sushi-love-lang';
+const STORAGE_KEY =
+  process.env.REACT_APP_LANGUAGE_STORAGE_KEY || 'sushi-love-lang';
 
 const LanguageContext = createContext(null);
 

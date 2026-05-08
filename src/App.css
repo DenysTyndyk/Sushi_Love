@@ -120,18 +120,71 @@ html, body {
   padding: 30px;
   border-radius: 20px;
   border: 1px solid rgba(212, 175, 55, 0.1);
+  overflow: hidden;
 }
 
 .menu-item {
+  position: relative;
+  z-index: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   gap: 16px;
+  border-radius: 14px;
+  transform-origin: center center;
+  transition:
+    transform 0.38s cubic-bezier(0.34, 1.25, 0.64, 1),
+    box-shadow 0.38s ease,
+    background-color 0.38s ease;
+}
+
+.menu-item:hover {
+  z-index: 2;
+  transform: scale(1.045);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .menu-item:last-child { border-bottom: none; }
+
+.menu-item--has-image .item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item__media {
+  position: relative;
+  flex-shrink: 0;
+  width: 124px;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.38s ease;
+}
+
+.menu-item--has-image:hover .menu-item__media {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+}
+
+.menu-item__media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform-origin: center center;
+  transition: transform 0.38s cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+.menu-item--has-image:hover .menu-item__media img {
+  transform: scale(1.12);
+}
 
 .item-info h4 { margin: 0; font-size: 1.15rem; color: #fff; }
 .item-info p { margin: 6px 0 0; color: #888; font-size: 0.85rem; line-height: 1.4; max-width: 80%; }
@@ -150,6 +203,49 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.item-actions--variants {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-actions--variants .item-price {
+  align-self: flex-start;
+}
+
+.item-actions--variants .add-btn {
+  align-self: flex-start;
+}
+
+.menu-item-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-variant-btn {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+  color: #ddd;
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: var(--transition);
+}
+
+.menu-variant-btn:hover {
+  border-color: var(--gold);
+  color: #fff;
+}
+
+.menu-variant-btn--active {
+  border-color: var(--gold);
+  color: #000;
+  background: var(--gold);
 }
 
 .add-btn {
@@ -501,6 +597,20 @@ html, body {
 }
 .contact-form input:focus { border-color: var(--gold); }
 
+.cart-privacy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #ddd;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.cart-privacy-row input[type='checkbox'] {
+  margin-top: 4px;
+  flex-shrink: 0;
+  width: auto;
+}
+
 .submit-btn {
   background: var(--gold);
   color: black;
@@ -544,6 +654,25 @@ html, body {
 .fade-in { animation: fadeIn 0.6s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
+@media (prefers-reduced-motion: reduce) {
+  .menu-item,
+  .menu-item__media,
+  .menu-item__media img {
+    transition: none;
+  }
+  .menu-item:hover,
+  .menu-item--has-image:hover .menu-item__media img {
+    transform: none;
+    box-shadow: none;
+  }
+  .menu-item--has-image:hover .menu-item__media {
+    box-shadow: none;
+  }
+  .menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}
+
 @media (max-width: 768px) {
   .hero-banner { height: 250px; }
   .floating-logo { width: 120px; height: 120px; }
@@ -554,6 +683,17 @@ html, body {
   .menu-item {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .menu-item--has-image .menu-item__media {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .menu-item:hover {
+    transform: scale(1.025);
+  }
+  .menu-item--has-image:hover .menu-item__media img {
+    transform: scale(1.08);
   }
   .item-actions {
     width: 100%;
