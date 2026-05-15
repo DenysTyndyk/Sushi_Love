@@ -62,6 +62,7 @@ exports.handler = async (event) => {
       address = '',
       preferredTime = '',
       comment = '',
+      cashAmount,
       lang = 'pl',
       cart = [],
       total = 0,
@@ -104,6 +105,34 @@ exports.handler = async (event) => {
       };
     }
 
+    const orderTotal = Number(total);
+    let cashTendered = null;
+    let cashChange = null;
+
+    if (paymentMethod === 'cash') {
+      const rawCash = String(cashAmount ?? '').trim().replace(',', '.');
+      if (!rawCash) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Cash amount required' })
+        };
+      }
+      cashTendered = Number(rawCash);
+      if (!Number.isFinite(cashTendered) || cashTendered <= 0) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Cash amount required' })
+        };
+      }
+      if (cashTendered < orderTotal - 0.001) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Cash amount must cover order total' })
+        };
+      }
+      cashChange = Math.round((cashTendered - orderTotal) * 100) / 100;
+    }
+
     const lines = cart
       .map((item) => {
         const lineName = String(item.name || item.id || 'Item');
@@ -122,6 +151,12 @@ exports.handler = async (event) => {
       `💳 Płatność: ${formatPayment(paymentMethod, lang)}`,
       formatTimeLine(timeMode, preferredTime, lang)
     ];
+
+    if (paymentMethod === 'cash' && cashTendered != null) {
+      messageParts.push(
+        `💵 Gotówka od klienta: ${cashTendered.toFixed(2)} ${currency} (reszta: ${cashChange.toFixed(2)} ${currency})`
+      );
+    }
 
     if (orderType === 'delivery') {
       messageParts.push(`🏠 Adres: ${address.trim()}`);

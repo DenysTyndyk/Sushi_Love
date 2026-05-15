@@ -150,8 +150,13 @@ const HomePage = () => {
                 <a href="https://wa.me/48664454433" className="contact-btn whatsapp">
                   💬 WhatsApp
                 </a>
-                <a href="https://t.me/your_username" className="contact-btn telegram">
-                  ✈️ Telegram
+                <a
+                  href="https://www.instagram.com/sushi_love_czestochowa?igsh=N3d4dHNoZWNya3g4"
+                  className="contact-btn instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('home.contactInstagram')}
                 </a>
               </div>
               <p className="contact-order-hint">

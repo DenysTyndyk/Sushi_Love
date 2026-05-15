@@ -27,7 +27,8 @@ const CartPage = () => {
     privacyAccepted: false,
     address: '',
     preferredTime: '',
-    comment: ''
+    comment: '',
+    cashAmount: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState('idle');
@@ -74,6 +75,9 @@ const CartPage = () => {
       if (name === 'timeMode' && value === 'asap') {
         next.preferredTime = '';
       }
+      if (name === 'paymentMethod' && value !== 'cash') {
+        next.cashAmount = '';
+      }
       return next;
     });
   };
@@ -98,6 +102,8 @@ const CartPage = () => {
         address: formData.address,
         preferredTime: formData.preferredTime,
         comment: formData.comment,
+        cashAmount:
+          formData.paymentMethod === 'cash' ? formData.cashAmount : undefined,
         lang,
         cart: cartLines,
         total: Number(cartTotal.toFixed(2)),
@@ -149,6 +155,14 @@ const CartPage = () => {
             setErrorMessage(t('cart.errorInvalidEmail'));
             return;
           }
+          if (data?.error === 'Cash amount required') {
+            setErrorMessage(t('cart.errorCashAmount'));
+            return;
+          }
+          if (data?.error === 'Cash amount must cover order total') {
+            setErrorMessage(t('cart.errorCashAmountMin'));
+            return;
+          }
         }
         setErrorMessage(
           typeof data?.error === 'string' ? data.error : t('cart.alertError')
@@ -167,7 +181,8 @@ const CartPage = () => {
         privacyAccepted: false,
         address: '',
         preferredTime: '',
-        comment: ''
+        comment: '',
+        cashAmount: ''
       });
       clearCart();
     } catch (error) {
@@ -321,6 +336,22 @@ const CartPage = () => {
                   <option value="card">{t('cart.paymentCard')}</option>
                 </select>
               </label>
+              {formData.paymentMethod === 'cash' && (
+                <label>
+                  {t('cart.cashAmountLabel')}
+                  <input
+                    type="number"
+                    name="cashAmount"
+                    value={formData.cashAmount}
+                    onChange={onInputChange}
+                    placeholder={t('cart.cashAmountPlaceholder')}
+                    min={cartTotal > 0 ? cartTotal : 0.01}
+                    step="0.01"
+                    inputMode="decimal"
+                    required
+                  />
+                </label>
+              )}
               <label>
                 {t('cart.timeModeLabel')}
                 <select name="timeMode" value={formData.timeMode} onChange={onInputChange}>

@@ -51,10 +51,24 @@ function getHeader(headers, name) {
 }
 
 function parseEtaMinutes(data) {
-  if (data === 'eta_20') return 20;
-  if (data === 'eta_30') return 30;
   if (data === 'eta_45') return 45;
+  if (data === 'eta_60') return 60;
+  if (data === 'eta_90') return 90;
   return null;
+}
+
+function formatEtaPl(minutes) {
+  if (minutes === 45) return 'ok. 45 min.';
+  if (minutes === 60) return 'ok. 1 godz.';
+  if (minutes === 90) return 'ok. 1,5 godz.';
+  return `ok. ${minutes} min.`;
+}
+
+function formatEtaUk(minutes) {
+  if (minutes === 45) return '~45 хв';
+  if (minutes === 60) return '~1 год';
+  if (minutes === 90) return '~1,5 год';
+  return `~${minutes} хв`;
 }
 
 function extractOrderSummary(text) {
@@ -79,12 +93,12 @@ function buildCustomerEmail({ name, minutes, orderSummary }) {
   return (
     `Witaj / Вітаємо, ${n}!\n\n` +
     `Twoje zamówienie zostało potwierdzone przez restaurację Sushi Love.\n` +
-    `Szacowany czas dostawy: ok. ${minutes} min.` +
+    `Szacowany czas dostawy: ${formatEtaPl(minutes)}` +
     orderBlock +
     `\n` +
     `---\n` +
     `Ваше замовлення підтверджено рестораном Sushi Love.\n` +
-    `Орієнтовний час доставки: ~${minutes} хв.\n\n` +
+    `Орієнтовний час доставки: ${formatEtaUk(minutes)}.\n\n` +
     `Dziękujemy! / Дякуємо!`
   );
 }
@@ -231,7 +245,7 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
-    const suffix = `\n\n${MARKER_CONFIRMED}. Орієнтовна доставка: ~${minutes} хв.${
+    const suffix = `\n\n${MARKER_CONFIRMED}. Орієнтовна доставка: ${formatEtaUk(minutes)}.${
       who ? ` (${who})` : ''
     }`;
     const newText = appendWithinTelegramLimit(text, suffix);
@@ -374,9 +388,9 @@ exports.handler = async (event) => {
       reply_markup: {
         inline_keyboard: [
           [
-            { text: '20 хв', callback_data: 'eta_20' },
-            { text: '30 хв', callback_data: 'eta_30' },
-            { text: '45 хв', callback_data: 'eta_45' }
+            { text: '45 хв', callback_data: 'eta_45' },
+            { text: '1 год', callback_data: 'eta_60' },
+            { text: '1,5 год', callback_data: 'eta_90' }
           ]
         ]
       }

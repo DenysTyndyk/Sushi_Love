@@ -2,7 +2,7 @@
 exports.LABEL_EMAIL = '📧 Email:';
 exports.LABEL_NAME = '👤 Imię:';
 
-exports.MARKER_WAIT_ETA = '⏳ ОБЕРІТЬ ЧАС ДОСТАВКИ (хв)';
+exports.MARKER_WAIT_ETA = '⏳ ОБЕРІТЬ ЧАС ДОСТАВКИ';
 exports.MARKER_CONFIRMED = '✅ ЗАМОВЛЕННЯ ПІДТВЕРДЖЕНО';
 exports.MARKER_REJECTED = '❌ ЗАМОВЛЕННЯ ВІДХИЛЕНО';
 

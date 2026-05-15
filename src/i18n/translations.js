@@ -33,6 +33,7 @@ const pl = {
     contactTitle: 'Zamówienie i Kontakt',
     contactSubtitle: 'Zadzwoń lub napisz',
     contactDesc: 'Jesteśmy dostępni codziennie w godzinach pracy',
+    contactInstagram: '📷 Instagram',
     orderFormHint: 'Formularz zamówienia z koszykiem:',
     orderFormLink: 'strona koszyka',
     mapTitle: 'Znajdź nas',
@@ -55,6 +56,8 @@ const pl = {
     paymentLabel: 'Płatność',
     paymentCard: 'Karta',
     paymentCash: 'Gotówka',
+    cashAmountLabel: 'Z jakiej kwoty wydać resztę?',
+    cashAmountPlaceholder: 'Kwota gotówki (np. 100)',
     timeModeLabel: 'Czas realizacji',
     timeModeAsap: 'Jak najszybciej',
     timeModeScheduled: 'Konkretna godzina',
@@ -88,7 +91,9 @@ const pl = {
     errorTelegram:
       'Nie udało się wysłać wiadomości do Telegrama. Sprawdź token bota i chat_id.',
     errorPrivacy: 'Zaznacz zgodę na przetwarzanie danych (wymagane).',
-    errorInvalidEmail: 'Podaj prawidłowy adres e-mail.'
+    errorInvalidEmail: 'Podaj prawidłowy adres e-mail.',
+    errorCashAmount: 'Podaj kwotę gotówki od klienta.',
+    errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.'
   },
   footer: {
     logoAlt: 'Logo Sushi Love'
@@ -115,6 +120,7 @@ const en = {
     contactTitle: 'Order & Contact',
     contactSubtitle: 'Call or message us',
     contactDesc: 'We are available every day during business hours',
+    contactInstagram: '📷 Instagram',
     orderFormHint: 'Order form with cart:',
     orderFormLink: 'cart page',
     mapTitle: 'Find us',
@@ -137,6 +143,8 @@ const en = {
     paymentLabel: 'Payment',
     paymentCard: 'Card',
     paymentCash: 'Cash',
+    cashAmountLabel: 'Cash amount (for change)',
+    cashAmountPlaceholder: 'Cash you will pay (e.g. 100)',
     timeModeLabel: 'Time',
     timeModeAsap: 'As soon as possible',
     timeModeScheduled: 'Specific time',
@@ -170,7 +178,9 @@ const en = {
     errorTelegram:
       'Could not send the message to Telegram. Check the bot token and chat_id.',
     errorPrivacy: 'Please accept the privacy / data processing consent.',
-    errorInvalidEmail: 'Please enter a valid email address.'
+    errorInvalidEmail: 'Please enter a valid email address.',
+    errorCashAmount: 'Enter the cash amount you will pay.',
+    errorCashAmountMin: 'Cash amount must be at least the order total.'
   },
   footer: {
     logoAlt: 'Sushi Love logo'
@@ -197,6 +207,7 @@ const uk = {
     contactTitle: 'Замовлення та контакти',
     contactSubtitle: 'Подзвоніть або напишіть',
     contactDesc: 'Ми на зв’язку щодня в робочий час',
+    contactInstagram: '📷 Instagram',
     orderFormHint: 'Форма замовлення з кошиком:',
     orderFormLink: 'сторінка кошика',
     mapTitle: 'Як нас знайти',
@@ -219,6 +230,8 @@ const uk = {
     paymentLabel: 'Оплата',
     paymentCard: 'Карта',
     paymentCash: 'Готівка',
+    cashAmountLabel: 'З якої суми дати решту?',
+    cashAmountPlaceholder: 'Сума готівкою (напр. 100)',
     timeModeLabel: 'Час',
     timeModeAsap: 'Якомога швидше',
     timeModeScheduled: 'Конкретний час',
@@ -252,7 +265,9 @@ const uk = {
     errorTelegram:
       'Не вдалося надіслати в Telegram. Перевір токен бота та chat_id.',
     errorPrivacy: 'Потрібна згода на обробку даних.',
-    errorInvalidEmail: 'Вкажи коректний email.'
+    errorInvalidEmail: 'Вкажи коректний email.',
+    errorCashAmount: 'Вкажи суму готівкою.',
+    errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.'
   },
   footer: {
     logoAlt: 'Логотип Sushi Love'
