@@ -47,8 +47,8 @@ export const LanguageProvider = ({ children }) => {
     (path) => {
       const fromLang = getNested(translations[lang], path);
       if (fromLang !== undefined && fromLang !== null) return fromLang;
-      const fallback = getNested(translations.pl, path);
-      if (fallback !== undefined && fallback !== null) return fallback;
+      const fromEn = getNested(translations.en, path);
+      if (fromEn !== undefined && fromEn !== null) return fromEn;
       return path;
     },
     [lang]

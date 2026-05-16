@@ -6,6 +6,16 @@ import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
+const ORDER_ERROR_KEYS = {
+  'Privacy consent required': 'cart.errorPrivacy',
+  'Valid email is required': 'cart.errorInvalidEmail',
+  'Cash amount required': 'cart.errorCashAmount',
+  'Cash amount must cover order total': 'cart.errorCashAmountMin',
+  'Address is required for delivery': 'cart.errorAddressRequired',
+  'Time is required when scheduling': 'cart.errorTimeRequired',
+  'Invalid order payload': 'cart.errorInvalidPayload'
+};
+
 const CartPage = () => {
   const {
     cart,
@@ -86,9 +96,31 @@ const CartPage = () => {
     e.preventDefault();
     if (isSubmitting) return;
 
-    setIsSubmitting(true);
     setSubmitState('idle');
     setErrorMessage('');
+
+    if (!formData.privacyAccepted) {
+      setSubmitState('error');
+      setErrorMessage(t('cart.errorPrivacy'));
+      return;
+    }
+
+    if (formData.paymentMethod === 'cash') {
+      const rawCash = String(formData.cashAmount ?? '').trim().replace(',', '.');
+      const cashNum = Number(rawCash);
+      if (!rawCash || !Number.isFinite(cashNum) || cashNum <= 0) {
+        setSubmitState('error');
+        setErrorMessage(t('cart.errorCashAmount'));
+        return;
+      }
+      if (cashNum < cartTotal - 0.001) {
+        setSubmitState('error');
+        setErrorMessage(t('cart.errorCashAmountMin'));
+        return;
+      }
+    }
+
+    setIsSubmitting(true);
 
     try {
       const payload = {
@@ -147,26 +179,14 @@ const CartPage = () => {
           return;
         }
         if (response.status === 400) {
-          if (data?.error === 'Privacy consent required') {
-            setErrorMessage(t('cart.errorPrivacy'));
-            return;
-          }
-          if (data?.error === 'Valid email is required') {
-            setErrorMessage(t('cart.errorInvalidEmail'));
-            return;
-          }
-          if (data?.error === 'Cash amount required') {
-            setErrorMessage(t('cart.errorCashAmount'));
-            return;
-          }
-          if (data?.error === 'Cash amount must cover order total') {
-            setErrorMessage(t('cart.errorCashAmountMin'));
+          const errorKey =
+            typeof data?.error === 'string' ? ORDER_ERROR_KEYS[data.error] : null;
+          if (errorKey) {
+            setErrorMessage(t(errorKey));
             return;
           }
         }
-        setErrorMessage(
-          typeof data?.error === 'string' ? data.error : t('cart.alertError')
-        );
+        setErrorMessage(t('cart.alertError'));
         return;
       }
 
@@ -311,7 +331,6 @@ const CartPage = () => {
                       privacyAccepted: e.target.checked
                     }))
                   }
-                  required
                 />
                 <span>{t('cart.privacyCheckbox')}</span>
               </label>
@@ -348,7 +367,6 @@ const CartPage = () => {
                     min={cartTotal > 0 ? cartTotal : 0.01}
                     step="0.01"
                     inputMode="decimal"
-                    required
                   />
                 </label>
               )}

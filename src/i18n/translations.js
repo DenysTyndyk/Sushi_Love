@@ -93,7 +93,10 @@ const pl = {
     errorPrivacy: 'Zaznacz zgodę na przetwarzanie danych (wymagane).',
     errorInvalidEmail: 'Podaj prawidłowy adres e-mail.',
     errorCashAmount: 'Podaj kwotę gotówki od klienta.',
-    errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.'
+    errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.',
+    errorAddressRequired: 'Podaj adres dostawy.',
+    errorTimeRequired: 'Podaj godzinę realizacji zamówienia.',
+    errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.'
   },
   footer: {
     logoAlt: 'Logo Sushi Love'
@@ -180,7 +183,10 @@ const en = {
     errorPrivacy: 'Please accept the privacy / data processing consent.',
     errorInvalidEmail: 'Please enter a valid email address.',
     errorCashAmount: 'Enter the cash amount you will pay.',
-    errorCashAmountMin: 'Cash amount must be at least the order total.'
+    errorCashAmountMin: 'Cash amount must be at least the order total.',
+    errorAddressRequired: 'Please enter a delivery address.',
+    errorTimeRequired: 'Please enter the preferred time.',
+    errorInvalidPayload: 'Please fill in all required order fields.'
   },
   footer: {
     logoAlt: 'Sushi Love logo'
@@ -267,7 +273,10 @@ const uk = {
     errorPrivacy: 'Потрібна згода на обробку даних.',
     errorInvalidEmail: 'Вкажи коректний email.',
     errorCashAmount: 'Вкажи суму готівкою.',
-    errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.'
+    errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.',
+    errorAddressRequired: 'Вкажи адресу доставки.',
+    errorTimeRequired: 'Вкажи бажаний час замовлення.',
+    errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.'
   },
   footer: {
     logoAlt: 'Логотип Sushi Love'
