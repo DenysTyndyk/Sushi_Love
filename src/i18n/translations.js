@@ -47,6 +47,7 @@ const pl = {
     cart: 'Koszyk'
   },
   home: {
+    h1Title: 'Sushi Love — Sushi w Częstochowie',
     menuTitle: 'Karta Menu',
     addToCart: 'Do koszyka',
     cartHintBefore: 'Aby sfinalizować zamówienie, przejdź do',
@@ -60,7 +61,12 @@ const pl = {
     mapTitle: 'Znajdź nas',
     mapIframeTitle: 'Lokalizacja Sushi Love',
     drinksDepositNote:
-      'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,59 zł'
+      'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,59 zł',
+    seoAboutSummary: 'Sushi Love — sushi Częstochowa',
+    seoIntro: [
+      'Najlepsze sushi w Częstochowie — na miejscu, na wynos i z dostawą (delivery). Aleja Najświętszej Maryi Panny 10.',
+      'Menu online: zestawy, futomaki, philadelphia, kalifornia, uramaki, nigiri, sushi burger. Zamów przez koszyk lub zadzwoń +48 664 454 433.'
+    ]
   },
   cart: {
     back: '← Powrót do menu',
@@ -122,7 +128,12 @@ const pl = {
     errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.'
   },
   footer: {
-    logoAlt: 'Logo Sushi Love'
+    logoAlt: 'Logo Sushi Love',
+    navAria: 'Stopka — nawigacja',
+    navMenu: 'Menu',
+    navCart: 'Koszyk',
+    navContact: 'Kontakt',
+    navMap: 'Mapa'
   },
   lang: {
     pl: 'PL',
@@ -139,6 +150,7 @@ const en = {
     cart: 'Cart'
   },
   home: {
+    h1Title: 'Sushi Love — Sushi in Częstochowa',
     menuTitle: 'Menu',
     addToCart: 'Add to cart',
     cartHintBefore: 'To complete your order, go to the',
@@ -152,7 +164,12 @@ const en = {
     mapTitle: 'Find us',
     mapIframeTitle: 'Sushi Love location',
     drinksDepositNote:
-      'Drink prices do not include a returnable deposit of PLN 0.59'
+      'Drink prices do not include a returnable deposit of PLN 0.59',
+    seoAboutSummary: 'Sushi Love — sushi Częstochowa',
+    seoIntro: [
+      'The best sushi in Częstochowa — dine in, takeaway and delivery. Aleja Najświętszej Maryi Panny 10.',
+      'Online menu: sets, futomaki, philadelphia, california, uramaki, nigiri, sushi burger. Order via cart or call +48 664 454 433.'
+    ]
   },
   cart: {
     back: '← Back to menu',
@@ -214,7 +231,12 @@ const en = {
     errorInvalidPayload: 'Please fill in all required order fields.'
   },
   footer: {
-    logoAlt: 'Sushi Love logo'
+    logoAlt: 'Sushi Love logo',
+    navAria: 'Footer navigation',
+    navMenu: 'Menu',
+    navCart: 'Cart',
+    navContact: 'Contact',
+    navMap: 'Map'
   },
   lang: {
     pl: 'PL',
@@ -231,6 +253,7 @@ const uk = {
     cart: 'Кошик'
   },
   home: {
+    h1Title: 'Sushi Love — Суші в Ченстохові',
     menuTitle: 'Меню',
     addToCart: 'У кошик',
     cartHintBefore: 'Щоб оформити замовлення, перейдіть до',
@@ -244,7 +267,12 @@ const uk = {
     mapTitle: 'Як нас знайти',
     mapIframeTitle: 'Локація Sushi Love',
     drinksDepositNote:
-      'Ціни на напої не включають зворотний застав у розмірі 0,59 zł'
+      'Ціни на напої не включають зворотний застав у розмірі 0,59 zł',
+    seoAboutSummary: 'Sushi Love — суші Ченстохова',
+    seoIntro: [
+      'Суші в Ченстохові — у закладі, на винос і з доставкою. Aleja Najświętszej Maryi Panny 10.',
+      'Меню: сети, футомакі, філадельфія, каліфорнія, урамакі, нігірі, суші-бургер. Замовлення через кошик або +48 664 454 433.'
+    ]
   },
   cart: {
     back: '← Назад до меню',
@@ -306,7 +334,12 @@ const uk = {
     errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.'
   },
   footer: {
-    logoAlt: 'Логотип Sushi Love'
+    logoAlt: 'Логотип Sushi Love',
+    navAria: 'Навігація в підвалі',
+    navMenu: 'Меню',
+    navCart: 'Кошик',
+    navContact: 'Контакти',
+    navMap: 'Карта'
   },
   lang: {
     pl: 'PL',

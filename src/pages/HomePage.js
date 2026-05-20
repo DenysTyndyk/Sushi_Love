@@ -47,7 +47,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="menu-section">
+      <section id="menu" className="menu-section">
         <nav className="site-nav" aria-label={t('nav.mainAria')}>
           <LanguageSwitcher />
           <NavLink to="/koszyk" className="cart-nav-link">
@@ -57,6 +57,8 @@ const HomePage = () => {
             )}
           </NavLink>
         </nav>
+
+        <h1 className="sr-only">{t('home.h1Title')}</h1>
 
         <div className="section-title">
           <span className="line" />
@@ -76,6 +78,7 @@ const HomePage = () => {
             src={categoryImage}
             alt={categoryLabel(activeCategory)}
           />
+          <h3 className="menu-category-title">{categoryLabel(activeCategory)}</h3>
           <MenuList
             items={menuData[activeCategory]}
             activeCategory={activeCategory}
@@ -96,7 +99,7 @@ const HomePage = () => {
         </p>
       </section>
 
-      <section className="contact-section">
+      <section id="contact" className="contact-section">
         <div className="section-title">
           <span className="line" />
           <h2>{t('home.contactTitle')}</h2>
@@ -133,7 +136,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="map-section">
+      <section id="map" className="map-section">
         <div className="section-title">
           <span className="line" />
           <h2>{t('home.mapTitle')}</h2>
@@ -154,6 +157,13 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <details className="seo-about-subtle">
+        <summary>{t('home.seoAboutSummary')}</summary>
+        {(t('home.seoIntro') || []).map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
+      </details>
 
       <Footer />
     </div>
