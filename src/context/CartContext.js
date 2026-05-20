@@ -57,9 +57,7 @@ export const CartProvider = ({ children }) => {
       } else {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
       }
-    } catch {
-      /* quota / private mode */
-    }
+    } catch {}
   }, [cart]);
 
   const addToCart = useCallback((item, category, opts = {}) => {

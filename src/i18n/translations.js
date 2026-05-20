@@ -1,21 +1,42 @@
 const categories = {
   pl: {
     Zestawy: 'Zestawy',
+    Futomak: 'Futomak',
     Philadelphia: 'Philadelphia',
-    'Kalifornia / Burger': 'Kalifornia / Burger',
-    'Przystawki / Inne': 'Przystawki / Inne'
+    Kalifornia: 'Kalifornia',
+    Uramak: 'Uramak',
+    Hosomak: 'Hosomak',
+    'Premium rolki': 'Premium rolki',
+    'Sushi Burger': 'Sushi Burger',
+    Nigiri: 'Nigiri',
+    'Przystawki / Inne': 'Przystawki / Inne',
+    Napoje: 'Napoje'
   },
   en: {
     Zestawy: 'Sets',
+    Futomak: 'Futomaki',
     Philadelphia: 'Philadelphia',
-    'Kalifornia / Burger': 'California / Burger',
-    'Przystawki / Inne': 'Starters / Other'
+    Kalifornia: 'California',
+    Uramak: 'Uramaki',
+    Hosomak: 'Hosomaki',
+    'Premium rolki': 'Premium rolls',
+    'Sushi Burger': 'Sushi burger',
+    Nigiri: 'Nigiri',
+    'Przystawki / Inne': 'Starters / Other',
+    Napoje: 'Drinks'
   },
   uk: {
     Zestawy: 'Сети',
+    Futomak: 'Футомакі',
     Philadelphia: 'Філадельфія',
-    'Kalifornia / Burger': 'Каліфорнія / Бургер',
-    'Przystawki / Inne': 'Закуски / Інше'
+    Kalifornia: 'Каліфорнія',
+    Uramak: 'Урамакі',
+    Hosomak: 'Хосомакі',
+    'Premium rolki': 'Преміум роли',
+    'Sushi Burger': 'Суші-бургер',
+    Nigiri: 'Нігірі',
+    'Przystawki / Inne': 'Закуски / Інше',
+    Napoje: 'Напої'
   }
 };
 
@@ -37,7 +58,9 @@ const pl = {
     orderFormHint: 'Formularz zamówienia z koszykiem:',
     orderFormLink: 'strona koszyka',
     mapTitle: 'Znajdź nas',
-    mapIframeTitle: 'Lokalizacja Sushi Love'
+    mapIframeTitle: 'Lokalizacja Sushi Love',
+    drinksDepositNote:
+      'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,59 zł'
   },
   cart: {
     back: '← Powrót do menu',
@@ -127,7 +150,9 @@ const en = {
     orderFormHint: 'Order form with cart:',
     orderFormLink: 'cart page',
     mapTitle: 'Find us',
-    mapIframeTitle: 'Sushi Love location'
+    mapIframeTitle: 'Sushi Love location',
+    drinksDepositNote:
+      'Drink prices do not include a returnable deposit of PLN 0.59'
   },
   cart: {
     back: '← Back to menu',
@@ -217,7 +242,9 @@ const uk = {
     orderFormHint: 'Форма замовлення з кошиком:',
     orderFormLink: 'сторінка кошика',
     mapTitle: 'Як нас знайти',
-    mapIframeTitle: 'Локація Sushi Love'
+    mapIframeTitle: 'Локація Sushi Love',
+    drinksDepositNote:
+      'Ціни на напої не включають зворотний застав у розмірі 0,59 zł'
   },
   cart: {
     back: '← Назад до меню',

@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
+const { validateOrderPayload } = require('../shared/orderValidation');
+
 const ORDER_ERROR_KEYS = {
   'Privacy consent required': 'cart.errorPrivacy',
   'Valid email is required': 'cart.errorInvalidEmail',
@@ -99,48 +101,36 @@ const CartPage = () => {
     setSubmitState('idle');
     setErrorMessage('');
 
-    if (!formData.privacyAccepted) {
-      setSubmitState('error');
-      setErrorMessage(t('cart.errorPrivacy'));
-      return;
-    }
+    const payload = {
+      orderType: formData.orderType,
+      paymentMethod: formData.paymentMethod,
+      timeMode: formData.timeMode,
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      privacyAccepted: formData.privacyAccepted,
+      address: formData.address,
+      preferredTime: formData.preferredTime,
+      comment: formData.comment,
+      cashAmount:
+        formData.paymentMethod === 'cash' ? formData.cashAmount : undefined,
+      lang,
+      cart: cartLines,
+      total: Number(cartTotal.toFixed(2)),
+      currency: 'PLN'
+    };
 
-    if (formData.paymentMethod === 'cash') {
-      const rawCash = String(formData.cashAmount ?? '').trim().replace(',', '.');
-      const cashNum = Number(rawCash);
-      if (!rawCash || !Number.isFinite(cashNum) || cashNum <= 0) {
-        setSubmitState('error');
-        setErrorMessage(t('cart.errorCashAmount'));
-        return;
-      }
-      if (cashNum < cartTotal - 0.001) {
-        setSubmitState('error');
-        setErrorMessage(t('cart.errorCashAmountMin'));
-        return;
-      }
+    const validation = validateOrderPayload(payload);
+    if (!validation.ok) {
+      setSubmitState('error');
+      const errorKey = ORDER_ERROR_KEYS[validation.error];
+      setErrorMessage(errorKey ? t(errorKey) : t('cart.alertError'));
+      return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const payload = {
-        orderType: formData.orderType,
-        paymentMethod: formData.paymentMethod,
-        timeMode: formData.timeMode,
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        privacyAccepted: formData.privacyAccepted,
-        address: formData.address,
-        preferredTime: formData.preferredTime,
-        comment: formData.comment,
-        cashAmount:
-          formData.paymentMethod === 'cash' ? formData.cashAmount : undefined,
-        lang,
-        cart: cartLines,
-        total: Number(cartTotal.toFixed(2)),
-        currency: 'PLN'
-      };
       const response = await fetch(orderEndpoint, {
         method: 'POST',
         headers: {

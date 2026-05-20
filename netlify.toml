@@ -3,14 +3,7 @@
   publish = "build"
   functions = "netlify/functions"
 
-# Один dev-сервер (CRA на 3000, Netlify proxy на 8888). Інакше CLI інколи
-# піднімає React двічі → "Something is already running on port 3000".
 [dev]
   command = "npm run start"
   port = 8888
   targetPort = 3000
-  # Локально краще: npm run dev (CRA :3000 + functions :9999, див. setupProxy.js).
-  # npm run dev:netlify інколи дає білий екран — SPA-redirect зловлює /static/*.js.
-
-# Редиректи для продакшену винесені в public/_redirects (копіюється в build),
-# щоб не ламати netlify dev і статичні чанки CRA.

@@ -1,4 +1,3 @@
-/** Спільні мітки для create-order та telegram-webhook (парсинг повідомлення). */
 exports.LABEL_EMAIL = '📧 Email:';
 exports.LABEL_NAME = '👤 Imię:';
 

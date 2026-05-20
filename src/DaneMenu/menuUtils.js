@@ -2,11 +2,21 @@ import menuByLang from './menuByLang.json';
 
 export const MENU_CATEGORY_KEYS = Object.keys(menuByLang.pl);
 
+export const CATEGORY_IMAGES = {
+  Futomak: '/imgs/Rolls/Futomak.jpg',
+  Philadelphia: '/imgs/PhilaRolls/PhilaClassic.jpg',
+  Kalifornia: '/imgs/Rolls/Kalifornia.jpg',
+  Uramak: '/imgs/Rolls/Uramak.jpg'
+};
+
+export function getCategoryImage(categoryKey) {
+  return CATEGORY_IMAGES[categoryKey] ?? null;
+}
+
 export function getMenuForLocale(locale) {
   return menuByLang[locale] ?? menuByLang.pl;
 }
 
-/** Базовий id позиції меню (для варіантів: shrimp-panko__6 → shrimp-panko). */
 export function menuItemBaseId(itemId) {
   const s = String(itemId ?? '');
   const sep = s.indexOf('__');

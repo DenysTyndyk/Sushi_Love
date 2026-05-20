@@ -1,10 +1,17 @@
-import React, { useMemo, useState } from 'react';
-import { getMenuForLocale, MENU_CATEGORY_KEYS } from '../DaneMenu/menuUtils';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  getCategoryImage,
+  getMenuForLocale,
+  MENU_CATEGORY_KEYS
+} from '../DaneMenu/menuUtils';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import CategoryHero from '../components/menu/CategoryHero';
+import MenuTabs from '../components/menu/MenuTabs';
+import MenuList from '../components/menu/MenuList';
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(MENU_CATEGORY_KEYS[0]);
@@ -12,10 +19,28 @@ const HomePage = () => {
   const { addToCart, cartItemsCount } = useCart();
   const { lang, t, categoryLabel } = useLanguage();
   const menuData = useMemo(() => getMenuForLocale(lang), [lang]);
+  const categoryImage = getCategoryImage(activeCategory);
+  const categoryKeys = useMemo(() => Object.keys(menuData), [menuData]);
+
+  const handleVariantSelect = useCallback((itemId, key) => {
+    setVariantChoice((prev) => ({ ...prev, [itemId]: key }));
+  }, []);
+
+  const handleAddToCart = useCallback(
+    (item, categoryKey, opts) => {
+      addToCart(item, categoryKey, opts);
+    },
+    [addToCart]
+  );
 
   return (
     <div className="app-container">
-      <section className="hero-banner">
+      <section
+        className="hero-banner"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Banner.jpg)`
+        }}
+      >
         <div className="hero-overlay" />
         <div className="logo-divider">
           <img src="/logo.png" alt="Sushi Love Logo" className="floating-logo" />
@@ -39,91 +64,31 @@ const HomePage = () => {
           <span className="line" />
         </div>
 
-        <div className="category-tabs">
-          {Object.keys(menuData).map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              className={activeCategory === cat ? 'tab-btn active' : 'tab-btn'}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {categoryLabel(cat)}
-            </button>
-          ))}
-        </div>
+        <MenuTabs
+          categories={categoryKeys}
+          activeCategory={activeCategory}
+          onSelect={setActiveCategory}
+          categoryLabel={categoryLabel}
+        />
 
         <div className="menu-list fade-in">
-          {menuData[activeCategory].map((item) => (
-            <div
-              key={item.id}
-              className={item.image ? 'menu-item menu-item--has-image' : 'menu-item'}
-            >
-              {item.image ? (
-                <div className="menu-item__media">
-                  <img src={item.image} alt={item.name} loading="lazy" decoding="async" />
-                </div>
-              ) : null}
-              <div className="item-info">
-                <h4>{item.name}</h4>
-                <p>{item.desc}</p>
-              </div>
-              <div
-                className={
-                  item.variantOptions?.length
-                    ? 'item-actions item-actions--variants'
-                    : 'item-actions'
-                }
-              >
-                <div className="item-price">{item.price}</div>
-                {item.variantOptions?.length ? (
-                  <div
-                    className="menu-item-variants"
-                    role="group"
-                    aria-label={item.name}
-                  >
-                    {item.variantOptions.map((opt) => {
-                      const chosen =
-                        variantChoice[item.id] ?? item.variantOptions[0].key;
-                      const isActive = chosen === opt.key;
-                      return (
-                        <button
-                          key={opt.key}
-                          type="button"
-                          className={
-                            isActive
-                              ? 'menu-variant-btn menu-variant-btn--active'
-                              : 'menu-variant-btn'
-                          }
-                          onClick={() =>
-                            setVariantChoice((prev) => ({
-                              ...prev,
-                              [item.id]: opt.key
-                            }))
-                          }
-                        >
-                          {opt.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                ) : null}
-                <button
-                  type="button"
-                  className="add-btn"
-                  onClick={() =>
-                    addToCart(item, activeCategory, {
-                      variantKey: item.variantOptions?.length
-                        ? variantChoice[item.id] ?? item.variantOptions[0].key
-                        : undefined
-                    })
-                  }
-                >
-                  {t('home.addToCart')}
-                </button>
-              </div>
-            </div>
-          ))}
+          <CategoryHero
+            src={categoryImage}
+            alt={categoryLabel(activeCategory)}
+          />
+          <MenuList
+            items={menuData[activeCategory]}
+            activeCategory={activeCategory}
+            variantChoice={variantChoice}
+            onVariantSelect={handleVariantSelect}
+            onAddToCart={handleAddToCart}
+            addToCartLabel={t('home.addToCart')}
+          />
         </div>
+
+        {activeCategory === 'Napoje' ? (
+          <p className="menu-category-note">{t('home.drinksDepositNote')}</p>
+        ) : null}
 
         <p className="cart-hint">
           {t('home.cartHintBefore')}{' '}

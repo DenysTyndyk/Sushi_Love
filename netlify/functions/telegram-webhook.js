@@ -1,4 +1,4 @@
-const telegramApiBase = process.env.TELEGRAM_API_BASE || 'https://api.telegram.org';
+'use strict';
 
 const {
   LABEL_EMAIL,
@@ -9,116 +9,28 @@ const {
   extractLineValue
 } = require('./constants');
 
-const { sendTransactionalEmail } = require('./resendEmail');
+const {
+  tgApi,
+  readJsonResponse,
+  appendWithinTelegramLimit,
+  getHeader,
+  parseEtaMinutes
+} = require('./_shared/telegram');
 
-const TG_TEXT_LIMIT = 4096;
-
-async function tgApi(token, method, body) {
-  return fetch(`${telegramApiBase}/bot${token}/${method}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-}
-
-async function readJsonResponse(res) {
-  try {
-    return await res.json();
-  } catch {
-    return {};
-  }
-}
-
-/** Додає суфікс так, щоб повний текст не перевищив ліміт Telegram (інакше editMessageText падає). */
-function appendWithinTelegramLimit(base, suffix) {
-  const b = String(base || '');
-  const s = String(suffix || '');
-  if (b.length + s.length <= TG_TEXT_LIMIT) {
-    return b + s;
-  }
-  const headroom = TG_TEXT_LIMIT - s.length - 30;
-  if (headroom < 80) {
-    return `${b.slice(0, TG_TEXT_LIMIT - 40)}…`;
-  }
-  return `${b.slice(0, headroom)}\n…\n${s}`.slice(0, TG_TEXT_LIMIT);
-}
-
-function getHeader(headers, name) {
-  if (!headers) return '';
-  const lower = name.toLowerCase();
-  const key = Object.keys(headers).find((k) => k.toLowerCase() === lower);
-  return key ? String(headers[key]) : '';
-}
-
-function parseEtaMinutes(data) {
-  if (data === 'eta_45') return 45;
-  if (data === 'eta_60') return 60;
-  if (data === 'eta_90') return 90;
-  return null;
-}
-
-function formatEtaPl(minutes) {
-  if (minutes === 45) return 'ok. 45 min.';
-  if (minutes === 60) return 'ok. 1 godz.';
-  if (minutes === 90) return 'ok. 1,5 godz.';
-  return `ok. ${minutes} min.`;
-}
-
-function formatEtaUk(minutes) {
-  if (minutes === 45) return '~45 хв';
-  if (minutes === 60) return '~1 год';
-  if (minutes === 90) return '~1,5 год';
-  return `~${minutes} хв`;
-}
-
-function extractOrderSummary(text) {
-  const lines = String(text || '').split('\n');
-  const cartStart = lines.findIndex((line) => line.trim() === '🛒 Koszyk:');
-  if (cartStart === -1) return '';
-  const totalIndex = lines.findIndex((line, idx) => idx > cartStart && line.startsWith('💰 Razem:'));
-  const itemLines = lines
-    .slice(cartStart + 1, totalIndex === -1 ? undefined : totalIndex)
-    .map((l) => l.trim())
-    .filter(Boolean);
-  const totalLine = totalIndex !== -1 ? lines[totalIndex].trim() : '';
-  if (!itemLines.length && !totalLine) return '';
-  return [...itemLines, totalLine].filter(Boolean).join('\n');
-}
-
-function buildCustomerEmail({ name, minutes, orderSummary }) {
-  const n = name || 'Клієнте';
-  const orderBlock = orderSummary
-    ? `\n\nTwoje zamówienie:\n${orderSummary}\n\n---\n\nВаше замовлення:\n${orderSummary}\n`
-    : '';
-  return (
-    `Witaj / Вітаємо, ${n}!\n\n` +
-    `Twoje zamówienie zostało potwierdzone przez restaurację Sushi Love.\n` +
-    `Szacowany czas dostawy: ${formatEtaPl(minutes)}` +
-    orderBlock +
-    `\n` +
-    `---\n` +
-    `Ваше замовлення підтверджено рестораном Sushi Love.\n` +
-    `Орієнтовний час доставки: ${formatEtaUk(minutes)}.\n\n` +
-    `Dziękujemy! / Дякуємо!`
-  );
-}
-
-function buildCustomerRejectionEmail({ name }) {
-  const n = name || 'Клієнте';
-  return (
-    `Witaj / Вітаємо, ${n}!\n\n` +
-    `Niestety nie możemy zrealizować tego zamówienia w restauracji Sushi Love.\n` +
-    `Zamówienie nie zostanie przygotowane ani dostarczone. Przepraszamy za utrudnienia.\n` +
-    `W razie pytań skontaktuj się z nami telefonicznie lub przez stronę.\n\n` +
-    `---\n` +
-    `На жаль, ресторан Sushi Love не зможе виконати це замовлення.\n` +
-    `Замовлення не буде приготоване й не буде доставлене. Приносимо вибачення за незручності.\n` +
-    `За потреби зв’яжіться з нами за телефоном або через сайт.\n\n` +
-    `Zespół Sushi Love / Команда Sushi Love`
-  );
-}
+const { sendTransactionalEmail } = require('./_shared/resend');
+const { log } = require('./_shared/log');
+const {
+  formatEtaUk,
+  formatResendFailure,
+  extractOrderSummary,
+  buildCustomerEmail,
+  buildCustomerRejectionEmail
+} = require('./_shared/customerEmail');
 
 exports.handler = async (event) => {
+  const { randomUUID } = require('crypto');
+  const correlationId = randomUUID();
+
   if (event.httpMethod === 'GET' || event.httpMethod === 'HEAD') {
     return { statusCode: 200, body: 'ok' };
   }
@@ -131,6 +43,10 @@ exports.handler = async (event) => {
   const webhookSecret = process.env.TELEGRAM_WEBHOOK_SECRET;
 
   if (!token) {
+    log('telegram-webhook', 'error', {
+      correlationId,
+      status: 'config_missing'
+    });
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Server configuration error' })
@@ -140,6 +56,10 @@ exports.handler = async (event) => {
   if (webhookSecret) {
     const sent = getHeader(event.headers, 'x-telegram-bot-api-secret-token');
     if (sent !== webhookSecret) {
+      log('telegram-webhook', 'warn', {
+        correlationId,
+        status: 'unauthorized_webhook'
+      });
       return { statusCode: 401, body: JSON.stringify({ error: 'Unauthorized' }) };
     }
   }
@@ -161,8 +81,11 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
 
-  console.log('[telegram-webhook] callback', {
-    data: cq.data,
+  log('telegram-webhook', 'info', {
+    correlationId,
+    status: 'callback',
+    callbackData: cq.data,
+    callbackQueryId: cq.id,
     fromId: cq.from?.id,
     messageId: cq.message?.message_id,
     chatId: cq.message?.chat?.id
@@ -196,7 +119,6 @@ exports.handler = async (event) => {
   const chatId = msg.chat.id;
   const messageId = msg.message_id;
   const text = msg.text || msg.caption || '';
-  /** У форумних супергрупах без thread_id editMessageText часто падає. */
   const threadPayload =
     msg.message_thread_id != null ? { message_thread_id: msg.message_thread_id } : {};
 
@@ -217,6 +139,12 @@ exports.handler = async (event) => {
     await tgApi(token, 'answerCallbackQuery', {
       callback_query_id: cq.id,
       text: 'Це замовлення вже оброблено.'
+    });
+    log('telegram-webhook', 'info', {
+      correlationId,
+      status: 'duplicate_callback_skipped',
+      messageId,
+      chatId
     });
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
@@ -276,6 +204,15 @@ exports.handler = async (event) => {
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
+    log('telegram-webhook', 'info', {
+      correlationId,
+      status: 'order_confirmed',
+      messageId,
+      chatId,
+      minutes,
+      callbackQueryId: cq.id
+    });
+
     const subject =
       process.env.RESEND_SUBJECT_CONFIRMED ||
       'Sushi Love — замовлення підтверджено / zamówienie potwierdzone';
@@ -286,10 +223,17 @@ exports.handler = async (event) => {
       text: buildCustomerEmail({ name: customerName, minutes, orderSummary })
     });
 
+    log('telegram-webhook', mail.ok ? 'info' : 'error', {
+      correlationId,
+      status: mail.skipped ? 'email_skipped' : mail.ok ? 'email_sent' : 'email_failed',
+      messageId,
+      toDomain: emailTo.split('@')[1] || 'unknown'
+    });
+
     if (!mail.ok && !mail.skipped) {
       await tgApi(token, 'sendMessage', {
         chat_id: chatId,
-        text: `⚠️ Не вдалося надіслати email клієнту (${emailTo}). Перевірте Resend API та RESEND_FROM.`
+        text: formatResendFailure(mail, emailTo)
       });
     }
 
@@ -337,6 +281,14 @@ exports.handler = async (event) => {
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
+    log('telegram-webhook', 'info', {
+      correlationId,
+      status: 'order_rejected',
+      messageId,
+      chatId,
+      hasEmail: Boolean(emailTo)
+    });
+
     if (emailTo) {
       const subject =
         process.env.RESEND_SUBJECT_REJECTED ||
@@ -351,7 +303,7 @@ exports.handler = async (event) => {
       if (!mail.ok && !mail.skipped) {
         await tgApi(token, 'sendMessage', {
           chat_id: chatId,
-          text: `⚠️ Не вдалося надіслати email про відмову клієнту (${emailTo}). Перевірте Resend.`
+          text: formatResendFailure(mail, emailTo)
         });
       }
 
@@ -410,6 +362,14 @@ exports.handler = async (event) => {
     }
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
+
+    log('telegram-webhook', 'info', {
+      correlationId,
+      status: 'accept_eta_prompt_shown',
+      messageId,
+      chatId
+    });
+
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
 

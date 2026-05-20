@@ -23,9 +23,9 @@ html, body {
 .hero-banner {
   width: 100%;
   height: 400px;
-  background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   position: relative;
   border-bottom: 2px solid var(--gold);
 }
@@ -123,13 +123,76 @@ html, body {
   overflow: hidden;
 }
 
+.menu-section-heading {
+  padding: 18px 12px 8px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.menu-section-heading:first-child {
+  padding-top: 8px;
+}
+
+.menu-section-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.menu-category-hero {
+  margin: 0 0 20px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.menu-category-hero img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 769px) {
+  .menu-category-hero img {
+    height: 380px;
+    max-height: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-category-hero img {
+    height: 460px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .menu-category-hero img {
+    height: 520px;
+  }
+}
+
+.menu-category-note {
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
 .menu-item {
   position: relative;
   z-index: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   gap: 16px;
   border-radius: 14px;
@@ -149,9 +212,15 @@ html, body {
 
 .menu-item:last-child { border-bottom: none; }
 
-.menu-item--has-image .item-info {
+.item-info {
   flex: 1;
   min-width: 0;
+  padding: 0 10px;
+}
+
+.menu-item--has-image .item-info {
+  padding-left: 14px;
+  padding-right: 10px;
 }
 
 .menu-item__media {
@@ -187,7 +256,13 @@ html, body {
 }
 
 .item-info h4 { margin: 0; font-size: 1.15rem; color: #fff; }
-.item-info p { margin: 6px 0 0; color: #888; font-size: 0.85rem; line-height: 1.4; max-width: 80%; }
+.item-info p {
+  margin: 6px 0 0;
+  color: #888;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  max-width: 100%;
+}
 
 .item-price {
   color: var(--gold);
@@ -676,6 +751,10 @@ html, body {
 }
 
 @media (max-width: 768px) {
+  .menu-category-hero img {
+    height: 200px;
+  }
+
   .hero-banner { height: 250px; }
   .floating-logo { width: 120px; height: 120px; }
   .menu-section { padding-top: 70px !important; }
@@ -685,6 +764,12 @@ html, body {
   .menu-item {
     flex-direction: column;
     align-items: flex-start;
+    padding: 20px 14px;
+  }
+  .menu-item--has-image .item-info {
+    padding: 0 4px;
+    width: 100%;
+    box-sizing: border-box;
   }
   .menu-item--has-image .menu-item__media {
     width: 100%;
