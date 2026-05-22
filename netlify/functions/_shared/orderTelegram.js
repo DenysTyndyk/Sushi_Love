@@ -16,6 +16,31 @@ function formatPayment(value, lang) {
   return lang === 'uk' ? 'Готівка' : lang === 'en' ? 'Cash' : 'Gotówka';
 }
 
+function formatExtrasLine(extras, lang) {
+  if (!extras) return null;
+  const labels = {
+    extraWasabi:
+      lang === 'uk' ? 'васабі' : lang === 'en' ? 'wasabi' : 'wasabi',
+    extraChopsticks:
+      lang === 'uk' ? 'палички' : lang === 'en' ? 'chopsticks' : 'pałeczki',
+    extraSoy:
+      lang === 'uk'
+        ? 'соєвий соус'
+        : lang === 'en'
+          ? 'soy sauce'
+          : 'sos sojowy',
+    extraGinger:
+      lang === 'uk' ? 'імбир' : lang === 'en' ? 'ginger' : 'imbir'
+  };
+  const picked = Object.keys(labels)
+    .filter((key) => Number(extras[key]) > 0)
+    .map((key) => `${labels[key]} ×${Number(extras[key])}`);
+  if (picked.length === 0) return null;
+  const title =
+    lang === 'uk' ? '🥢 Додатково' : lang === 'en' ? '🥢 Extras' : '🥢 Dodatki';
+  return `${title}: ${picked.join(', ')}`;
+}
+
 function formatTimeLine(timeMode, preferredTime, lang) {
   if (timeMode === 'scheduled' && String(preferredTime || '').trim()) {
     const t = String(preferredTime).trim();
@@ -44,6 +69,7 @@ function buildOrderTelegramMessage(data) {
     cashChange,
     address,
     comment,
+    extras,
     cart,
     total,
     currency
@@ -76,6 +102,10 @@ function buildOrderTelegramMessage(data) {
 
   if (orderType === 'delivery') {
     messageParts.push(`🏠 Adres: ${address}`);
+  }
+  const extrasLine = formatExtrasLine(extras, lang);
+  if (extrasLine) {
+    messageParts.push(extrasLine);
   }
   if (comment.trim()) {
     messageParts.push(`📝 Komentarz: ${comment.trim()}`);
@@ -129,6 +159,7 @@ module.exports = {
   formatOrderType,
   formatPayment,
   formatTimeLine,
+  formatExtrasLine,
   buildOrderTelegramMessage,
   sendOrderMessage
 };

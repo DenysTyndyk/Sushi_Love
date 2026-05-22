@@ -1,6 +1,6 @@
 'use strict';
 
-const { validateOrderPayload } = require('../../src/shared/orderValidation');
+const { validateOrderPayload } = require('./_shared/orderValidation');
 const { log } = require('./_shared/log');
 const { buildOrderTelegramMessage, sendOrderMessage } = require('./_shared/orderTelegram');
 

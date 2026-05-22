@@ -7,11 +7,19 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "dev": "npx --yes concurrently@8.2.2 -k \"npx --yes netlify-cli functions:serve --port 9999\" \"BROWSER=none react-scripts start\"",
+    "start": "npm run build:shared && react-scripts start",
+    "dev": "npm run build:shared && npx --yes concurrently@8.2.2 -k \"npx --yes netlify-cli functions:serve --port 9999\" \"BROWSER=none react-scripts start\"",
     "dev:netlify": "BROWSER=none npx --yes netlify-cli dev --no-open",
-    "build": "react-scripts build",
+    "build:shared": "esbuild src/shared/orderValidation.ts --bundle --platform=node --format=cjs --outfile=netlify/functions/_shared/orderValidation.js",
+    "build": "npm run build:shared && react-scripts build",
     "test": "react-scripts test --watchAll=false"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
+    "esbuild": "^0.25.4",
+    "typescript": "4.9.5"
   },
   "browserslist": {
     "production": [

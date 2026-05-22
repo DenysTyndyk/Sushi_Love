@@ -1,22 +1,68 @@
-import React, { useMemo, useState } from 'react';
+import React, {
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type FormEvent
+} from 'react';
 import { findMenuItemById } from '../DaneMenu/menuUtils';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { validateOrderPayload } from '../shared/orderValidation';
 import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import {
+  ValidationError,
+  type CartLine,
+  type OrderFormData,
+  type ValidationErrorCode
+} from '../types';
 
-const { validateOrderPayload } = require('../shared/orderValidation');
-
-const ORDER_ERROR_KEYS = {
-  'Privacy consent required': 'cart.errorPrivacy',
-  'Valid email is required': 'cart.errorInvalidEmail',
-  'Cash amount required': 'cart.errorCashAmount',
-  'Cash amount must cover order total': 'cart.errorCashAmountMin',
-  'Address is required for delivery': 'cart.errorAddressRequired',
-  'Time is required when scheduling': 'cart.errorTimeRequired',
-  'Invalid order payload': 'cart.errorInvalidPayload'
+const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
+  [ValidationError.PRIVACY]: 'cart.errorPrivacy',
+  [ValidationError.EMAIL]: 'cart.errorInvalidEmail',
+  [ValidationError.CASH_REQUIRED]: 'cart.errorCashAmount',
+  [ValidationError.CASH_COVER]: 'cart.errorCashAmountMin',
+  [ValidationError.ADDRESS]: 'cart.errorAddressRequired',
+  [ValidationError.TIME]: 'cart.errorTimeRequired',
+  [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload'
 };
+
+const initialFormData: OrderFormData = {
+  orderType: 'delivery',
+  paymentMethod: 'cash',
+  timeMode: 'asap',
+  name: '',
+  phone: '',
+  email: '',
+  privacyAccepted: false,
+  address: '',
+  preferredTime: '',
+  comment: '',
+  cashAmount: '',
+  extraWasabi: 0,
+  extraChopsticks: 0,
+  extraSoy: 0,
+  extraGinger: 0
+};
+
+const MAX_EXTRA_PORTIONS = 20;
+
+const EXTRA_FIELDS = [
+  'extraWasabi',
+  'extraChopsticks',
+  'extraSoy',
+  'extraGinger'
+] as const;
+
+type SubmitState = 'idle' | 'success' | 'error';
+
+function apiErrorKey(error: string): string | null {
+  if (error in ORDER_ERROR_KEYS) {
+    return ORDER_ERROR_KEYS[error as ValidationErrorCode];
+  }
+  return null;
+}
 
 const CartPage = () => {
   const {
@@ -29,27 +75,15 @@ const CartPage = () => {
     clearCart
   } = useCart();
   const { lang, t } = useLanguage();
-  const [formData, setFormData] = useState({
-    orderType: 'delivery',
-    paymentMethod: 'cash',
-    timeMode: 'asap',
-    name: '',
-    phone: '',
-    email: '',
-    privacyAccepted: false,
-    address: '',
-    preferredTime: '',
-    comment: '',
-    cashAmount: ''
-  });
+  const [formData, setFormData] = useState<OrderFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitState, setSubmitState] = useState('idle');
+  const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const orderEndpoint =
     process.env.REACT_APP_ORDER_ENDPOINT || '/.netlify/functions/create-order';
 
-  const lineLabel = (item) => {
+  const lineLabel = (item: CartLine): string => {
     const base = findMenuItemById(lang, item.id);
     if (base?.variantOptions?.length) {
       const key = String(item.id).split('__')[1];
@@ -59,14 +93,14 @@ const CartPage = () => {
     return base?.name ?? item.name ?? item.id;
   };
 
-  const linePriceLabel = (item) => {
+  const linePriceLabel = (item: CartLine): string => {
     const base = findMenuItemById(lang, item.id);
     if (base?.variantOptions?.length) {
       const key = String(item.id).split('__')[1];
       const opt = base.variantOptions.find((o) => o.key === key);
       if (opt) return opt.price;
     }
-    return item.priceLabel ?? base?.price;
+    return item.priceLabel ?? base?.price ?? '';
   };
 
   const cartLines = useMemo(
@@ -80,10 +114,26 @@ const CartPage = () => {
     [cart, lang]
   );
 
-  const onInputChange = (event) => {
+  const onExtraChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const raw = value === '' ? 0 : Math.floor(Number(value));
+    const qty = Number.isFinite(raw)
+      ? Math.min(MAX_EXTRA_PORTIONS, Math.max(0, raw))
+      : 0;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: qty
+    }));
+  };
+
+  const onInputChange = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = event.target;
     setFormData((prev) => {
-      const next = { ...prev, [name]: value };
+      const next = { ...prev, [name]: value } as OrderFormData;
       if (name === 'timeMode' && value === 'asap') {
         next.preferredTime = '';
       }
@@ -94,7 +144,7 @@ const CartPage = () => {
     });
   };
 
-  const sendTelegram = async (e) => {
+  const sendTelegram = async (e: FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
 
@@ -114,6 +164,10 @@ const CartPage = () => {
       comment: formData.comment,
       cashAmount:
         formData.paymentMethod === 'cash' ? formData.cashAmount : undefined,
+      extraWasabi: formData.extraWasabi,
+      extraChopsticks: formData.extraChopsticks,
+      extraSoy: formData.extraSoy,
+      extraGinger: formData.extraGinger,
       lang,
       cart: cartLines,
       total: Number(cartTotal.toFixed(2)),
@@ -139,7 +193,7 @@ const CartPage = () => {
         body: JSON.stringify(payload)
       });
 
-      let data = null;
+      let data: { error?: string; detail?: string } | null = null;
       try {
         data = await response.json();
       } catch {
@@ -170,7 +224,7 @@ const CartPage = () => {
         }
         if (response.status === 400) {
           const errorKey =
-            typeof data?.error === 'string' ? ORDER_ERROR_KEYS[data.error] : null;
+            typeof data?.error === 'string' ? apiErrorKey(data.error) : null;
           if (errorKey) {
             setErrorMessage(t(errorKey));
             return;
@@ -181,21 +235,9 @@ const CartPage = () => {
       }
 
       setSubmitState('success');
-      setFormData({
-        orderType: 'delivery',
-        paymentMethod: 'cash',
-        timeMode: 'asap',
-        name: '',
-        phone: '',
-        email: '',
-        privacyAccepted: false,
-        address: '',
-        preferredTime: '',
-        comment: '',
-        cashAmount: ''
-      });
+      setFormData(initialFormData);
       clearCart();
-    } catch (error) {
+    } catch {
       setSubmitState('error');
       setErrorMessage(t('cart.alertNetwork'));
     } finally {
@@ -280,7 +322,11 @@ const CartPage = () => {
             <form className="contact-form" onSubmit={sendTelegram}>
               <label>
                 {t('cart.deliveryTypeLabel')}
-                <select name="orderType" value={formData.orderType} onChange={onInputChange}>
+                <select
+                  name="orderType"
+                  value={formData.orderType}
+                  onChange={onInputChange}
+                >
                   <option value="delivery">{t('cart.deliveryTypeDelivery')}</option>
                   <option value="pickup">{t('cart.deliveryTypePickup')}</option>
                 </select>
@@ -362,7 +408,11 @@ const CartPage = () => {
               )}
               <label>
                 {t('cart.timeModeLabel')}
-                <select name="timeMode" value={formData.timeMode} onChange={onInputChange}>
+                <select
+                  name="timeMode"
+                  value={formData.timeMode}
+                  onChange={onInputChange}
+                >
                   <option value="asap">{t('cart.timeModeAsap')}</option>
                   <option value="scheduled">{t('cart.timeModeScheduled')}</option>
                 </select>
@@ -377,6 +427,29 @@ const CartPage = () => {
                   required
                 />
               )}
+              <fieldset className="cart-extras">
+                <legend>{t('cart.extrasTitle')}</legend>
+                <p className="cart-extras-hint">{t('cart.extrasPortionsHint')}</p>
+                <div className="cart-extras-grid">
+                  {EXTRA_FIELDS.map((field) => (
+                    <label key={field} className="cart-extras-item">
+                      <span className="cart-extras-item__label">{t(`cart.${field}`)}</span>
+                      <input
+                        type="number"
+                        name={field}
+                        className="cart-extras-item__qty"
+                        value={formData[field]}
+                        onChange={onExtraChange}
+                        min={0}
+                        max={MAX_EXTRA_PORTIONS}
+                        step={1}
+                        inputMode="numeric"
+                        aria-label={t(`cart.${field}`)}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
               <textarea
                 name="comment"
                 value={formData.comment}
