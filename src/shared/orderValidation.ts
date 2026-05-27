@@ -41,6 +41,8 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     paymentMethod = 'cash',
     timeMode = 'asap',
     address = '',
+    streetNumber = '',
+    apartmentNumber = '',
     preferredTime = '',
     comment = '',
     cashAmount,
@@ -70,7 +72,10 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     return { ok: false, error: ValidationError.INVALID_PAYLOAD };
   }
 
-  if (orderType === 'delivery' && !String(address || '').trim()) {
+  if (
+    orderType === 'delivery' &&
+    (!String(address || '').trim() || !String(streetNumber || '').trim())
+  ) {
     return { ok: false, error: ValidationError.ADDRESS };
   }
 
@@ -109,6 +114,8 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
       paymentMethod,
       timeMode,
       address: String(address || '').trim(),
+      streetNumber: String(streetNumber || '').trim(),
+      apartmentNumber: String(apartmentNumber || '').trim(),
       preferredTime,
       comment: String(comment || '').trim(),
       extras: normalizeExtras(p),

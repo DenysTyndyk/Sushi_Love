@@ -66,6 +66,8 @@ function validateOrderPayload(payload) {
     paymentMethod = "cash",
     timeMode = "asap",
     address = "",
+    streetNumber = "",
+    apartmentNumber = "",
     preferredTime = "",
     comment = "",
     cashAmount,
@@ -84,7 +86,7 @@ function validateOrderPayload(payload) {
   if (!String(name).trim() || !String(phone).trim() || !Array.isArray(cart) || cart.length === 0) {
     return { ok: false, error: ValidationError.INVALID_PAYLOAD };
   }
-  if (orderType === "delivery" && !String(address || "").trim()) {
+  if (orderType === "delivery" && (!String(address || "").trim() || !String(streetNumber || "").trim())) {
     return { ok: false, error: ValidationError.ADDRESS };
   }
   if (timeMode === "scheduled" && !String(preferredTime || "").trim()) {
@@ -117,6 +119,8 @@ function validateOrderPayload(payload) {
       paymentMethod,
       timeMode,
       address: String(address || "").trim(),
+      streetNumber: String(streetNumber || "").trim(),
+      apartmentNumber: String(apartmentNumber || "").trim(),
       preferredTime,
       comment: String(comment || "").trim(),
       extras: normalizeExtras(p),

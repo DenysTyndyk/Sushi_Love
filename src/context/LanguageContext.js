@@ -59,9 +59,17 @@ export const LanguageProvider = ({ children }) => {
     [lang]
   );
 
+  const categorySectionTitle = useCallback(
+    (categoryKey) =>
+      translations[lang]?.categorySectionTitles?.[categoryKey] ??
+      translations[lang]?.categories?.[categoryKey] ??
+      categoryKey,
+    [lang]
+  );
+
   const value = useMemo(
-    () => ({ lang, setLang, t, categoryLabel }),
-    [lang, setLang, t, categoryLabel]
+    () => ({ lang, setLang, t, categoryLabel, categorySectionTitle }),
+    [lang, setLang, t, categoryLabel, categorySectionTitle]
   );
 
   return (

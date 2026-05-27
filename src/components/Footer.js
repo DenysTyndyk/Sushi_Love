@@ -13,10 +13,10 @@ const Footer = () => {
           <p className="footer-brand">Sushi Love</p>
         </div>
         <nav className="footer-nav" aria-label={t('footer.navAria')}>
-          <a href="#menu">{t('footer.navMenu')}</a>
+          <NavLink to="/#menu">{t('footer.navMenu')}</NavLink>
           <NavLink to="/koszyk">{t('footer.navCart')}</NavLink>
-          <a href="#contact">{t('footer.navContact')}</a>
-          <a href="#map">{t('footer.navMap')}</a>
+          <NavLink to="/#contact">{t('footer.navContact')}</NavLink>
+          <NavLink to="/#map">{t('footer.navMap')}</NavLink>
         </nav>
         <div className="footer-info">
           <p>📍 Aleja Najświętszej Maryi Panny 10, Częstochowa</p>

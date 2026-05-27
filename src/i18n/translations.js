@@ -2,6 +2,7 @@ const categories = {
   pl: {
     Zestawy: 'Zestawy',
     Futomak: 'Futomak',
+    'Futomak z serową czapeczką': 'Futomak z serową czapeczką',
     Philadelphia: 'Philadelphia',
     Kalifornia: 'Kalifornia',
     Uramak: 'Uramak',
@@ -15,6 +16,7 @@ const categories = {
   en: {
     Zestawy: 'Sets',
     Futomak: 'Futomaki',
+    'Futomak z serową czapeczką': 'Cheese cap futomaki',
     Philadelphia: 'Philadelphia',
     Kalifornia: 'California',
     Uramak: 'Uramaki',
@@ -28,6 +30,7 @@ const categories = {
   uk: {
     Zestawy: 'Сети',
     Futomak: 'Футомакі',
+    'Futomak z serową czapeczką': 'Футомак із сирною шапкою',
     Philadelphia: 'Філадельфія',
     Kalifornia: 'Каліфорнія',
     Uramak: 'Урамакі',
@@ -40,8 +43,16 @@ const categories = {
   }
 };
 
+/** In-section heading (e.g. Hosomak shows piece count here, not in the tab). */
+const categorySectionTitles = {
+  pl: { Hosomak: 'Hosomak 6 szt' },
+  en: { Hosomak: 'Hosomaki 6 pcs' },
+  uk: { Hosomak: 'Хосомакі 6 шт' }
+};
+
 const pl = {
   categories: categories.pl,
+  categorySectionTitles: categorySectionTitles.pl,
   nav: {
     mainAria: 'Główna nawigacja',
     cart: 'Koszyk'
@@ -97,6 +108,8 @@ const pl = {
     namePlaceholder: 'Twoje imię',
     phonePlaceholder: 'Numer telefonu',
     addressPlaceholder: 'Adres dostawy',
+    streetNumberPlaceholder: 'Numer budynku',
+    apartmentNumberPlaceholder: 'Numer mieszkania (opcjonalnie)',
     commentPlaceholder: 'Komentarz do zamówienia (opcjonalnie)',
     extrasTitle: 'Dodatki (gratis)',
     extrasPortionsHint: 'Liczba porcji (0 = nie dodawać)',
@@ -151,6 +164,7 @@ const pl = {
 
 const en = {
   categories: categories.en,
+  categorySectionTitles: categorySectionTitles.en,
   nav: {
     mainAria: 'Main navigation',
     cart: 'Cart'
@@ -206,6 +220,8 @@ const en = {
     namePlaceholder: 'Your name',
     phonePlaceholder: 'Phone number',
     addressPlaceholder: 'Delivery address',
+    streetNumberPlaceholder: 'Building number',
+    apartmentNumberPlaceholder: 'Apartment number (optional)',
     commentPlaceholder: 'Order comment (optional)',
     extrasTitle: 'Extras (free)',
     extrasPortionsHint: 'Number of portions (0 = none)',
@@ -260,6 +276,7 @@ const en = {
 
 const uk = {
   categories: categories.uk,
+  categorySectionTitles: categorySectionTitles.uk,
   nav: {
     mainAria: 'Головна навігація',
     cart: 'Кошик'
@@ -315,6 +332,8 @@ const uk = {
     namePlaceholder: 'Ваше ім’я',
     phonePlaceholder: 'Номер телефону',
     addressPlaceholder: 'Адреса доставки',
+    streetNumberPlaceholder: 'Номер будинку',
+    apartmentNumberPlaceholder: 'Номер квартири (необовʼязково)',
     commentPlaceholder: 'Коментар до замовлення (необовʼязково)',
     extrasTitle: 'Додатково (безкоштовно)',
     extrasPortionsHint: 'Кількість порцій (0 = не додавати)',

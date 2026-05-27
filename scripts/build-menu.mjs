@@ -44,6 +44,7 @@ const ITEM_IMAGES = {
 const CATEGORY_KEYS = [
   'Zestawy',
   'Futomak',
+  'Futomak z serową czapeczką',
   'Philadelphia',
   'Kalifornia',
   'Uramak',
@@ -61,7 +62,7 @@ const pl = {
       id: 'set-1',
       name: 'Zestaw 1 „Mini Phila 50/50”',
       price: '80 PLN',
-      desc: '16 szt: Philadelphia Krewetka 4, Węgorz 4, Tuńczyk 4, Łosoś 4'
+      desc: '16 szt: Łosoś 4szt, Tuńczyk 4szt, Węgorz 4 szt, Krewetka 4szt'
     },
     {
       id: 'set-2',
@@ -79,7 +80,7 @@ const pl = {
       id: 'set-4',
       name: 'Zestaw 4 „Philadelphia”',
       price: '160 PLN',
-      desc: '32 szt: Philadelphia Krewetka 8, Węgorz 8, Łosoś 8, Tuńczyk 8'
+      desc: '32 szt: Philadelphia Krewetka 8, Philadelphia Węgorz 8, Philadelphia Łosoś 8, Philadelphia Tuńczyk 8'
     },
     {
       id: 'set-5',
@@ -97,13 +98,13 @@ const pl = {
       id: 'set-7',
       name: 'Zestaw 7 „Weekend”',
       price: '295 PLN',
-      desc: '70 szt: Kalifornia, uramak, futomaki panko, hosomaki, nigiri — mix premium'
+      desc: '70 szt: Kalifornia węgorz w sezam 8szt, Kalifornia łosoś w tobiko 8szt, Uramak z łososiem w środku 8szt, Futomak węgorz w panko 8szt, Futomak tartar z łososia w panko 8szt, Futomak z tuńczykiem w panko 8szt, Hosomak łosoś 6szt, Hosomak ogórek 6szt, Hosomak kampyo 6szt, Nigiri łosoś 2 szt, Nigiri tuńczyk 2 szt'
     },
     {
       id: 'set-8',
       name: 'Zestaw 8 „Kalifornia”',
       price: '150 PLN',
-      desc: '32 szt: Kalifornia łosoś tobiko 8, krewetki tobiko 8, tuńczyk sezam 8, węgorz sezam 8'
+      desc: '32 szt: Kalifornia łosoś tobiko 8, Kalifornia krewetki tobiko 8, Kalifornia tuńczyk sezam 8, Kalifornia węgorz sezam 8'
     },
     {
       id: 'set-9',
@@ -121,7 +122,7 @@ const pl = {
       id: 'set-11',
       name: 'Zestaw 11 „Family”',
       price: '320 PLN',
-      desc: '82 szt: Futomaki, tartar, philadelphia, kalifornia, hosomaki — zestaw rodzinny'
+      desc: '82 szt: Futomak krewetka w panko 8 szt, Tartar z łososia w panko 8szt, Pieczony tuńczyk w panko 8szt, Philadelphia losoś 8 szt, Philadelphia węgorz 8 szt, Kalifornia z łososiem w tobiko 8 szt, Kalifornia z węgorzem w sezam 8szt, Futomak z tuńczykiem w środku 8szt, Hosomak ogórek 6szt, Hosomak żółta rzepa 6szt, Hosomak surmi 6szt'
     },
     {
       id: 'set-12',
@@ -157,7 +158,9 @@ const pl = {
     { id: 'futo-tuna-panko', name: 'Tuńczyk w panko', price: '39 PLN', desc: 'Ryż, nori, tuńczyk, kanpyo, philadelphia, panko' },
     { id: 'futo-salmon-panko', name: 'Łosoś w panko', price: '39 PLN', desc: 'Ryż, nori, łosoś, ogórek, philadelphia, tempura' },
     { id: 'futo-shrimp-panko', name: 'Z krewetkami w panko', price: '42 PLN', desc: 'Ryż, nori, krewetka, ogórek, żółta rzepa, tobiko, philadelphia, panko' },
-    { id: 'futo-salmon-tartar', name: 'Tartar z łososia', price: '37 PLN', desc: 'Ryż, nori, tartar z łososia, chilli, ogórek, sezam' },
+    { id: 'futo-salmon-tartar', name: 'Tartar z łososia', price: '37 PLN', desc: 'Ryż, nori, tartar z łososia, chilli, ogórek, sezam' }
+  ],
+  'Futomak z serową czapeczką': [
     { id: 'futo-cap-salmon', name: 'Futomak łosoś z serową czapeczką', price: '49 PLN', desc: 'Łosoś, ser mozzarella, surimi, majonez, sezam, teriyaki' },
     { id: 'futo-cap-eel', name: 'Futomak węgorz z serową czapeczką', price: '53 PLN', desc: 'Węgorz, wakame, ser mozzarella, surimi, majonez, sezam' },
     { id: 'futo-cap-shrimp', name: 'Futomak krewetki z serową czapeczką', price: '55 PLN', desc: 'Krewetki, awokado, tobiko, ser mozzarella, surimi, majonez' }
@@ -167,19 +170,19 @@ const pl = {
     { id: 'phila-shrimp', name: 'Philadelphia Krewetka', price: '42 PLN', desc: 'Ryż, nori, ogórek, philadelphia, krewetka, sezam, teriyaki' },
     { id: 'phila-tuna', name: 'Philadelphia Tuńczyk', price: '39 PLN', desc: 'Ryż, nori, awokado, tuńczyk, philadelphia' },
     { id: 'phila-eel', name: 'Philadelphia Węgorz', price: '40 PLN', desc: 'Ryż, nori, węgorz, ogórek, philadelphia, sezam, teriyaki' },
-    { id: 'phila-baked-salmon', name: 'Philadelphia Łosoś opiekany', price: '39 PLN', desc: 'Ryż, nori, łosoś opiekany, ogórek, kanpyo, sezam, teriyaki, philadelphia' },
-    { id: 'phila-avocado', name: 'Filadelfia Classic z awokado', price: '40 PLN', desc: 'Ryż, nori, łosoś, philadelphia, sezam' },
+    { id: 'phila-baked-salmon', name: 'Philadelphia Łosoś opiekany', price: '39 PLN', desc: 'Ryż, nori, łosoś opiekany, kanpyo, sezam, teriyaki, philadelphia' },
+    { id: 'phila-avocado', name: 'Philadelphia Classic z awokado', price: '40 PLN', desc: 'Ryż, nori, łosoś, philadelphia, sezam' },
     { id: 'phila-xl', name: 'Philadelphia XL', price: '59 PLN', desc: 'Ryż, nori, podwójny łosoś, ogórek, philadelphia' }
   ],
   Kalifornia: [
     { id: 'cal-salmon-tobiko', name: 'Kalifornia z łososiem w tobiko', price: '39 PLN', desc: 'Łosoś, philadelphia, żółta rzepa, ogórek, tobiko' },
-    { id: 'cal-eel-sesame', name: 'Kalifornia z węgorzem w sezamie', price: '39 PLN', desc: 'Węgorz pieczony, philadelphia, ogórek, żółta rzepa, sezam' },
-    { id: 'cal-shrimp-tobiko', name: 'Kalifornia z krewetkami w tobiko', price: '40 PLN', desc: 'Krewetki, philadelphia, ogórek, żółta rzepa, tobiko' },
+    { id: 'cal-eel-sesame', name: 'Kalifornia z węgorzem w sezamie', price: '39 PLN', desc: 'Węgorz, philadelphia, ogórek, żółta rzepa, sezam' },
+    { id: 'cal-shrimp-tobiko', name: 'Kalifornia z krewetkami w tobiko', price: '40 PLN', desc: 'Krewetka w panko, philadelphia, ogórek, żółta rzepa, tobiko' },
     { id: 'cal-tuna-sesame', name: 'Kalifornia z tuńczykiem w sezamie', price: '39 PLN', desc: 'Tuńczyk, philadelphia, ogórek, żółta rzepa, sezam' }
   ],
   Uramak: [
     { id: 'ura-unagi', name: 'Unagi', price: '38 PLN', desc: 'Ryż, nori, philadelphia, ogórek, węgorz, teriyaki, sezam' },
-    { id: 'ura-tokio', name: 'Tokio', price: '58 PLN', desc: 'Ryż, nori, philadelphia, ogórek, krewetka, tobiko, łosoś' },
+    { id: 'ura-tokio', name: 'Tokio', price: '58 PLN', desc: 'Ryż, nori, philadelphia, ogórek, krewetka gotowana, tobiko, łosoś' },
     { id: 'ura-three-rubies', name: 'Trzy ryby', price: '49 PLN', desc: 'Łosoś, tuńczyk, węgorz, awokado, sezam' }
   ],
   Hosomak: [
@@ -194,13 +197,13 @@ const pl = {
     { id: 'hoso-avocado', name: 'Hosomak Awokado', price: '19 PLN', desc: 'Ryż, nori, awokado' }
   ],
   'Premium rolki': [
-    { id: 'prem-salmon-delux', name: 'Łosoś Delux', price: '80 PLN', desc: 'Ryż, nori, łosoś, krewetki, majonez japoński' },
-    { id: 'prem-dubai', name: 'Roll Dubaj', price: '80 PLN', desc: 'Ryż, nori, łosoś, wakame, sos Dubaj' }
+    { id: 'prem-salmon-delux', name: 'Łosoś Delux', price: '80 PLN', desc: 'Ryż, nori, łosoś XL, krewetka w panko, majonez japoński' },
+    { id: 'prem-dubai', name: 'Roll Dubaj', price: '80 PLN', desc: 'Ryż, nori, łosoś XL, wakame' }
   ],
   'Sushi Burger': [
     { id: 'burger-salmon', name: 'Burger z łososiem', price: '45 PLN', desc: 'Ryż, nori, philadelphia, ogórek, łosoś' },
     { id: 'burger-tuna-wakame', name: 'Burger z tuńczykiem i wakame', price: '45 PLN', desc: 'Ryż, nori, philadelphia, wakame, tuńczyk, teriyaki' },
-    { id: 'burger-shrimp-avocado', name: 'Burger z krewetkami i awokado', price: '50 PLN', desc: 'Ryż, nori, philadelphia, krewetki, awokado, teriyaki, tobiko' }
+    { id: 'burger-shrimp-avocado', name: 'Burger z krewetkami i awokado', price: '50 PLN', desc: 'Ryż, nori, philadelphia, krewetka gotowana, awokado, teriyaki, tobiko' }
   ],
   Nigiri: [
     { id: 'nigiri-tuna', name: 'Nigiri Tuńczyk', price: '22 PLN', desc: '2 szt' },
@@ -219,7 +222,7 @@ const pl = {
         { key: '9', label: '9 szt', price: '55 PLN' }
       ]
     },
-    { id: 'fries-large', name: 'Frytki — duże opakowanie', price: '10 PLN', desc: 'Złociste frytki' },
+    { id: 'fries-large', name: 'Frytki — duże opakowanie', price: '10 PLN', desc: 'Złociste frytki + ketchup' },
     { id: 'gunkan-tuna', name: 'Gunkan Tuńczyk', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-salmon', name: 'Gunkan Łosoś', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-eel', name: 'Gunkan Węgorz', price: '30 PLN', desc: '2 szt' },
@@ -338,10 +341,46 @@ function localizeMenu(menu, lang) {
   return out;
 }
 
+function moveSetCountToName(item, lang) {
+  if (!item || item.kind === 'section') return item;
+
+  const cfg =
+    lang === 'en'
+      ? { unit: 'pcs', re: /^(\d+)\s*pcs:\s*(.+)$/i }
+      : lang === 'uk'
+        ? { unit: 'шт', re: /^(\d+)\s*шт:\s*(.+)$/i }
+        : { unit: 'szt', re: /^(\d+)\s*szt:\s*(.+)$/i };
+
+  const cleanName = String(item.name || '').replace(
+    /\s*\(\d+\s*(szt|pcs|шт)\)$/i,
+    ''
+  );
+  const descText = String(item.desc || '').trim();
+  const match = descText.match(cfg.re);
+  if (!match) {
+    return { ...item, name: cleanName };
+  }
+
+  const [, count, restDesc] = match;
+  return {
+    ...item,
+    name: `${cleanName} (${count} ${cfg.unit})`,
+    desc: restDesc.trim()
+  };
+}
+
+function normalizeSetPresentation(menu, lang) {
+  if (!menu.Zestawy) return menu;
+  return {
+    ...menu,
+    Zestawy: menu.Zestawy.map((item) => moveSetCountToName(item, lang))
+  };
+}
+
 const out = {
-  pl,
-  en: localizeMenu(pl, 'en'),
-  uk: localizeMenu(pl, 'uk')
+  pl: normalizeSetPresentation(pl, 'pl'),
+  en: normalizeSetPresentation(localizeMenu(pl, 'en'), 'en'),
+  uk: normalizeSetPresentation(localizeMenu(pl, 'uk'), 'uk')
 };
 
 const outPath = path.join(__dirname, '../src/DaneMenu/menuByLang.json');

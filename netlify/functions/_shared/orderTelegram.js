@@ -68,6 +68,8 @@ function buildOrderTelegramMessage(data) {
     cashTendered,
     cashChange,
     address,
+    streetNumber,
+    apartmentNumber,
     comment,
     extras,
     cart,
@@ -101,7 +103,14 @@ function buildOrderTelegramMessage(data) {
   }
 
   if (orderType === 'delivery') {
-    messageParts.push(`🏠 Adres: ${address}`);
+    const fullAddress = [
+      address,
+      streetNumber ? `nr ${streetNumber}` : '',
+      apartmentNumber ? `m. ${apartmentNumber}` : ''
+    ]
+      .filter(Boolean)
+      .join(', ');
+    messageParts.push(`🏠 Adres: ${fullAddress}`);
   }
   const extrasLine = formatExtrasLine(extras, lang);
   if (extrasLine) {

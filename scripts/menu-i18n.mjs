@@ -2,11 +2,11 @@ export const menuI18n = {
   'set-1': {
     en: {
       name: 'Set 1 "Mini Phila 50/50"',
-      desc: '16 pcs: Philadelphia Shrimp ×4, Eel ×4, Tuna ×4, Salmon ×4'
+      desc: '16 pcs: Salmon ×4, Tuna ×4, Eel ×4, Shrimp ×4'
     },
     uk: {
       name: 'Сет 1 «Mini Phila 50/50»',
-      desc: '16 шт: Філадельфія креветка ×4, вугор ×4, тунець ×4, лосось ×4'
+      desc: '16 шт: лосось ×4, тунець ×4, вугор ×4, креветка ×4'
     }
   },
   'set-2': {
@@ -32,11 +32,11 @@ export const menuI18n = {
   'set-4': {
     en: {
       name: 'Set 4 "Philadelphia"',
-      desc: '32 pcs: Philadelphia Shrimp ×8, Eel ×8, Salmon ×8, Tuna ×8'
+      desc: '32 pcs: Philadelphia Shrimp ×8, Philadelphia Eel ×8, Philadelphia Salmon ×8, Philadelphia Tuna ×8'
     },
     uk: {
       name: 'Сет 4 «Philadelphia»',
-      desc: '32 шт: Філадельфія креветка ×8, вугор ×8, лосось ×8, тунець ×8'
+      desc: '32 шт: Філадельфія креветка ×8, Філадельфія вугор ×8, Філадельфія лосось ×8, Філадельфія тунець ×8'
     }
   },
   'set-5': {
@@ -72,11 +72,11 @@ export const menuI18n = {
   'set-8': {
     en: {
       name: 'Set 8 "California"',
-      desc: '32 pcs: California salmon tobiko ×8, shrimp tobiko ×8, tuna sesame ×8, eel sesame ×8'
+      desc: '32 pcs: California salmon tobiko ×8, California shrimp tobiko ×8, California tuna sesame ×8, California eel sesame ×8'
     },
     uk: {
       name: 'Сет 8 «California»',
-      desc: '32 шт: Каліфорнія лосось тобіко ×8, креветка тобіко ×8, тунець кунжут ×8, вугор кунжут ×8'
+      desc: '32 шт: Каліфорнія лосось тобіко ×8, Каліфорнія креветка тобіко ×8, Каліфорнія тунець кунжут ×8, Каліфорнія вугор кунжут ×8'
     }
   },
   'set-9': {
@@ -102,11 +102,11 @@ export const menuI18n = {
   'set-11': {
     en: {
       name: 'Set 11 "Family"',
-      desc: '82 pcs: Futomaki, tartar, philadelphia, california, hosomaki — family platter'
+      desc: '82 pcs: Futomaki shrimp in panko ×8, Salmon tartare in panko ×8, Baked tuna in panko ×8, Philadelphia salmon ×8, Philadelphia eel ×8, California salmon tobiko ×8, California eel sesame ×8, Futomaki tuna inside ×8, Hosomaki cucumber ×6, Hosomaki yellow radish ×6, Hosomaki surimi ×6'
     },
     uk: {
       name: 'Сет 11 «Family»',
-      desc: '82 шт: Футомакі, тартар, філадельфія, каліфорнія, хосомакі — сімейний сет'
+      desc: '82 шт: Футомакі креветка у панко ×8, Тартар з лосося у панко ×8, Запечений тунець у панко ×8, Філадельфія лосось ×8, Філадельфія вугор ×8, Каліфорнія лосось тобіко ×8, Каліфорнія вугор у кунжуті ×8, Футомакі з тунцем усередині ×8, Хосомакі огірок ×6, Хосомакі жовта редька ×6, Хосомакі сурімі ×6'
     }
   },
   'set-12': {
@@ -234,11 +234,11 @@ export const menuI18n = {
   'phila-baked-salmon': {
     en: {
       name: 'Philadelphia Baked Salmon',
-      desc: 'Rice, nori, baked salmon, cucumber, kanpyo, sesame, teriyaki, cream cheese'
+      desc: 'Rice, nori, baked salmon, kanpyo, sesame, teriyaki, cream cheese'
     },
     uk: {
       name: 'Philadelphia запечений лосось',
-      desc: 'Рис, норі, запечений лосось, огірок, kanpyo, кунжут, теріякі, вершковий сир'
+      desc: 'Рис, норі, запечений лосось, kanpyo, кунжут, теріякі, вершковий сир'
     }
   },
   'phila-avocado': {
@@ -292,21 +292,21 @@ export const menuI18n = {
   'cal-eel-sesame': {
     en: {
       name: 'California with eel in sesame',
-      desc: 'Baked eel, cream cheese, cucumber, yellow radish, sesame'
+      desc: 'Eel, cream cheese, cucumber, yellow radish, sesame'
     },
     uk: {
       name: 'Каліфорнія з вугрем у кунжуті',
-      desc: 'Запечений вугор, вершковий сир, огірок, жовта редька, кунжут'
+      desc: 'Вугор, вершковий сир, огірок, жовта редька, кунжут'
     }
   },
   'cal-shrimp-tobiko': {
     en: {
       name: 'California with shrimp in tobiko',
-      desc: 'Shrimp, cream cheese, cucumber, yellow radish, tobiko'
+      desc: 'Shrimp in panko, cream cheese, cucumber, yellow radish, tobiko'
     },
     uk: {
       name: 'Каліфорнія з креветкою у тобіко',
-      desc: 'Креветка, вершковий сир, огірок, жовта редька, тобіко'
+      desc: 'Kреветка в панко, вершковий сир, огірок, жовта редька, тобіко'
     }
   },
   'cal-tuna-sesame': {
@@ -324,8 +324,8 @@ export const menuI18n = {
     uk: { name: 'Unagi', desc: 'Рис, норі, вершковий сир, огірок, вугор, теріякі, кунжут' }
   },
   'ura-tokio': {
-    en: { name: 'Tokyo', desc: 'Rice, nori, cream cheese, cucumber, shrimp, tobiko, salmon' },
-    uk: { name: 'Tokyo', desc: 'Рис, норі, вершковий сир, огірок, креветка, тобіко, лосось' }
+    en: { name: 'Tokyo', desc: 'Rice, nori, cream cheese, cucumber, cooked shrimp, tobiko, salmon' },
+    uk: { name: 'Tokyo', desc: 'Рис, норі, вершковий сир, огірок, варена креветка, тобіко, лосось' }
   },
   'ura-three-rubies': {
     en: { name: 'Three fish', desc: 'Salmon, tuna, eel, avocado, sesame' },
@@ -370,16 +370,16 @@ export const menuI18n = {
   'prem-salmon-delux': {
     en: {
       name: 'Salmon Delux',
-      desc: 'Rice, nori, salmon, shrimp, Japanese mayo'
+      desc: 'Rice, nori, salmon XL, shrimp in panko, Japanese mayo'
     },
     uk: {
       name: 'Лосось Delux',
-      desc: 'Рис, норі, лосось, креветка, японський майонез'
+      desc: 'Рис, норі, лосось XL, креветка в панко, японський майонез'
     }
   },
   'prem-dubai': {
-    en: { name: 'Dubai Roll', desc: 'Rice, nori, salmon, wakame, Dubai sauce' },
-    uk: { name: 'Рол Dubai', desc: 'Рис, норі, лосось, вакаме, соус Dubai' }
+    en: { name: 'Dubai Roll', desc: 'Rice, nori, salmon XL, wakame' },
+    uk: { name: 'Рол Dubai', desc: 'Рис, норі, лосось XL, вакаме' }
   },
   'burger-salmon': {
     en: { name: 'Burger with salmon', desc: 'Rice, nori, cream cheese, cucumber, salmon' },
@@ -398,11 +398,11 @@ export const menuI18n = {
   'burger-shrimp-avocado': {
     en: {
       name: 'Burger with shrimp & avocado',
-      desc: 'Rice, nori, cream cheese, shrimp, avocado, teriyaki, tobiko'
+      desc: 'Rice, nori, cream cheese, cooked shrimp, avocado, teriyaki, tobiko'
     },
     uk: {
       name: 'Бургер з креветкою та авокадо',
-      desc: 'Рис, норі, вершковий сир, креветка, авокадо, теріякі, тобіко'
+      desc: 'Рис, норі, вершковий сир, варена креветка, авокадо, теріякі, тобіко'
     }
   },
   'nigiri-tuna': {
@@ -440,8 +440,8 @@ export const menuI18n = {
     }
   },
   'fries-large': {
-    en: { name: 'French fries (large)', desc: 'Golden fries' },
-    uk: { name: 'Картопля фрі (велика)', desc: 'Золотиста картопля фрі' }
+    en: { name: 'French fries (large)', desc: 'Golden fries + ketchup' },
+    uk: { name: 'Картопля фрі (велика)', desc: 'Золотиста картопля фрі + кетчуп' }
   },
   'gunkan-tuna': {
     en: { name: 'Gunkan Tuna', desc: '2 pcs' },

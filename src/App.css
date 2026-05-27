@@ -403,17 +403,55 @@ html, body {
 .cart-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 999px;
 }
 
-.cart-controls button {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid #555;
-  background: #141414;
-  color: #fff;
+.cart-qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(145deg, #171717, #252525);
+  color: var(--gold);
   cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.cart-qty-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.24);
+}
+
+.cart-qty-btn:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: none;
+}
+
+.cart-qty-btn--minus {
+  color: #d9d9d9;
+}
+
+.cart-qty-value {
+  min-width: 32px;
+  padding: 0 4px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .cart-item-total {
@@ -770,6 +808,12 @@ html, body {
   font-size: 0.9rem;
 }
 
+.cart-address-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 12px;
+}
+
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
@@ -795,7 +839,7 @@ html, body {
   padding: 0;
   border: none;
   width: 100%;
-  max-width: 340px;
+  max-width: 520px;
 }
 
 .cart-extras legend {
@@ -819,17 +863,17 @@ html, body {
 
 .cart-extras-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .cart-extras-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   margin: 0;
-  padding: 10px 8px;
+  padding: 9px 6px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid #2a2a2a;
   border-radius: 10px;
@@ -838,25 +882,74 @@ html, body {
 
 .cart-extras-item__label {
   color: #ccc;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-align: center;
   line-height: 1.2;
 }
 
-.contact-form .cart-extras-item__qty {
-  width: 52px;
-  min-width: 52px;
-  max-width: 52px;
-  margin: 0;
-  padding: 8px 4px;
-  text-align: center;
-  font-size: 1rem;
-  border-radius: 8px;
+.cart-extras-stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 3px;
+  background: #101010;
+  border: 1px solid #333;
+  border-radius: 999px;
 }
 
-.cart-extras-item__qty::-webkit-outer-spin-button,
-.cart-extras-item__qty::-webkit-inner-spin-button {
-  opacity: 1;
+.cart-extras-stepper__btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 50%;
+  background: #181818;
+  color: #d8d8d8;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.cart-extras-stepper__btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #000;
+}
+
+.cart-extras-stepper__btn:active {
+  transform: scale(0.94);
+}
+
+.cart-extras-stepper__btn--plus {
+  color: var(--gold);
+}
+
+.contact-form .cart-extras-stepper__input {
+  width: 34px;
+  min-width: 34px;
+  max-width: 34px;
+  height: 24px;
+  margin: 0;
+  padding: 0 2px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 0;
+  appearance: textfield;
+}
+
+.contact-form .cart-extras-stepper__input:focus {
+  border: none;
+  box-shadow: none;
 }
 
 .submit-btn {
@@ -995,6 +1088,9 @@ html, body {
   }
   .cart-item-total {
     text-align: left;
+  }
+  .cart-address-row {
+    grid-template-columns: 1fr;
   }
 }
 

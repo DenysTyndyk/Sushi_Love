@@ -37,6 +37,8 @@ const initialFormData: OrderFormData = {
   email: '',
   privacyAccepted: false,
   address: '',
+  streetNumber: '',
+  apartmentNumber: '',
   preferredTime: '',
   comment: '',
   cashAmount: '',
@@ -55,6 +57,7 @@ const EXTRA_FIELDS = [
   'extraGinger'
 ] as const;
 
+type ExtraField = (typeof EXTRA_FIELDS)[number];
 type SubmitState = 'idle' | 'success' | 'error';
 
 function apiErrorKey(error: string): string | null {
@@ -116,13 +119,24 @@ const CartPage = () => {
 
   const onExtraChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const raw = value === '' ? 0 : Math.floor(Number(value));
+    const digits = value.replace(/\D/g, '');
+    const raw = digits === '' ? 0 : Math.floor(Number(digits));
     const qty = Number.isFinite(raw)
       ? Math.min(MAX_EXTRA_PORTIONS, Math.max(0, raw))
       : 0;
     setFormData((prev) => ({
       ...prev,
       [name]: qty
+    }));
+  };
+
+  const adjustExtra = (field: ExtraField, delta: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: Math.min(
+        MAX_EXTRA_PORTIONS,
+        Math.max(0, prev[field] + delta)
+      )
     }));
   };
 
@@ -160,6 +174,8 @@ const CartPage = () => {
       email: formData.email,
       privacyAccepted: formData.privacyAccepted,
       address: formData.address,
+      streetNumber: formData.streetNumber,
+      apartmentNumber: formData.apartmentNumber,
       preferredTime: formData.preferredTime,
       comment: formData.comment,
       cashAmount:
@@ -287,11 +303,21 @@ const CartPage = () => {
                       <p>{linePriceLabel(item)}</p>
                     </div>
                     <div className="cart-controls">
-                      <button type="button" onClick={() => decreaseItem(item.id)}>
-                        -
+                      <button
+                        type="button"
+                        className="cart-qty-btn cart-qty-btn--minus"
+                        onClick={() => decreaseItem(item.id)}
+                        aria-label="Decrease quantity"
+                      >
+                        −
                       </button>
-                      <span>{item.quantity}</span>
-                      <button type="button" onClick={() => increaseItem(item.id)}>
+                      <span className="cart-qty-value">{item.quantity}</span>
+                      <button
+                        type="button"
+                        className="cart-qty-btn cart-qty-btn--plus"
+                        onClick={() => increaseItem(item.id)}
+                        aria-label="Increase quantity"
+                      >
                         +
                       </button>
                     </div>
@@ -371,14 +397,33 @@ const CartPage = () => {
                 <span>{t('cart.privacyCheckbox')}</span>
               </label>
               {formData.orderType === 'delivery' && (
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={onInputChange}
-                  placeholder={t('cart.addressPlaceholder')}
-                  required
-                />
+                <>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={onInputChange}
+                    placeholder={t('cart.addressPlaceholder')}
+                    required
+                  />
+                  <div className="cart-address-row">
+                    <input
+                      type="text"
+                      name="streetNumber"
+                      value={formData.streetNumber}
+                      onChange={onInputChange}
+                      placeholder={t('cart.streetNumberPlaceholder')}
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="apartmentNumber"
+                      value={formData.apartmentNumber}
+                      onChange={onInputChange}
+                      placeholder={t('cart.apartmentNumberPlaceholder')}
+                    />
+                  </div>
+                </>
               )}
               <label>
                 {t('cart.paymentLabel')}
@@ -434,18 +479,35 @@ const CartPage = () => {
                   {EXTRA_FIELDS.map((field) => (
                     <label key={field} className="cart-extras-item">
                       <span className="cart-extras-item__label">{t(`cart.${field}`)}</span>
-                      <input
-                        type="number"
-                        name={field}
-                        className="cart-extras-item__qty"
-                        value={formData[field]}
-                        onChange={onExtraChange}
-                        min={0}
-                        max={MAX_EXTRA_PORTIONS}
-                        step={1}
-                        inputMode="numeric"
-                        aria-label={t(`cart.${field}`)}
-                      />
+                      <span className="cart-extras-stepper">
+                        <button
+                          type="button"
+                          className="cart-extras-stepper__btn"
+                          onClick={() => adjustExtra(field, -1)}
+                          aria-label={`Decrease ${t(`cart.${field}`)}`}
+                        >
+                          −
+                        </button>
+                        <input
+                          type="text"
+                          name={field}
+                          className="cart-extras-stepper__input"
+                          value={formData[field] === 0 ? '' : formData[field]}
+                          onChange={onExtraChange}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          placeholder="0"
+                          aria-label={t(`cart.${field}`)}
+                        />
+                        <button
+                          type="button"
+                          className="cart-extras-stepper__btn cart-extras-stepper__btn--plus"
+                          onClick={() => adjustExtra(field, 1)}
+                          aria-label={`Increase ${t(`cart.${field}`)}`}
+                        >
+                          +
+                        </button>
+                      </span>
                     </label>
                   ))}
                 </div>

@@ -61,6 +61,8 @@ export interface OrderFormData extends OrderExtras {
   email: string;
   privacyAccepted: boolean;
   address: string;
+  streetNumber: string;
+  apartmentNumber: string;
   preferredTime: string;
   comment: string;
   cashAmount: string;
@@ -75,6 +77,8 @@ export interface OrderPayload {
   email?: string;
   privacyAccepted?: boolean;
   address?: string;
+  streetNumber?: string;
+  apartmentNumber?: string;
   preferredTime?: string;
   comment?: string;
   cashAmount?: string | number;
@@ -96,6 +100,8 @@ export interface ValidatedOrder {
   paymentMethod: PaymentMethod;
   timeMode: TimeMode;
   address: string;
+  streetNumber: string;
+  apartmentNumber: string;
   preferredTime: string;
   comment: string;
   extras: OrderExtras;

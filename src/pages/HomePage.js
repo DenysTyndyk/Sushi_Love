@@ -17,7 +17,7 @@ const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(MENU_CATEGORY_KEYS[0]);
   const [variantChoice, setVariantChoice] = useState({});
   const { addToCart, cartItemsCount } = useCart();
-  const { lang, t, categoryLabel } = useLanguage();
+  const { lang, t, categoryLabel, categorySectionTitle } = useLanguage();
   const menuData = useMemo(() => getMenuForLocale(lang), [lang]);
   const categoryImage = getCategoryImage(activeCategory);
   const categoryKeys = useMemo(() => Object.keys(menuData), [menuData]);
@@ -76,9 +76,9 @@ const HomePage = () => {
         <div className="menu-list fade-in">
           <CategoryHero
             src={categoryImage}
-            alt={categoryLabel(activeCategory)}
+            alt={categorySectionTitle(activeCategory)}
           />
-          <h3 className="menu-category-title">{categoryLabel(activeCategory)}</h3>
+          <h3 className="menu-category-title">{categorySectionTitle(activeCategory)}</h3>
           <MenuList
             items={menuData[activeCategory]}
             activeCategory={activeCategory}
