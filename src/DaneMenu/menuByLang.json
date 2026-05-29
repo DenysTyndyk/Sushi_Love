@@ -154,7 +154,7 @@
         "id": "futo-shrimp-panko",
         "name": "Z krewetkami w panko",
         "price": "42 PLN",
-        "desc": "Ryż, nori, krewetka, ogórek, żółta rzepa, tobiko, philadelphia, panko"
+        "desc": "Ryż, nori, krewetka, ogórek, żółta rzepa, philadelphia, panko"
       },
       {
         "id": "futo-salmon-tartar",
@@ -168,19 +168,19 @@
         "id": "futo-cap-salmon",
         "name": "Futomak łosoś z serową czapeczką",
         "price": "49 PLN",
-        "desc": "Łosoś, ser mozzarella, surimi, majonez, sezam, teriyaki"
+        "desc": "Łosoś, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
       },
       {
         "id": "futo-cap-eel",
         "name": "Futomak węgorz z serową czapeczką",
         "price": "53 PLN",
-        "desc": "Węgorz, wakame, ser mozzarella, surimi, majonez, sezam"
+        "desc": "Węgorz, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Futomak krewetki z serową czapeczką",
         "price": "55 PLN",
-        "desc": "Krewetki, awokado, tobiko, ser mozzarella, surimi, majonez"
+        "desc": "Krewetki, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
       }
     ],
     "Philadelphia": [
@@ -216,9 +216,9 @@
       },
       {
         "id": "phila-avocado",
-        "name": "Philadelphia Classic z awokado",
+        "name": "Philadelphia z awokado",
         "price": "40 PLN",
-        "desc": "Ryż, nori, łosoś, philadelphia, sezam"
+        "desc": "Ryż, nori, łosoś, philadelphia, awokado"
       },
       {
         "id": "phila-xl",
@@ -242,9 +242,9 @@
       },
       {
         "id": "cal-shrimp-tobiko",
-        "name": "Kalifornia z krewetkami w tobiko",
+        "name": "Kalifornia z krewetkami w panko",
         "price": "40 PLN",
-        "desc": "Krewetka w panko, philadelphia, ogórek, żółta rzepa, tobiko"
+        "desc": "krewetka w panko"
       },
       {
         "id": "cal-tuna-sesame",
@@ -696,7 +696,7 @@
         "id": "futo-shrimp-panko",
         "name": "Shrimp in panko",
         "price": "42 PLN",
-        "desc": "Rice, nori, shrimp, cucumber, yellow radish, tobiko, cream cheese, panko"
+        "desc": "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko"
       },
       {
         "id": "futo-salmon-tartar",
@@ -710,19 +710,19 @@
         "id": "futo-cap-salmon",
         "name": "Futomaki salmon with cheese cap",
         "price": "49 PLN",
-        "desc": "Salmon, mozzarella, surimi, mayo, sesame, teriyaki"
+        "desc": "Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki"
       },
       {
         "id": "futo-cap-eel",
         "name": "Futomaki eel with cheese cap",
         "price": "53 PLN",
-        "desc": "Eel, wakame, mozzarella, surimi, mayo, sesame"
+        "desc": "Eel, cucumber, cheddar, cream cheese, sesame, teriyaki"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Futomaki shrimp with cheese cap",
         "price": "55 PLN",
-        "desc": "Shrimp, avocado, tobiko, mozzarella, surimi, mayo"
+        "desc": "Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki"
       }
     ],
     "Philadelphia": [
@@ -758,9 +758,9 @@
       },
       {
         "id": "phila-avocado",
-        "name": "Philadelphia Classic with avocado",
+        "name": "Philadelphia with avocado",
         "price": "40 PLN",
-        "desc": "Rice, nori, salmon, cream cheese, sesame"
+        "desc": "Rice, nori, salmon, cream cheese, avocado"
       },
       {
         "id": "phila-xl",
@@ -784,9 +784,9 @@
       },
       {
         "id": "cal-shrimp-tobiko",
-        "name": "California with shrimp in tobiko",
+        "name": "California with shrimp in panko",
         "price": "40 PLN",
-        "desc": "Shrimp in panko, cream cheese, cucumber, yellow radish, tobiko"
+        "desc": "shrimp in panko"
       },
       {
         "id": "cal-tuna-sesame",
@@ -1238,7 +1238,7 @@
         "id": "futo-shrimp-panko",
         "name": "Креветка у панко",
         "price": "42 PLN",
-        "desc": "Рис, норі, креветка, огірок, жовта редька, тобіко, вершковий сир, панко"
+        "desc": "Рис, норі, креветка, огірок, жовта редька, вершковий сир, панко"
       },
       {
         "id": "futo-salmon-tartar",
@@ -1252,19 +1252,19 @@
         "id": "futo-cap-salmon",
         "name": "Футомак лосось із сирною шапкою",
         "price": "49 PLN",
-        "desc": "Лосось, моцарела, surimi, майонез, кунжут, теріякі"
+        "desc": "Лосось, огірок, cheddar, філадельфія, кунжут, теріякі"
       },
       {
         "id": "futo-cap-eel",
         "name": "Футомак вугор із сирною шапкою",
         "price": "53 PLN",
-        "desc": "Вугор, вакаме, моцарела, surimi, майонез, кунжут"
+        "desc": "Вугор, огірок, cheddar, філадельфія, кунжут, теріякі"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Футомак креветка із сирною шапкою",
         "price": "55 PLN",
-        "desc": "Креветка, авокадо, тобіко, моцарела, surimi, майонез"
+        "desc": "Креветка, огірок, cheddar, філадельфія, кунжут, теріякі"
       }
     ],
     "Philadelphia": [
@@ -1300,9 +1300,9 @@
       },
       {
         "id": "phila-avocado",
-        "name": "Philadelphia Classic з авокадо",
+        "name": "Philadelphia з авокадо",
         "price": "40 PLN",
-        "desc": "Рис, норі, лосось, вершковий сир, кунжут"
+        "desc": "Рис, норі, лосось, вершковий сир, авокадо"
       },
       {
         "id": "phila-xl",
@@ -1326,9 +1326,9 @@
       },
       {
         "id": "cal-shrimp-tobiko",
-        "name": "Каліфорнія з креветкою у тобіко",
+        "name": "Каліфорнія з креветкою в панко",
         "price": "40 PLN",
-        "desc": "Kреветка в панко, вершковий сир, огірок, жовта редька, тобіко"
+        "desc": "креветка в панко"
       },
       {
         "id": "cal-tuna-sesame",

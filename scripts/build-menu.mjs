@@ -157,13 +157,13 @@ const pl = {
     { id: 'futo-eel-panko', name: 'Węgorz w panko', price: '42 PLN', desc: 'Ryż, nori, węgorz pieczony, philadelphia, sezam, teriyaki' },
     { id: 'futo-tuna-panko', name: 'Tuńczyk w panko', price: '39 PLN', desc: 'Ryż, nori, tuńczyk, kanpyo, philadelphia, panko' },
     { id: 'futo-salmon-panko', name: 'Łosoś w panko', price: '39 PLN', desc: 'Ryż, nori, łosoś, ogórek, philadelphia, tempura' },
-    { id: 'futo-shrimp-panko', name: 'Z krewetkami w panko', price: '42 PLN', desc: 'Ryż, nori, krewetka, ogórek, żółta rzepa, tobiko, philadelphia, panko' },
+    { id: 'futo-shrimp-panko', name: 'Z krewetkami w panko', price: '42 PLN', desc: 'Ryż, nori, krewetka, ogórek, żółta rzepa, philadelphia, panko' },
     { id: 'futo-salmon-tartar', name: 'Tartar z łososia', price: '37 PLN', desc: 'Ryż, nori, tartar z łososia, chilli, ogórek, sezam' }
   ],
   'Futomak z serową czapeczką': [
-    { id: 'futo-cap-salmon', name: 'Futomak łosoś z serową czapeczką', price: '49 PLN', desc: 'Łosoś, ser mozzarella, surimi, majonez, sezam, teriyaki' },
-    { id: 'futo-cap-eel', name: 'Futomak węgorz z serową czapeczką', price: '53 PLN', desc: 'Węgorz, wakame, ser mozzarella, surimi, majonez, sezam' },
-    { id: 'futo-cap-shrimp', name: 'Futomak krewetki z serową czapeczką', price: '55 PLN', desc: 'Krewetki, awokado, tobiko, ser mozzarella, surimi, majonez' }
+    { id: 'futo-cap-salmon', name: 'Futomak łosoś z serową czapeczką', price: '49 PLN', desc: 'Łosoś, ogórek, ser cheddar, philadelphia, sezam, teriyaki' },
+    { id: 'futo-cap-eel', name: 'Futomak węgorz z serową czapeczką', price: '53 PLN', desc: 'Węgorz, ogórek, ser cheddar, philadelphia, sezam, teriyaki' },
+    { id: 'futo-cap-shrimp', name: 'Futomak krewetki z serową czapeczką', price: '55 PLN', desc: 'Krewetki, ogórek, ser cheddar, philadelphia, sezam, teriyaki' }
   ],
   Philadelphia: [
     { id: 'phila-classic', name: 'Philadelphia Classic', price: '39 PLN', desc: 'Ryż, nori, łosoś, philadelphia, ogórek' },
@@ -171,13 +171,13 @@ const pl = {
     { id: 'phila-tuna', name: 'Philadelphia Tuńczyk', price: '39 PLN', desc: 'Ryż, nori, awokado, tuńczyk, philadelphia' },
     { id: 'phila-eel', name: 'Philadelphia Węgorz', price: '40 PLN', desc: 'Ryż, nori, węgorz, ogórek, philadelphia, sezam, teriyaki' },
     { id: 'phila-baked-salmon', name: 'Philadelphia Łosoś opiekany', price: '39 PLN', desc: 'Ryż, nori, łosoś opiekany, kanpyo, sezam, teriyaki, philadelphia' },
-    { id: 'phila-avocado', name: 'Philadelphia Classic z awokado', price: '40 PLN', desc: 'Ryż, nori, łosoś, philadelphia, sezam' },
+    { id: 'phila-avocado', name: 'Philadelphia z awokado', price: '40 PLN', desc: 'Ryż, nori, łosoś, philadelphia, awokado' },
     { id: 'phila-xl', name: 'Philadelphia XL', price: '59 PLN', desc: 'Ryż, nori, podwójny łosoś, ogórek, philadelphia' }
   ],
   Kalifornia: [
     { id: 'cal-salmon-tobiko', name: 'Kalifornia z łososiem w tobiko', price: '39 PLN', desc: 'Łosoś, philadelphia, żółta rzepa, ogórek, tobiko' },
     { id: 'cal-eel-sesame', name: 'Kalifornia z węgorzem w sezamie', price: '39 PLN', desc: 'Węgorz, philadelphia, ogórek, żółta rzepa, sezam' },
-    { id: 'cal-shrimp-tobiko', name: 'Kalifornia z krewetkami w tobiko', price: '40 PLN', desc: 'Krewetka w panko, philadelphia, ogórek, żółta rzepa, tobiko' },
+    { id: 'cal-shrimp-tobiko', name: 'Kalifornia z krewetkami w panko', price: '40 PLN', desc: 'krewetka w panko' },
     { id: 'cal-tuna-sesame', name: 'Kalifornia z tuńczykiem w sezamie', price: '39 PLN', desc: 'Tuńczyk, philadelphia, ogórek, żółta rzepa, sezam' }
   ],
   Uramak: [

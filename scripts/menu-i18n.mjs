@@ -192,11 +192,11 @@ export const menuI18n = {
   'futo-shrimp-panko': {
     en: {
       name: 'Shrimp in panko',
-      desc: 'Rice, nori, shrimp, cucumber, yellow radish, tobiko, cream cheese, panko'
+      desc: 'Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko'
     },
     uk: {
       name: 'Креветка у панко',
-      desc: 'Рис, норі, креветка, огірок, жовта редька, тобіко, вершковий сир, панко'
+      desc: 'Рис, норі, креветка, огірок, жовта редька, вершковий сир, панко'
     }
   },
   'futo-salmon-tartar': {
@@ -242,8 +242,8 @@ export const menuI18n = {
     }
   },
   'phila-avocado': {
-    en: { name: 'Philadelphia Classic with avocado', desc: 'Rice, nori, salmon, cream cheese, sesame' },
-    uk: { name: 'Philadelphia Classic з авокадо', desc: 'Рис, норі, лосось, вершковий сир, кунжут' }
+    en: { name: 'Philadelphia with avocado', desc: 'Rice, nori, salmon, cream cheese, avocado' },
+    uk: { name: 'Philadelphia з авокадо', desc: 'Рис, норі, лосось, вершковий сир, авокадо' }
   },
   'phila-xl': {
     en: { name: 'Philadelphia XL', desc: 'Rice, nori, double salmon, cucumber, cream cheese' },
@@ -252,31 +252,31 @@ export const menuI18n = {
   'futo-cap-salmon': {
     en: {
       name: 'Futomaki salmon with cheese cap',
-      desc: 'Salmon, mozzarella, surimi, mayo, sesame, teriyaki'
+      desc: 'Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki'
     },
     uk: {
       name: 'Футомак лосось із сирною шапкою',
-      desc: 'Лосось, моцарела, surimi, майонез, кунжут, теріякі'
+      desc: 'Лосось, огірок, cheddar, філадельфія, кунжут, теріякі'
     }
   },
   'futo-cap-eel': {
     en: {
       name: 'Futomaki eel with cheese cap',
-      desc: 'Eel, wakame, mozzarella, surimi, mayo, sesame'
+      desc: 'Eel, cucumber, cheddar, cream cheese, sesame, teriyaki'
     },
     uk: {
       name: 'Футомак вугор із сирною шапкою',
-      desc: 'Вугор, вакаме, моцарела, surimi, майонез, кунжут'
+      desc: 'Вугор, огірок, cheddar, філадельфія, кунжут, теріякі'
     }
   },
   'futo-cap-shrimp': {
     en: {
       name: 'Futomaki shrimp with cheese cap',
-      desc: 'Shrimp, avocado, tobiko, mozzarella, surimi, mayo'
+      desc: 'Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki'
     },
     uk: {
       name: 'Футомак креветка із сирною шапкою',
-      desc: 'Креветка, авокадо, тобіко, моцарела, surimi, майонез'
+      desc: 'Креветка, огірок, cheddar, філадельфія, кунжут, теріякі'
     }
   },
   'cal-salmon-tobiko': {
@@ -301,12 +301,12 @@ export const menuI18n = {
   },
   'cal-shrimp-tobiko': {
     en: {
-      name: 'California with shrimp in tobiko',
-      desc: 'Shrimp in panko, cream cheese, cucumber, yellow radish, tobiko'
+      name: 'California with shrimp in panko',
+      desc: 'shrimp in panko'
     },
     uk: {
-      name: 'Каліфорнія з креветкою у тобіко',
-      desc: 'Kреветка в панко, вершковий сир, огірок, жовта редька, тобіко'
+      name: 'Каліфорнія з креветкою в панко',
+      desc: 'креветка в панко'
     }
   },
   'cal-tuna-sesame': {
