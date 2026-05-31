@@ -124,7 +124,8 @@ export const ValidationError = {
   ADDRESS: 'Address is required for delivery',
   TIME: 'Time is required when scheduling',
   CASH_REQUIRED: 'Cash amount required',
-  CASH_COVER: 'Cash amount must cover order total'
+  CASH_COVER: 'Cash amount must cover order total',
+  CART_PRICING: 'Cart items or total do not match menu prices'
 } as const;
 
 export type ValidationErrorCode =

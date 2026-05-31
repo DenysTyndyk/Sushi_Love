@@ -144,7 +144,9 @@ const pl = {
     errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.',
     errorAddressRequired: 'Podaj adres dostawy.',
     errorTimeRequired: 'Podaj godzinę realizacji zamówienia.',
-    errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.'
+    errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.',
+    errorCartPricing:
+      'Ceny w koszyku nie zgadzają się z menu. Odśwież stronę i spróbuj ponownie.'
   },
   footer: {
     logoAlt: 'Logo Sushi Love',
@@ -256,7 +258,9 @@ const en = {
     errorCashAmountMin: 'Cash amount must be at least the order total.',
     errorAddressRequired: 'Please enter a delivery address.',
     errorTimeRequired: 'Please enter the preferred time.',
-    errorInvalidPayload: 'Please fill in all required order fields.'
+    errorInvalidPayload: 'Please fill in all required order fields.',
+    errorCartPricing:
+      'Cart prices do not match the menu. Refresh the page and try again.'
   },
   footer: {
     logoAlt: 'Sushi Love logo',
@@ -368,7 +372,9 @@ const uk = {
     errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.',
     errorAddressRequired: 'Вкажи адресу доставки.',
     errorTimeRequired: 'Вкажи бажаний час замовлення.',
-    errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.'
+    errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.',
+    errorCartPricing:
+      'Ціни в кошику не збігаються з меню. Онови сторінку та спробуй ще раз.'
   },
   footer: {
     logoAlt: 'Логотип Sushi Love',

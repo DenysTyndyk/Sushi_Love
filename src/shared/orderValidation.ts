@@ -1,3 +1,4 @@
+import { validateAndPriceCart } from './menuCatalog';
 import {
   ValidationError,
   type OrderExtras,
@@ -83,7 +84,12 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     return { ok: false, error: ValidationError.TIME };
   }
 
-  const orderTotal = Number(total);
+  const cartPricing = validateAndPriceCart(cart, total, String(lang));
+  if (!cartPricing.ok) {
+    return { ok: false, error: ValidationError.CART_PRICING };
+  }
+
+  const orderTotal = cartPricing.total;
   let cashTendered: number | null = null;
   let cashChange: number | null = null;
 
@@ -120,7 +126,7 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
       comment: String(comment || '').trim(),
       extras: normalizeExtras(p),
       lang: String(lang),
-      cart,
+      cart: cartPricing.cart,
       total: orderTotal,
       currency,
       cashTendered,

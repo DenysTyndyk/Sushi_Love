@@ -25,7 +25,8 @@ const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
   [ValidationError.CASH_COVER]: 'cart.errorCashAmountMin',
   [ValidationError.ADDRESS]: 'cart.errorAddressRequired',
   [ValidationError.TIME]: 'cart.errorTimeRequired',
-  [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload'
+  [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload',
+  [ValidationError.CART_PRICING]: 'cart.errorCartPricing'
 };
 
 const initialFormData: OrderFormData = {
