@@ -55,21 +55,21 @@ var menuByLang_default = {
         name: "Zestaw 4 \u201EPhiladelphia\u201D (32 szt)",
         price: "160 PLN",
         desc: "Philadelphia Krewetka 8, Philadelphia W\u0119gorz 8, Philadelphia \u0141oso\u015B 8, Philadelphia Tu\u0144czyk 8",
-        image: "/imgs/sets_img/Philadelphia_set_4.jpg"
+        image: "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         id: "set-5",
         name: "Zestaw 5 \u201EMAKI\u201D (36 szt)",
         price: "100 PLN",
         desc: "Hosomak \u0141oso\u015B, W\u0119gorz, Surimi, Og\xF3rek, \u017B\xF3\u0142ta rzepa, Kanpyo \u2014 po 6 szt",
-        image: "/imgs/sets_img/Maki_set_5.jpg"
+        image: "/imgs/sets_img/SetMaki5.png"
       },
       {
         id: "set-6",
         name: "Zestaw 6 \u201EAbsolute\u201D (46 szt)",
         price: "200 PLN",
         desc: "Unagi 8, Phila opiekana 8, Phila \u0142oso\u015B 8, Futo tu\u0144czyk panko 8, Futo tartar panko 8, Hosomak \u0142oso\u015B 6",
-        image: "/imgs/sets_img/Absolute_set_6.jpg"
+        image: "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         id: "set-7",
@@ -83,14 +83,14 @@ var menuByLang_default = {
         name: "Zestaw 8 \u201EKalifornia\u201D (32 szt)",
         price: "150 PLN",
         desc: "Kalifornia \u0142oso\u015B tobiko 8, Kalifornia krewetki tobiko 8, Kalifornia tu\u0144czyk sezam 8, Kalifornia w\u0119gorz sezam 8",
-        image: "/imgs/sets_img/Kalifornia_set_8.jpg"
+        image: "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         id: "set-9",
         name: "Zestaw 9 \u201EMix\u201D (28 szt)",
         price: "110 PLN",
         desc: "Tartar \u0142oso\u015B panko 8, Phila \u0142oso\u015B i surimi 8, Hosomak \u0142oso\u015B 6, Hosomak w\u0119gorz 6",
-        image: "/imgs/sets_img/Mix_set_9.jpg"
+        image: "/imgs/sets_img/SetMix9.png"
       },
       {
         id: "set-10",
@@ -140,13 +140,15 @@ var menuByLang_default = {
         id: "futo-salmon-center",
         name: "Futo z \u0142ososiem w \u015Brodku",
         price: "38 PLN",
-        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, og\xF3rek"
+        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, og\xF3rek",
+        image: "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         id: "futo-salmon-surimi",
         name: "Futo z \u0142ososiem i surimi",
         price: "37 PLN",
-        desc: "Ry\u017C, nori, surimi, og\xF3rek, \u0142oso\u015B, philadelphia"
+        desc: "Ry\u017C, nori, surimi, og\xF3rek, \u0142oso\u015B, philadelphia",
+        image: "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         id: "futo-baked-salmon",
@@ -164,32 +166,36 @@ var menuByLang_default = {
         id: "futo-eel-panko",
         name: "W\u0119gorz w panko",
         price: "42 PLN",
-        desc: "Ry\u017C, nori, w\u0119gorz pieczony, philadelphia, sezam, teriyaki"
+        desc: "Ry\u017C, nori, w\u0119gorz pieczony, philadelphia, sezam, teriyaki",
+        image: "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         id: "futo-tuna-panko",
         name: "Tu\u0144czyk w panko",
         price: "39 PLN",
-        desc: "Ry\u017C, nori, tu\u0144czyk, kanpyo, philadelphia, panko"
+        desc: "Ry\u017C, nori, tu\u0144czyk, kanpyo, philadelphia, panko",
+        image: "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         id: "futo-salmon-panko",
         name: "\u0141oso\u015B w panko",
         price: "39 PLN",
-        desc: "Ry\u017C, nori, \u0142oso\u015B, og\xF3rek, philadelphia, tempura"
+        desc: "Ry\u017C, nori, \u0142oso\u015B, og\xF3rek, philadelphia, tempura",
+        image: "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         id: "futo-shrimp-panko",
         name: "Z krewetkami w panko",
         price: "42 PLN",
         desc: "Ry\u017C, nori, krewetka, og\xF3rek, \u017C\xF3\u0142ta rzepa, philadelphia, panko",
-        image: "/imgs/Rolls/FutoShrimpPanko.png"
+        image: "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
         name: "Tartar z \u0142ososia",
         price: "37 PLN",
-        desc: "Ry\u017C, nori, tartar z \u0142ososia, chilli, og\xF3rek, sezam"
+        desc: "Ry\u017C, nori, tartar z \u0142ososia, chilli, og\xF3rek, sezam",
+        image: "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serow\u0105 czapeczk\u0105": [
@@ -197,19 +203,22 @@ var menuByLang_default = {
         id: "futo-cap-salmon",
         name: "Futomak \u0142oso\u015B z serow\u0105 czapeczk\u0105",
         price: "49 PLN",
-        desc: "\u0141oso\u015B, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki"
+        desc: "\u0141oso\u015B, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki",
+        image: "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         id: "futo-cap-eel",
         name: "Futomak w\u0119gorz z serow\u0105 czapeczk\u0105",
         price: "53 PLN",
-        desc: "W\u0119gorz, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki"
+        desc: "W\u0119gorz, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki",
+        image: "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         id: "futo-cap-shrimp",
         name: "Futomak krewetki z serow\u0105 czapeczk\u0105",
         price: "55 PLN",
-        desc: "Krewetki, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki"
+        desc: "Krewetki, og\xF3rek, ser cheddar, philadelphia, sezam, teriyaki",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     Philadelphia: [
@@ -217,43 +226,50 @@ var menuByLang_default = {
         id: "phila-classic",
         name: "Philadelphia Classic",
         price: "39 PLN",
-        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, og\xF3rek"
+        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, og\xF3rek",
+        image: "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         id: "phila-shrimp",
         name: "Philadelphia Krewetka",
         price: "42 PLN",
-        desc: "Ry\u017C, nori, og\xF3rek, philadelphia, krewetka, sezam, teriyaki"
+        desc: "Ry\u017C, nori, og\xF3rek, philadelphia, krewetka, sezam, teriyaki",
+        image: "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         id: "phila-tuna",
         name: "Philadelphia Tu\u0144czyk",
         price: "39 PLN",
-        desc: "Ry\u017C, nori, awokado, tu\u0144czyk, philadelphia"
+        desc: "Ry\u017C, nori, awokado, tu\u0144czyk, philadelphia",
+        image: "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         id: "phila-eel",
         name: "Philadelphia W\u0119gorz",
         price: "40 PLN",
-        desc: "Ry\u017C, nori, w\u0119gorz, og\xF3rek, philadelphia, sezam, teriyaki"
+        desc: "Ry\u017C, nori, w\u0119gorz, og\xF3rek, philadelphia, sezam, teriyaki",
+        image: "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         id: "phila-baked-salmon",
         name: "Philadelphia \u0141oso\u015B opiekany",
         price: "39 PLN",
-        desc: "Ry\u017C, nori, \u0142oso\u015B opiekany, kanpyo, sezam, teriyaki, philadelphia"
+        desc: "Ry\u017C, nori, \u0142oso\u015B opiekany, kanpyo, sezam, teriyaki, philadelphia",
+        image: "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         id: "phila-avocado",
         name: "Philadelphia z awokado",
         price: "40 PLN",
-        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, awokado"
+        desc: "Ry\u017C, nori, \u0142oso\u015B, philadelphia, awokado",
+        image: "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         id: "phila-xl",
         name: "Philadelphia XL",
         price: "59 PLN",
-        desc: "Ry\u017C, nori, podw\xF3jny \u0142oso\u015B, og\xF3rek, philadelphia"
+        desc: "Ry\u017C, nori, podw\xF3jny \u0142oso\u015B, og\xF3rek, philadelphia",
+        image: "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     Kalifornia: [
@@ -261,25 +277,29 @@ var menuByLang_default = {
         id: "cal-salmon-tobiko",
         name: "Kalifornia z \u0142ososiem w tobiko",
         price: "39 PLN",
-        desc: "\u0141oso\u015B, philadelphia, \u017C\xF3\u0142ta rzepa, og\xF3rek, tobiko"
+        desc: "\u0141oso\u015B, philadelphia, \u017C\xF3\u0142ta rzepa, og\xF3rek, tobiko",
+        image: "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         id: "cal-eel-sesame",
         name: "Kalifornia z w\u0119gorzem w sezamie",
         price: "39 PLN",
-        desc: "W\u0119gorz, philadelphia, og\xF3rek, \u017C\xF3\u0142ta rzepa, sezam"
+        desc: "W\u0119gorz, philadelphia, og\xF3rek, \u017C\xF3\u0142ta rzepa, sezam",
+        image: "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         id: "cal-shrimp-tobiko",
         name: "Kalifornia z krewetkami w panko",
         price: "40 PLN",
-        desc: "krewetka w panko"
+        desc: "Krewetka, philadelphia, \u017C\xF3\u0142ta rzepa, og\xF3rek, tobiko",
+        image: "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         id: "cal-tuna-sesame",
         name: "Kalifornia z tu\u0144czykiem w sezamie",
         price: "39 PLN",
-        desc: "Tu\u0144czyk, philadelphia, og\xF3rek, \u017C\xF3\u0142ta rzepa, sezam"
+        desc: "Tu\u0144czyk, philadelphia, og\xF3rek, \u017C\xF3\u0142ta rzepa, sezam",
+        image: "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     Uramak: [
@@ -287,19 +307,22 @@ var menuByLang_default = {
         id: "ura-unagi",
         name: "Unagi",
         price: "38 PLN",
-        desc: "Ry\u017C, nori, philadelphia, og\xF3rek, w\u0119gorz, teriyaki, sezam"
+        desc: "Ry\u017C, nori, philadelphia, og\xF3rek, w\u0119gorz, teriyaki, sezam",
+        image: "/imgs/Rolls/Uramak.jpg"
       },
       {
         id: "ura-tokio",
         name: "Tokio",
         price: "58 PLN",
-        desc: "Ry\u017C, nori, philadelphia, og\xF3rek, krewetka gotowana, tobiko, \u0142oso\u015B"
+        desc: "Ry\u017C, nori, philadelphia, og\xF3rek, krewetka gotowana, tobiko, \u0142oso\u015B",
+        image: "/imgs/Rolls/TokyoRoll.png"
       },
       {
         id: "ura-three-rubies",
         name: "Trzy ryby",
         price: "49 PLN",
-        desc: "\u0141oso\u015B, tu\u0144czyk, w\u0119gorz, awokado, sezam"
+        desc: "\u0141oso\u015B, tu\u0144czyk, w\u0119gorz, awokado, sezam",
+        image: "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     Hosomak: [
@@ -598,21 +621,21 @@ var menuByLang_default = {
         name: 'Set 4 "Philadelphia" (32 pcs)',
         price: "160 PLN",
         desc: "Philadelphia Shrimp \xD78, Philadelphia Eel \xD78, Philadelphia Salmon \xD78, Philadelphia Tuna \xD78",
-        image: "/imgs/sets_img/Philadelphia_set_4.jpg"
+        image: "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         id: "set-5",
         name: 'Set 5 "MAKI" (36 pcs)',
         price: "100 PLN",
         desc: "Hosomaki Salmon, Eel, Surimi, Cucumber, Yellow radish, Kanpyo \u2014 6 pcs each",
-        image: "/imgs/sets_img/Maki_set_5.jpg"
+        image: "/imgs/sets_img/SetMaki5.png"
       },
       {
         id: "set-6",
         name: 'Set 6 "Absolute" (46 pcs)',
         price: "200 PLN",
         desc: "Unagi \xD78, Baked Phila \xD78, Phila salmon \xD78, Futomaki tuna panko \xD78, tartar panko \xD78, Hosomaki salmon \xD76",
-        image: "/imgs/sets_img/Absolute_set_6.jpg"
+        image: "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         id: "set-7",
@@ -626,14 +649,14 @@ var menuByLang_default = {
         name: 'Set 8 "California" (32 pcs)',
         price: "150 PLN",
         desc: "California salmon tobiko \xD78, California shrimp tobiko \xD78, California tuna sesame \xD78, California eel sesame \xD78",
-        image: "/imgs/sets_img/Kalifornia_set_8.jpg"
+        image: "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         id: "set-9",
         name: 'Set 9 "Mix" (28 pcs)',
         price: "110 PLN",
         desc: "Salmon tartar panko \xD78, Phila salmon & surimi \xD78, Hosomaki salmon \xD76, Hosomaki eel \xD76",
-        image: "/imgs/sets_img/Mix_set_9.jpg"
+        image: "/imgs/sets_img/SetMix9.png"
       },
       {
         id: "set-10",
@@ -683,13 +706,15 @@ var menuByLang_default = {
         id: "futo-salmon-center",
         name: "Futomaki with salmon inside",
         price: "38 PLN",
-        desc: "Rice, nori, salmon, cream cheese, cucumber"
+        desc: "Rice, nori, salmon, cream cheese, cucumber",
+        image: "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         id: "futo-salmon-surimi",
         name: "Futomaki with salmon & surimi",
         price: "37 PLN",
-        desc: "Rice, nori, surimi, cucumber, salmon, cream cheese"
+        desc: "Rice, nori, surimi, cucumber, salmon, cream cheese",
+        image: "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         id: "futo-baked-salmon",
@@ -707,32 +732,36 @@ var menuByLang_default = {
         id: "futo-eel-panko",
         name: "Eel in panko",
         price: "42 PLN",
-        desc: "Rice, nori, baked eel, cream cheese, sesame, teriyaki"
+        desc: "Rice, nori, baked eel, cream cheese, sesame, teriyaki",
+        image: "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         id: "futo-tuna-panko",
         name: "Tuna in panko",
         price: "39 PLN",
-        desc: "Rice, nori, tuna, kanpyo, cream cheese, panko"
+        desc: "Rice, nori, tuna, kanpyo, cream cheese, panko",
+        image: "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         id: "futo-salmon-panko",
         name: "Salmon in panko",
         price: "39 PLN",
-        desc: "Rice, nori, salmon, cucumber, cream cheese, tempura"
+        desc: "Rice, nori, salmon, cucumber, cream cheese, tempura",
+        image: "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         id: "futo-shrimp-panko",
         name: "Shrimp in panko",
         price: "42 PLN",
         desc: "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko",
-        image: "/imgs/Rolls/FutoShrimpPanko.png"
+        image: "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
         name: "Salmon tartare",
         price: "37 PLN",
-        desc: "Rice, nori, salmon tartare, chilli, cucumber, sesame"
+        desc: "Rice, nori, salmon tartare, chilli, cucumber, sesame",
+        image: "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serow\u0105 czapeczk\u0105": [
@@ -740,19 +769,22 @@ var menuByLang_default = {
         id: "futo-cap-salmon",
         name: "Futomaki salmon with cheese cap",
         price: "49 PLN",
-        desc: "Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        desc: "Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        image: "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         id: "futo-cap-eel",
         name: "Futomaki eel with cheese cap",
         price: "53 PLN",
-        desc: "Eel, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        desc: "Eel, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        image: "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         id: "futo-cap-shrimp",
         name: "Futomaki shrimp with cheese cap",
         price: "55 PLN",
-        desc: "Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        desc: "Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     Philadelphia: [
@@ -760,43 +792,50 @@ var menuByLang_default = {
         id: "phila-classic",
         name: "Philadelphia Classic",
         price: "39 PLN",
-        desc: "Rice, nori, salmon, cream cheese, cucumber"
+        desc: "Rice, nori, salmon, cream cheese, cucumber",
+        image: "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         id: "phila-shrimp",
         name: "Philadelphia Shrimp",
         price: "42 PLN",
-        desc: "Rice, nori, cucumber, cream cheese, shrimp, sesame, teriyaki"
+        desc: "Rice, nori, cucumber, cream cheese, shrimp, sesame, teriyaki",
+        image: "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         id: "phila-tuna",
         name: "Philadelphia Tuna",
         price: "39 PLN",
-        desc: "Rice, nori, avocado, tuna, cream cheese"
+        desc: "Rice, nori, avocado, tuna, cream cheese",
+        image: "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         id: "phila-eel",
         name: "Philadelphia Eel",
         price: "40 PLN",
-        desc: "Rice, nori, eel, cucumber, cream cheese, sesame, teriyaki"
+        desc: "Rice, nori, eel, cucumber, cream cheese, sesame, teriyaki",
+        image: "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         id: "phila-baked-salmon",
         name: "Philadelphia Baked Salmon",
         price: "39 PLN",
-        desc: "Rice, nori, baked salmon, kanpyo, sesame, teriyaki, cream cheese"
+        desc: "Rice, nori, baked salmon, kanpyo, sesame, teriyaki, cream cheese",
+        image: "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         id: "phila-avocado",
         name: "Philadelphia with avocado",
         price: "40 PLN",
-        desc: "Rice, nori, salmon, cream cheese, avocado"
+        desc: "Rice, nori, salmon, cream cheese, avocado",
+        image: "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         id: "phila-xl",
         name: "Philadelphia XL",
         price: "59 PLN",
-        desc: "Rice, nori, double salmon, cucumber, cream cheese"
+        desc: "Rice, nori, double salmon, cucumber, cream cheese",
+        image: "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     Kalifornia: [
@@ -804,25 +843,29 @@ var menuByLang_default = {
         id: "cal-salmon-tobiko",
         name: "California with salmon in tobiko",
         price: "39 PLN",
-        desc: "Salmon, cream cheese, yellow radish, cucumber, tobiko"
+        desc: "Salmon, cream cheese, yellow radish, cucumber, tobiko",
+        image: "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         id: "cal-eel-sesame",
         name: "California with eel in sesame",
         price: "39 PLN",
-        desc: "Eel, cream cheese, cucumber, yellow radish, sesame"
+        desc: "Eel, cream cheese, cucumber, yellow radish, sesame",
+        image: "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         id: "cal-shrimp-tobiko",
         name: "California with shrimp in panko",
         price: "40 PLN",
-        desc: "shrimp in panko"
+        desc: "Shrimp, cream cheese, yellow radish, cucumber, tobiko",
+        image: "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         id: "cal-tuna-sesame",
         name: "California with tuna in sesame",
         price: "39 PLN",
-        desc: "Tuna, cream cheese, cucumber, yellow radish, sesame"
+        desc: "Tuna, cream cheese, cucumber, yellow radish, sesame",
+        image: "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     Uramak: [
@@ -830,19 +873,22 @@ var menuByLang_default = {
         id: "ura-unagi",
         name: "Unagi",
         price: "38 PLN",
-        desc: "Rice, nori, cream cheese, cucumber, eel, teriyaki, sesame"
+        desc: "Rice, nori, cream cheese, cucumber, eel, teriyaki, sesame",
+        image: "/imgs/Rolls/Uramak.jpg"
       },
       {
         id: "ura-tokio",
         name: "Tokyo",
         price: "58 PLN",
-        desc: "Rice, nori, cream cheese, cucumber, cooked shrimp, tobiko, salmon"
+        desc: "Rice, nori, cream cheese, cucumber, cooked shrimp, tobiko, salmon",
+        image: "/imgs/Rolls/TokyoRoll.png"
       },
       {
         id: "ura-three-rubies",
         name: "Three fish",
         price: "49 PLN",
-        desc: "Salmon, tuna, eel, avocado, sesame"
+        desc: "Salmon, tuna, eel, avocado, sesame",
+        image: "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     Hosomak: [
@@ -1141,21 +1187,21 @@ var menuByLang_default = {
         name: "\u0421\u0435\u0442 4 \xABPhiladelphia\xBB (32 \u0448\u0442)",
         price: "160 PLN",
         desc: "\u0424\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \xD78, \u0424\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F \u0432\u0443\u0433\u043E\u0440 \xD78, \u0424\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F \u043B\u043E\u0441\u043E\u0441\u044C \xD78, \u0424\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F \u0442\u0443\u043D\u0435\u0446\u044C \xD78",
-        image: "/imgs/sets_img/Philadelphia_set_4.jpg"
+        image: "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         id: "set-5",
         name: "\u0421\u0435\u0442 5 \xABMAKI\xBB (36 \u0448\u0442)",
         price: "100 PLN",
         desc: "\u0425\u043E\u0441\u043E\u043C\u0430\u043A \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0443\u0433\u043E\u0440, surimi, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, kanpyo \u2014 \u043F\u043E 6 \u0448\u0442",
-        image: "/imgs/sets_img/Maki_set_5.jpg"
+        image: "/imgs/sets_img/SetMaki5.png"
       },
       {
         id: "set-6",
         name: "\u0421\u0435\u0442 6 \xABAbsolute\xBB (46 \u0448\u0442)",
         price: "200 PLN",
         desc: "Unagi \xD78, \u0444\u0456\u043B\u0430 \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0430 \xD78, \u0444\u0456\u043B\u0430 \u043B\u043E\u0441\u043E\u0441\u044C \xD78, \u0444\u0443\u0442\u043E\u043C\u0430\u043A \u0442\u0443\u043D\u0435\u0446\u044C \u043F\u0430\u043D\u043A\u043E \xD78, \u0442\u0430\u0440\u0442\u0430\u0440 \u043F\u0430\u043D\u043A\u043E \xD78, \u0445\u043E\u0441\u043E\u043C\u0430\u043A \u043B\u043E\u0441\u043E\u0441\u044C \xD76",
-        image: "/imgs/sets_img/Absolute_set_6.jpg"
+        image: "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         id: "set-7",
@@ -1169,14 +1215,14 @@ var menuByLang_default = {
         name: "\u0421\u0435\u0442 8 \xABCalifornia\xBB (32 \u0448\u0442)",
         price: "150 PLN",
         desc: "\u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u043B\u043E\u0441\u043E\u0441\u044C \u0442\u043E\u0431\u0456\u043A\u043E \xD78, \u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \u0442\u043E\u0431\u0456\u043A\u043E \xD78, \u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0442\u0443\u043D\u0435\u0446\u044C \u043A\u0443\u043D\u0436\u0443\u0442 \xD78, \u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0432\u0443\u0433\u043E\u0440 \u043A\u0443\u043D\u0436\u0443\u0442 \xD78",
-        image: "/imgs/sets_img/Kalifornia_set_8.jpg"
+        image: "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         id: "set-9",
         name: "\u0421\u0435\u0442 9 \xABMix\xBB (28 \u0448\u0442)",
         price: "110 PLN",
         desc: "\u0422\u0430\u0440\u0442\u0430\u0440 \u043B\u043E\u0441\u043E\u0441\u044C \u043F\u0430\u043D\u043A\u043E \xD78, \u0444\u0456\u043B\u0430 \u043B\u043E\u0441\u043E\u0441\u044C \u0456 surimi \xD78, \u0445\u043E\u0441\u043E\u043C\u0430\u043A \u043B\u043E\u0441\u043E\u0441\u044C \xD76, \u0445\u043E\u0441\u043E\u043C\u0430\u043A \u0432\u0443\u0433\u043E\u0440 \xD76",
-        image: "/imgs/sets_img/Mix_set_9.jpg"
+        image: "/imgs/sets_img/SetMix9.png"
       },
       {
         id: "set-10",
@@ -1226,13 +1272,15 @@ var menuByLang_default = {
         id: "futo-salmon-center",
         name: "\u0424\u0443\u0442\u043E\u043C\u0430\u043A \u0437 \u043B\u043E\u0441\u043E\u0441\u0435\u043C \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456",
         price: "38 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A",
+        image: "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         id: "futo-salmon-surimi",
         name: "\u0424\u0443\u0442\u043E\u043C\u0430\u043A \u0437 \u043B\u043E\u0441\u043E\u0441\u0435\u043C \u0456 surimi",
         price: "37 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, surimi, \u043E\u0433\u0456\u0440\u043E\u043A, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, surimi, \u043E\u0433\u0456\u0440\u043E\u043A, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440",
+        image: "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         id: "futo-baked-salmon",
@@ -1250,32 +1298,36 @@ var menuByLang_default = {
         id: "futo-eel-panko",
         name: "\u0412\u0443\u0433\u043E\u0440 \u0443 \u043F\u0430\u043D\u043A\u043E",
         price: "42 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0438\u0439 \u0432\u0443\u0433\u043E\u0440, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0438\u0439 \u0432\u0443\u0433\u043E\u0440, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         id: "futo-tuna-panko",
         name: "\u0422\u0443\u043D\u0435\u0446\u044C \u0443 \u043F\u0430\u043D\u043A\u043E",
         price: "39 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0442\u0443\u043D\u0435\u0446\u044C, kanpyo, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043F\u0430\u043D\u043A\u043E"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0442\u0443\u043D\u0435\u0446\u044C, kanpyo, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043F\u0430\u043D\u043A\u043E",
+        image: "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         id: "futo-salmon-panko",
         name: "\u041B\u043E\u0441\u043E\u0441\u044C \u0443 \u043F\u0430\u043D\u043A\u043E",
         price: "39 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0442\u0435\u043C\u043F\u0443\u0440\u0430"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0442\u0435\u043C\u043F\u0443\u0440\u0430",
+        image: "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         id: "futo-shrimp-panko",
         name: "\u041A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \u0443 \u043F\u0430\u043D\u043A\u043E",
         price: "42 PLN",
         desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043F\u0430\u043D\u043A\u043E",
-        image: "/imgs/Rolls/FutoShrimpPanko.png"
+        image: "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
         name: "\u0422\u0430\u0440\u0442\u0430\u0440 \u0456\u0437 \u043B\u043E\u0441\u043E\u0441\u044F",
         price: "37 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0442\u0430\u0440\u0442\u0430\u0440 \u0456\u0437 \u043B\u043E\u0441\u043E\u0441\u044F, \u0447\u0438\u043B\u0456, \u043E\u0433\u0456\u0440\u043E\u043A, \u043A\u0443\u043D\u0436\u0443\u0442"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0442\u0430\u0440\u0442\u0430\u0440 \u0456\u0437 \u043B\u043E\u0441\u043E\u0441\u044F, \u0447\u0438\u043B\u0456, \u043E\u0433\u0456\u0440\u043E\u043A, \u043A\u0443\u043D\u0436\u0443\u0442",
+        image: "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serow\u0105 czapeczk\u0105": [
@@ -1283,19 +1335,22 @@ var menuByLang_default = {
         id: "futo-cap-salmon",
         name: "\u0424\u0443\u0442\u043E\u043C\u0430\u043A \u043B\u043E\u0441\u043E\u0441\u044C \u0456\u0437 \u0441\u0438\u0440\u043D\u043E\u044E \u0448\u0430\u043F\u043A\u043E\u044E",
         price: "49 PLN",
-        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         id: "futo-cap-eel",
         name: "\u0424\u0443\u0442\u043E\u043C\u0430\u043A \u0432\u0443\u0433\u043E\u0440 \u0456\u0437 \u0441\u0438\u0440\u043D\u043E\u044E \u0448\u0430\u043F\u043A\u043E\u044E",
         price: "53 PLN",
-        desc: "\u0412\u0443\u0433\u043E\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u0412\u0443\u0433\u043E\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         id: "futo-cap-shrimp",
         name: "\u0424\u0443\u0442\u043E\u043C\u0430\u043A \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \u0456\u0437 \u0441\u0438\u0440\u043D\u043E\u044E \u0448\u0430\u043F\u043A\u043E\u044E",
         price: "55 PLN",
-        desc: "\u041A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u041A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, cheddar, \u0444\u0456\u043B\u0430\u0434\u0435\u043B\u044C\u0444\u0456\u044F, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     Philadelphia: [
@@ -1303,43 +1358,50 @@ var menuByLang_default = {
         id: "phila-classic",
         name: "Philadelphia Classic",
         price: "39 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A",
+        image: "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         id: "phila-shrimp",
         name: "Philadelphia \u0437 \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u043E\u044E",
         price: "42 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         id: "phila-tuna",
         name: "Philadelphia \u0437 \u0442\u0443\u043D\u0446\u0435\u043C",
         price: "39 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0430\u0432\u043E\u043A\u0430\u0434\u043E, \u0442\u0443\u043D\u0435\u0446\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0430\u0432\u043E\u043A\u0430\u0434\u043E, \u0442\u0443\u043D\u0435\u0446\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440",
+        image: "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         id: "phila-eel",
         name: "Philadelphia \u0437 \u0432\u0443\u0433\u0440\u0435\u043C",
         price: "40 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0443\u0433\u043E\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0443\u0433\u043E\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456",
+        image: "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         id: "phila-baked-salmon",
         name: "Philadelphia \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0438\u0439 \u043B\u043E\u0441\u043E\u0441\u044C",
         price: "39 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0438\u0439 \u043B\u043E\u0441\u043E\u0441\u044C, kanpyo, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0437\u0430\u043F\u0435\u0447\u0435\u043D\u0438\u0439 \u043B\u043E\u0441\u043E\u0441\u044C, kanpyo, \u043A\u0443\u043D\u0436\u0443\u0442, \u0442\u0435\u0440\u0456\u044F\u043A\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440",
+        image: "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         id: "phila-avocado",
         name: "Philadelphia \u0437 \u0430\u0432\u043E\u043A\u0430\u0434\u043E",
         price: "40 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0430\u0432\u043E\u043A\u0430\u0434\u043E"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0430\u0432\u043E\u043A\u0430\u0434\u043E",
+        image: "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         id: "phila-xl",
         name: "Philadelphia XL",
         price: "59 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043F\u043E\u0434\u0432\u0456\u0439\u043D\u0438\u0439 \u043B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043F\u043E\u0434\u0432\u0456\u0439\u043D\u0438\u0439 \u043B\u043E\u0441\u043E\u0441\u044C, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440",
+        image: "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     Kalifornia: [
@@ -1347,25 +1409,29 @@ var menuByLang_default = {
         id: "cal-salmon-tobiko",
         name: "\u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0437 \u043B\u043E\u0441\u043E\u0441\u0435\u043C \u0443 \u0442\u043E\u0431\u0456\u043A\u043E",
         price: "39 PLN",
-        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0442\u043E\u0431\u0456\u043A\u043E"
+        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0442\u043E\u0431\u0456\u043A\u043E",
+        image: "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         id: "cal-eel-sesame",
         name: "\u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0437 \u0432\u0443\u0433\u0440\u0435\u043C \u0443 \u043A\u0443\u043D\u0436\u0443\u0442\u0456",
         price: "39 PLN",
-        desc: "\u0412\u0443\u0433\u043E\u0440, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442"
+        desc: "\u0412\u0443\u0433\u043E\u0440, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442",
+        image: "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         id: "cal-shrimp-tobiko",
         name: "\u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0437 \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u043E\u044E \u0432 \u043F\u0430\u043D\u043A\u043E",
         price: "40 PLN",
-        desc: "\u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \u0432 \u043F\u0430\u043D\u043A\u043E"
+        desc: "\u041A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0442\u043E\u0431\u0456\u043A\u043E",
+        image: "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         id: "cal-tuna-sesame",
         name: "\u041A\u0430\u043B\u0456\u0444\u043E\u0440\u043D\u0456\u044F \u0437 \u0442\u0443\u043D\u0446\u0435\u043C \u0443 \u043A\u0443\u043D\u0436\u0443\u0442\u0456",
         price: "39 PLN",
-        desc: "\u0422\u0443\u043D\u0435\u0446\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442"
+        desc: "\u0422\u0443\u043D\u0435\u0446\u044C, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u043A\u0443\u043D\u0436\u0443\u0442",
+        image: "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     Uramak: [
@@ -1373,19 +1439,22 @@ var menuByLang_default = {
         id: "ura-unagi",
         name: "Unagi",
         price: "38 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0443\u0433\u043E\u0440, \u0442\u0435\u0440\u0456\u044F\u043A\u0456, \u043A\u0443\u043D\u0436\u0443\u0442"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0443\u0433\u043E\u0440, \u0442\u0435\u0440\u0456\u044F\u043A\u0456, \u043A\u0443\u043D\u0436\u0443\u0442",
+        image: "/imgs/Rolls/Uramak.jpg"
       },
       {
         id: "ura-tokio",
         name: "Tokyo",
         price: "58 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0430\u0440\u0435\u043D\u0430 \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u0442\u043E\u0431\u0456\u043A\u043E, \u043B\u043E\u0441\u043E\u0441\u044C"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043E\u0433\u0456\u0440\u043E\u043A, \u0432\u0430\u0440\u0435\u043D\u0430 \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u0442\u043E\u0431\u0456\u043A\u043E, \u043B\u043E\u0441\u043E\u0441\u044C",
+        image: "/imgs/Rolls/TokyoRoll.png"
       },
       {
         id: "ura-three-rubies",
         name: "\u0422\u0440\u0438 \u0440\u0438\u0431\u0438",
         price: "49 PLN",
-        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u0442\u0443\u043D\u0435\u0446\u044C, \u0432\u0443\u0433\u043E\u0440, \u0430\u0432\u043E\u043A\u0430\u0434\u043E, \u043A\u0443\u043D\u0436\u0443\u0442"
+        desc: "\u041B\u043E\u0441\u043E\u0441\u044C, \u0442\u0443\u043D\u0435\u0446\u044C, \u0432\u0443\u0433\u043E\u0440, \u0430\u0432\u043E\u043A\u0430\u0434\u043E, \u043A\u0443\u043D\u0436\u0443\u0442",
+        image: "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     Hosomak: [

@@ -119,7 +119,8 @@
         "id": "futo-salmon-surimi",
         "name": "Futo z łososiem i surimi",
         "price": "37 PLN",
-        "desc": "Ryż, nori, surimi, ogórek, łosoś, philadelphia"
+        "desc": "Ryż, nori, surimi, ogórek, łosoś, philadelphia",
+        "image": "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         "id": "futo-baked-salmon",
@@ -239,7 +240,8 @@
         "id": "phila-xl",
         "name": "Philadelphia XL",
         "price": "59 PLN",
-        "desc": "Ryż, nori, podwójny łosoś, ogórek, philadelphia"
+        "desc": "Ryż, nori, podwójny łosoś, ogórek, philadelphia",
+        "image": "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     "Kalifornia": [
@@ -683,7 +685,8 @@
         "id": "futo-salmon-surimi",
         "name": "Futomaki with salmon & surimi",
         "price": "37 PLN",
-        "desc": "Rice, nori, surimi, cucumber, salmon, cream cheese"
+        "desc": "Rice, nori, surimi, cucumber, salmon, cream cheese",
+        "image": "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         "id": "futo-baked-salmon",
@@ -803,7 +806,8 @@
         "id": "phila-xl",
         "name": "Philadelphia XL",
         "price": "59 PLN",
-        "desc": "Rice, nori, double salmon, cucumber, cream cheese"
+        "desc": "Rice, nori, double salmon, cucumber, cream cheese",
+        "image": "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     "Kalifornia": [
@@ -1247,7 +1251,8 @@
         "id": "futo-salmon-surimi",
         "name": "Футомак з лососем і surimi",
         "price": "37 PLN",
-        "desc": "Рис, норі, surimi, огірок, лосось, вершковий сир"
+        "desc": "Рис, норі, surimi, огірок, лосось, вершковий сир",
+        "image": "/imgs/Rolls/FutomakiSalmonSurimi.jpg"
       },
       {
         "id": "futo-baked-salmon",
@@ -1367,7 +1372,8 @@
         "id": "phila-xl",
         "name": "Philadelphia XL",
         "price": "59 PLN",
-        "desc": "Рис, норі, подвійний лосось, огірок, вершковий сир"
+        "desc": "Рис, норі, подвійний лосось, огірок, вершковий сир",
+        "image": "/imgs/PhilaRolls/PhiladelphiaXL.jpg"
       }
     ],
     "Kalifornia": [
