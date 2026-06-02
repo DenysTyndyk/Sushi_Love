@@ -302,11 +302,11 @@ export const menuI18n = {
   'cal-shrimp-tobiko': {
     en: {
       name: 'California with shrimp in panko',
-      desc: 'shrimp in panko'
+      desc: 'Shrimp, cream cheese, yellow radish, cucumber, tobiko'
     },
     uk: {
       name: 'Каліфорнія з креветкою в панко',
-      desc: 'креветка в панко'
+      desc: 'Креветка, вершковий сир, жовта редька, огірок, тобіко'
     }
   },
   'cal-tuna-sesame': {

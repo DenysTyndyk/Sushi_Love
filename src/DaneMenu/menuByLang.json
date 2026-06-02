@@ -27,21 +27,21 @@
         "name": "Zestaw 4 „Philadelphia” (32 szt)",
         "price": "160 PLN",
         "desc": "Philadelphia Krewetka 8, Philadelphia Węgorz 8, Philadelphia Łosoś 8, Philadelphia Tuńczyk 8",
-        "image": "/imgs/sets_img/Philadelphia_set_4.jpg"
+        "image": "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         "id": "set-5",
         "name": "Zestaw 5 „MAKI” (36 szt)",
         "price": "100 PLN",
         "desc": "Hosomak Łosoś, Węgorz, Surimi, Ogórek, Żółta rzepa, Kanpyo — po 6 szt",
-        "image": "/imgs/sets_img/Maki_set_5.jpg"
+        "image": "/imgs/sets_img/SetMaki5.png"
       },
       {
         "id": "set-6",
         "name": "Zestaw 6 „Absolute” (46 szt)",
         "price": "200 PLN",
         "desc": "Unagi 8, Phila opiekana 8, Phila łosoś 8, Futo tuńczyk panko 8, Futo tartar panko 8, Hosomak łosoś 6",
-        "image": "/imgs/sets_img/Absolute_set_6.jpg"
+        "image": "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         "id": "set-7",
@@ -55,14 +55,14 @@
         "name": "Zestaw 8 „Kalifornia” (32 szt)",
         "price": "150 PLN",
         "desc": "Kalifornia łosoś tobiko 8, Kalifornia krewetki tobiko 8, Kalifornia tuńczyk sezam 8, Kalifornia węgorz sezam 8",
-        "image": "/imgs/sets_img/Kalifornia_set_8.jpg"
+        "image": "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         "id": "set-9",
         "name": "Zestaw 9 „Mix” (28 szt)",
         "price": "110 PLN",
         "desc": "Tartar łosoś panko 8, Phila łosoś i surimi 8, Hosomak łosoś 6, Hosomak węgorz 6",
-        "image": "/imgs/sets_img/Mix_set_9.jpg"
+        "image": "/imgs/sets_img/SetMix9.png"
       },
       {
         "id": "set-10",
@@ -112,7 +112,8 @@
         "id": "futo-salmon-center",
         "name": "Futo z łososiem w środku",
         "price": "38 PLN",
-        "desc": "Ryż, nori, łosoś, philadelphia, ogórek"
+        "desc": "Ryż, nori, łosoś, philadelphia, ogórek",
+        "image": "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         "id": "futo-salmon-surimi",
@@ -136,31 +137,36 @@
         "id": "futo-eel-panko",
         "name": "Węgorz w panko",
         "price": "42 PLN",
-        "desc": "Ryż, nori, węgorz pieczony, philadelphia, sezam, teriyaki"
+        "desc": "Ryż, nori, węgorz pieczony, philadelphia, sezam, teriyaki",
+        "image": "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         "id": "futo-tuna-panko",
         "name": "Tuńczyk w panko",
         "price": "39 PLN",
-        "desc": "Ryż, nori, tuńczyk, kanpyo, philadelphia, panko"
+        "desc": "Ryż, nori, tuńczyk, kanpyo, philadelphia, panko",
+        "image": "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         "id": "futo-salmon-panko",
         "name": "Łosoś w panko",
         "price": "39 PLN",
-        "desc": "Ryż, nori, łosoś, ogórek, philadelphia, tempura"
+        "desc": "Ryż, nori, łosoś, ogórek, philadelphia, tempura",
+        "image": "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         "id": "futo-shrimp-panko",
         "name": "Z krewetkami w panko",
         "price": "42 PLN",
-        "desc": "Ryż, nori, krewetka, ogórek, żółta rzepa, philadelphia, panko"
+        "desc": "Ryż, nori, krewetka, ogórek, żółta rzepa, philadelphia, panko",
+        "image": "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         "id": "futo-salmon-tartar",
         "name": "Tartar z łososia",
         "price": "37 PLN",
-        "desc": "Ryż, nori, tartar z łososia, chilli, ogórek, sezam"
+        "desc": "Ryż, nori, tartar z łososia, chilli, ogórek, sezam",
+        "image": "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serową czapeczką": [
@@ -168,19 +174,22 @@
         "id": "futo-cap-salmon",
         "name": "Futomak łosoś z serową czapeczką",
         "price": "49 PLN",
-        "desc": "Łosoś, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
+        "desc": "Łosoś, ogórek, ser cheddar, philadelphia, sezam, teriyaki",
+        "image": "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         "id": "futo-cap-eel",
         "name": "Futomak węgorz z serową czapeczką",
         "price": "53 PLN",
-        "desc": "Węgorz, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
+        "desc": "Węgorz, ogórek, ser cheddar, philadelphia, sezam, teriyaki",
+        "image": "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Futomak krewetki z serową czapeczką",
         "price": "55 PLN",
-        "desc": "Krewetki, ogórek, ser cheddar, philadelphia, sezam, teriyaki"
+        "desc": "Krewetki, ogórek, ser cheddar, philadelphia, sezam, teriyaki",
+        "image": "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     "Philadelphia": [
@@ -188,37 +197,43 @@
         "id": "phila-classic",
         "name": "Philadelphia Classic",
         "price": "39 PLN",
-        "desc": "Ryż, nori, łosoś, philadelphia, ogórek"
+        "desc": "Ryż, nori, łosoś, philadelphia, ogórek",
+        "image": "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         "id": "phila-shrimp",
         "name": "Philadelphia Krewetka",
         "price": "42 PLN",
-        "desc": "Ryż, nori, ogórek, philadelphia, krewetka, sezam, teriyaki"
+        "desc": "Ryż, nori, ogórek, philadelphia, krewetka, sezam, teriyaki",
+        "image": "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         "id": "phila-tuna",
         "name": "Philadelphia Tuńczyk",
         "price": "39 PLN",
-        "desc": "Ryż, nori, awokado, tuńczyk, philadelphia"
+        "desc": "Ryż, nori, awokado, tuńczyk, philadelphia",
+        "image": "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         "id": "phila-eel",
         "name": "Philadelphia Węgorz",
         "price": "40 PLN",
-        "desc": "Ryż, nori, węgorz, ogórek, philadelphia, sezam, teriyaki"
+        "desc": "Ryż, nori, węgorz, ogórek, philadelphia, sezam, teriyaki",
+        "image": "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         "id": "phila-baked-salmon",
         "name": "Philadelphia Łosoś opiekany",
         "price": "39 PLN",
-        "desc": "Ryż, nori, łosoś opiekany, kanpyo, sezam, teriyaki, philadelphia"
+        "desc": "Ryż, nori, łosoś opiekany, kanpyo, sezam, teriyaki, philadelphia",
+        "image": "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         "id": "phila-avocado",
         "name": "Philadelphia z awokado",
         "price": "40 PLN",
-        "desc": "Ryż, nori, łosoś, philadelphia, awokado"
+        "desc": "Ryż, nori, łosoś, philadelphia, awokado",
+        "image": "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         "id": "phila-xl",
@@ -232,25 +247,29 @@
         "id": "cal-salmon-tobiko",
         "name": "Kalifornia z łososiem w tobiko",
         "price": "39 PLN",
-        "desc": "Łosoś, philadelphia, żółta rzepa, ogórek, tobiko"
+        "desc": "Łosoś, philadelphia, żółta rzepa, ogórek, tobiko",
+        "image": "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         "id": "cal-eel-sesame",
         "name": "Kalifornia z węgorzem w sezamie",
         "price": "39 PLN",
-        "desc": "Węgorz, philadelphia, ogórek, żółta rzepa, sezam"
+        "desc": "Węgorz, philadelphia, ogórek, żółta rzepa, sezam",
+        "image": "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         "id": "cal-shrimp-tobiko",
         "name": "Kalifornia z krewetkami w panko",
         "price": "40 PLN",
-        "desc": "krewetka w panko"
+        "desc": "Krewetka, philadelphia, żółta rzepa, ogórek, tobiko",
+        "image": "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         "id": "cal-tuna-sesame",
         "name": "Kalifornia z tuńczykiem w sezamie",
         "price": "39 PLN",
-        "desc": "Tuńczyk, philadelphia, ogórek, żółta rzepa, sezam"
+        "desc": "Tuńczyk, philadelphia, ogórek, żółta rzepa, sezam",
+        "image": "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     "Uramak": [
@@ -258,19 +277,22 @@
         "id": "ura-unagi",
         "name": "Unagi",
         "price": "38 PLN",
-        "desc": "Ryż, nori, philadelphia, ogórek, węgorz, teriyaki, sezam"
+        "desc": "Ryż, nori, philadelphia, ogórek, węgorz, teriyaki, sezam",
+        "image": "/imgs/Rolls/Uramak.jpg"
       },
       {
         "id": "ura-tokio",
         "name": "Tokio",
         "price": "58 PLN",
-        "desc": "Ryż, nori, philadelphia, ogórek, krewetka gotowana, tobiko, łosoś"
+        "desc": "Ryż, nori, philadelphia, ogórek, krewetka gotowana, tobiko, łosoś",
+        "image": "/imgs/Rolls/TokyoRoll.png"
       },
       {
         "id": "ura-three-rubies",
         "name": "Trzy ryby",
         "price": "49 PLN",
-        "desc": "Łosoś, tuńczyk, węgorz, awokado, sezam"
+        "desc": "Łosoś, tuńczyk, węgorz, awokado, sezam",
+        "image": "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     "Hosomak": [
@@ -569,21 +591,21 @@
         "name": "Set 4 \"Philadelphia\" (32 pcs)",
         "price": "160 PLN",
         "desc": "Philadelphia Shrimp ×8, Philadelphia Eel ×8, Philadelphia Salmon ×8, Philadelphia Tuna ×8",
-        "image": "/imgs/sets_img/Philadelphia_set_4.jpg"
+        "image": "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         "id": "set-5",
         "name": "Set 5 \"MAKI\" (36 pcs)",
         "price": "100 PLN",
         "desc": "Hosomaki Salmon, Eel, Surimi, Cucumber, Yellow radish, Kanpyo — 6 pcs each",
-        "image": "/imgs/sets_img/Maki_set_5.jpg"
+        "image": "/imgs/sets_img/SetMaki5.png"
       },
       {
         "id": "set-6",
         "name": "Set 6 \"Absolute\" (46 pcs)",
         "price": "200 PLN",
         "desc": "Unagi ×8, Baked Phila ×8, Phila salmon ×8, Futomaki tuna panko ×8, tartar panko ×8, Hosomaki salmon ×6",
-        "image": "/imgs/sets_img/Absolute_set_6.jpg"
+        "image": "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         "id": "set-7",
@@ -597,14 +619,14 @@
         "name": "Set 8 \"California\" (32 pcs)",
         "price": "150 PLN",
         "desc": "California salmon tobiko ×8, California shrimp tobiko ×8, California tuna sesame ×8, California eel sesame ×8",
-        "image": "/imgs/sets_img/Kalifornia_set_8.jpg"
+        "image": "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         "id": "set-9",
         "name": "Set 9 \"Mix\" (28 pcs)",
         "price": "110 PLN",
         "desc": "Salmon tartar panko ×8, Phila salmon & surimi ×8, Hosomaki salmon ×6, Hosomaki eel ×6",
-        "image": "/imgs/sets_img/Mix_set_9.jpg"
+        "image": "/imgs/sets_img/SetMix9.png"
       },
       {
         "id": "set-10",
@@ -654,7 +676,8 @@
         "id": "futo-salmon-center",
         "name": "Futomaki with salmon inside",
         "price": "38 PLN",
-        "desc": "Rice, nori, salmon, cream cheese, cucumber"
+        "desc": "Rice, nori, salmon, cream cheese, cucumber",
+        "image": "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         "id": "futo-salmon-surimi",
@@ -678,31 +701,36 @@
         "id": "futo-eel-panko",
         "name": "Eel in panko",
         "price": "42 PLN",
-        "desc": "Rice, nori, baked eel, cream cheese, sesame, teriyaki"
+        "desc": "Rice, nori, baked eel, cream cheese, sesame, teriyaki",
+        "image": "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         "id": "futo-tuna-panko",
         "name": "Tuna in panko",
         "price": "39 PLN",
-        "desc": "Rice, nori, tuna, kanpyo, cream cheese, panko"
+        "desc": "Rice, nori, tuna, kanpyo, cream cheese, panko",
+        "image": "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         "id": "futo-salmon-panko",
         "name": "Salmon in panko",
         "price": "39 PLN",
-        "desc": "Rice, nori, salmon, cucumber, cream cheese, tempura"
+        "desc": "Rice, nori, salmon, cucumber, cream cheese, tempura",
+        "image": "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         "id": "futo-shrimp-panko",
         "name": "Shrimp in panko",
         "price": "42 PLN",
-        "desc": "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko"
+        "desc": "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko",
+        "image": "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         "id": "futo-salmon-tartar",
         "name": "Salmon tartare",
         "price": "37 PLN",
-        "desc": "Rice, nori, salmon tartare, chilli, cucumber, sesame"
+        "desc": "Rice, nori, salmon tartare, chilli, cucumber, sesame",
+        "image": "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serową czapeczką": [
@@ -710,19 +738,22 @@
         "id": "futo-cap-salmon",
         "name": "Futomaki salmon with cheese cap",
         "price": "49 PLN",
-        "desc": "Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        "desc": "Salmon, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        "image": "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         "id": "futo-cap-eel",
         "name": "Futomaki eel with cheese cap",
         "price": "53 PLN",
-        "desc": "Eel, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        "desc": "Eel, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        "image": "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Futomaki shrimp with cheese cap",
         "price": "55 PLN",
-        "desc": "Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki"
+        "desc": "Shrimp, cucumber, cheddar, cream cheese, sesame, teriyaki",
+        "image": "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     "Philadelphia": [
@@ -730,37 +761,43 @@
         "id": "phila-classic",
         "name": "Philadelphia Classic",
         "price": "39 PLN",
-        "desc": "Rice, nori, salmon, cream cheese, cucumber"
+        "desc": "Rice, nori, salmon, cream cheese, cucumber",
+        "image": "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         "id": "phila-shrimp",
         "name": "Philadelphia Shrimp",
         "price": "42 PLN",
-        "desc": "Rice, nori, cucumber, cream cheese, shrimp, sesame, teriyaki"
+        "desc": "Rice, nori, cucumber, cream cheese, shrimp, sesame, teriyaki",
+        "image": "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         "id": "phila-tuna",
         "name": "Philadelphia Tuna",
         "price": "39 PLN",
-        "desc": "Rice, nori, avocado, tuna, cream cheese"
+        "desc": "Rice, nori, avocado, tuna, cream cheese",
+        "image": "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         "id": "phila-eel",
         "name": "Philadelphia Eel",
         "price": "40 PLN",
-        "desc": "Rice, nori, eel, cucumber, cream cheese, sesame, teriyaki"
+        "desc": "Rice, nori, eel, cucumber, cream cheese, sesame, teriyaki",
+        "image": "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         "id": "phila-baked-salmon",
         "name": "Philadelphia Baked Salmon",
         "price": "39 PLN",
-        "desc": "Rice, nori, baked salmon, kanpyo, sesame, teriyaki, cream cheese"
+        "desc": "Rice, nori, baked salmon, kanpyo, sesame, teriyaki, cream cheese",
+        "image": "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         "id": "phila-avocado",
         "name": "Philadelphia with avocado",
         "price": "40 PLN",
-        "desc": "Rice, nori, salmon, cream cheese, avocado"
+        "desc": "Rice, nori, salmon, cream cheese, avocado",
+        "image": "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         "id": "phila-xl",
@@ -774,25 +811,29 @@
         "id": "cal-salmon-tobiko",
         "name": "California with salmon in tobiko",
         "price": "39 PLN",
-        "desc": "Salmon, cream cheese, yellow radish, cucumber, tobiko"
+        "desc": "Salmon, cream cheese, yellow radish, cucumber, tobiko",
+        "image": "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         "id": "cal-eel-sesame",
         "name": "California with eel in sesame",
         "price": "39 PLN",
-        "desc": "Eel, cream cheese, cucumber, yellow radish, sesame"
+        "desc": "Eel, cream cheese, cucumber, yellow radish, sesame",
+        "image": "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         "id": "cal-shrimp-tobiko",
         "name": "California with shrimp in panko",
         "price": "40 PLN",
-        "desc": "shrimp in panko"
+        "desc": "Shrimp, cream cheese, yellow radish, cucumber, tobiko",
+        "image": "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         "id": "cal-tuna-sesame",
         "name": "California with tuna in sesame",
         "price": "39 PLN",
-        "desc": "Tuna, cream cheese, cucumber, yellow radish, sesame"
+        "desc": "Tuna, cream cheese, cucumber, yellow radish, sesame",
+        "image": "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     "Uramak": [
@@ -800,19 +841,22 @@
         "id": "ura-unagi",
         "name": "Unagi",
         "price": "38 PLN",
-        "desc": "Rice, nori, cream cheese, cucumber, eel, teriyaki, sesame"
+        "desc": "Rice, nori, cream cheese, cucumber, eel, teriyaki, sesame",
+        "image": "/imgs/Rolls/Uramak.jpg"
       },
       {
         "id": "ura-tokio",
         "name": "Tokyo",
         "price": "58 PLN",
-        "desc": "Rice, nori, cream cheese, cucumber, cooked shrimp, tobiko, salmon"
+        "desc": "Rice, nori, cream cheese, cucumber, cooked shrimp, tobiko, salmon",
+        "image": "/imgs/Rolls/TokyoRoll.png"
       },
       {
         "id": "ura-three-rubies",
         "name": "Three fish",
         "price": "49 PLN",
-        "desc": "Salmon, tuna, eel, avocado, sesame"
+        "desc": "Salmon, tuna, eel, avocado, sesame",
+        "image": "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     "Hosomak": [
@@ -1111,21 +1155,21 @@
         "name": "Сет 4 «Philadelphia» (32 шт)",
         "price": "160 PLN",
         "desc": "Філадельфія креветка ×8, Філадельфія вугор ×8, Філадельфія лосось ×8, Філадельфія тунець ×8",
-        "image": "/imgs/sets_img/Philadelphia_set_4.jpg"
+        "image": "/imgs/sets_img/SetPhiladelphia4.png"
       },
       {
         "id": "set-5",
         "name": "Сет 5 «MAKI» (36 шт)",
         "price": "100 PLN",
         "desc": "Хосомак лосось, вугор, surimi, огірок, жовта редька, kanpyo — по 6 шт",
-        "image": "/imgs/sets_img/Maki_set_5.jpg"
+        "image": "/imgs/sets_img/SetMaki5.png"
       },
       {
         "id": "set-6",
         "name": "Сет 6 «Absolute» (46 шт)",
         "price": "200 PLN",
         "desc": "Unagi ×8, філа запечена ×8, філа лосось ×8, футомак тунець панко ×8, тартар панко ×8, хосомак лосось ×6",
-        "image": "/imgs/sets_img/Absolute_set_6.jpg"
+        "image": "/imgs/sets_img/SetAbsolute6.png"
       },
       {
         "id": "set-7",
@@ -1139,14 +1183,14 @@
         "name": "Сет 8 «California» (32 шт)",
         "price": "150 PLN",
         "desc": "Каліфорнія лосось тобіко ×8, Каліфорнія креветка тобіко ×8, Каліфорнія тунець кунжут ×8, Каліфорнія вугор кунжут ×8",
-        "image": "/imgs/sets_img/Kalifornia_set_8.jpg"
+        "image": "/imgs/sets_img/SetCalifornia8.png"
       },
       {
         "id": "set-9",
         "name": "Сет 9 «Mix» (28 шт)",
         "price": "110 PLN",
         "desc": "Тартар лосось панко ×8, філа лосось і surimi ×8, хосомак лосось ×6, хосомак вугор ×6",
-        "image": "/imgs/sets_img/Mix_set_9.jpg"
+        "image": "/imgs/sets_img/SetMix9.png"
       },
       {
         "id": "set-10",
@@ -1196,7 +1240,8 @@
         "id": "futo-salmon-center",
         "name": "Футомак з лососем всередині",
         "price": "38 PLN",
-        "desc": "Рис, норі, лосось, вершковий сир, огірок"
+        "desc": "Рис, норі, лосось, вершковий сир, огірок",
+        "image": "/imgs/Rolls/FutomakiSalmon.png"
       },
       {
         "id": "futo-salmon-surimi",
@@ -1220,31 +1265,36 @@
         "id": "futo-eel-panko",
         "name": "Вугор у панко",
         "price": "42 PLN",
-        "desc": "Рис, норі, запечений вугор, вершковий сир, кунжут, теріякі"
+        "desc": "Рис, норі, запечений вугор, вершковий сир, кунжут, теріякі",
+        "image": "/imgs/Rolls/FutomakiEelPanko.png"
       },
       {
         "id": "futo-tuna-panko",
         "name": "Тунець у панко",
         "price": "39 PLN",
-        "desc": "Рис, норі, тунець, kanpyo, вершковий сир, панко"
+        "desc": "Рис, норі, тунець, kanpyo, вершковий сир, панко",
+        "image": "/imgs/Rolls/FutoTunaPanko.png"
       },
       {
         "id": "futo-salmon-panko",
         "name": "Лосось у панко",
         "price": "39 PLN",
-        "desc": "Рис, норі, лосось, огірок, вершковий сир, темпура"
+        "desc": "Рис, норі, лосось, огірок, вершковий сир, темпура",
+        "image": "/imgs/Rolls/FutoSalmonPanko.png"
       },
       {
         "id": "futo-shrimp-panko",
         "name": "Креветка у панко",
         "price": "42 PLN",
-        "desc": "Рис, норі, креветка, огірок, жовта редька, вершковий сир, панко"
+        "desc": "Рис, норі, креветка, огірок, жовта редька, вершковий сир, панко",
+        "image": "/imgs/Rolls/FutomakiShrimpPanko.png"
       },
       {
         "id": "futo-salmon-tartar",
         "name": "Тартар із лосося",
         "price": "37 PLN",
-        "desc": "Рис, норі, тартар із лосося, чилі, огірок, кунжут"
+        "desc": "Рис, норі, тартар із лосося, чилі, огірок, кунжут",
+        "image": "/imgs/Rolls/FutoSalmonTartarPanko.png"
       }
     ],
     "Futomak z serową czapeczką": [
@@ -1252,19 +1302,22 @@
         "id": "futo-cap-salmon",
         "name": "Футомак лосось із сирною шапкою",
         "price": "49 PLN",
-        "desc": "Лосось, огірок, cheddar, філадельфія, кунжут, теріякі"
+        "desc": "Лосось, огірок, cheddar, філадельфія, кунжут, теріякі",
+        "image": "/imgs/Rolls/FutoSalmonCheeseCap.png"
       },
       {
         "id": "futo-cap-eel",
         "name": "Футомак вугор із сирною шапкою",
         "price": "53 PLN",
-        "desc": "Вугор, огірок, cheddar, філадельфія, кунжут, теріякі"
+        "desc": "Вугор, огірок, cheddar, філадельфія, кунжут, теріякі",
+        "image": "/imgs/Rolls/FutoEelCheeseCap.png"
       },
       {
         "id": "futo-cap-shrimp",
         "name": "Футомак креветка із сирною шапкою",
         "price": "55 PLN",
-        "desc": "Креветка, огірок, cheddar, філадельфія, кунжут, теріякі"
+        "desc": "Креветка, огірок, cheddar, філадельфія, кунжут, теріякі",
+        "image": "/imgs/Rolls/FutoShrimpPanko.png"
       }
     ],
     "Philadelphia": [
@@ -1272,37 +1325,43 @@
         "id": "phila-classic",
         "name": "Philadelphia Classic",
         "price": "39 PLN",
-        "desc": "Рис, норі, лосось, вершковий сир, огірок"
+        "desc": "Рис, норі, лосось, вершковий сир, огірок",
+        "image": "/imgs/PhilaRolls/PhiladelphiaClassic.png"
       },
       {
         "id": "phila-shrimp",
         "name": "Philadelphia з креветкою",
         "price": "42 PLN",
-        "desc": "Рис, норі, огірок, вершковий сир, креветка, кунжут, теріякі"
+        "desc": "Рис, норі, огірок, вершковий сир, креветка, кунжут, теріякі",
+        "image": "/imgs/PhilaRolls/PhiladelphiaShrimp.png"
       },
       {
         "id": "phila-tuna",
         "name": "Philadelphia з тунцем",
         "price": "39 PLN",
-        "desc": "Рис, норі, авокадо, тунець, вершковий сир"
+        "desc": "Рис, норі, авокадо, тунець, вершковий сир",
+        "image": "/imgs/PhilaRolls/PhiladelphiaTuna.png"
       },
       {
         "id": "phila-eel",
         "name": "Philadelphia з вугрем",
         "price": "40 PLN",
-        "desc": "Рис, норі, вугор, огірок, вершковий сир, кунжут, теріякі"
+        "desc": "Рис, норі, вугор, огірок, вершковий сир, кунжут, теріякі",
+        "image": "/imgs/PhilaRolls/PhiladelphiaEel.png"
       },
       {
         "id": "phila-baked-salmon",
         "name": "Philadelphia запечений лосось",
         "price": "39 PLN",
-        "desc": "Рис, норі, запечений лосось, kanpyo, кунжут, теріякі, вершковий сир"
+        "desc": "Рис, норі, запечений лосось, kanpyo, кунжут, теріякі, вершковий сир",
+        "image": "/imgs/PhilaRolls/PhiladelphiaBakedSalmon.png"
       },
       {
         "id": "phila-avocado",
         "name": "Philadelphia з авокадо",
         "price": "40 PLN",
-        "desc": "Рис, норі, лосось, вершковий сир, авокадо"
+        "desc": "Рис, норі, лосось, вершковий сир, авокадо",
+        "image": "/imgs/PhilaRolls/PhiladelphiaAvocado.png"
       },
       {
         "id": "phila-xl",
@@ -1316,25 +1375,29 @@
         "id": "cal-salmon-tobiko",
         "name": "Каліфорнія з лососем у тобіко",
         "price": "39 PLN",
-        "desc": "Лосось, вершковий сир, жовта редька, огірок, тобіко"
+        "desc": "Лосось, вершковий сир, жовта редька, огірок, тобіко",
+        "image": "/imgs/Rolls/CaliforniaSalmonTobiko.png"
       },
       {
         "id": "cal-eel-sesame",
         "name": "Каліфорнія з вугрем у кунжуті",
         "price": "39 PLN",
-        "desc": "Вугор, вершковий сир, огірок, жовта редька, кунжут"
+        "desc": "Вугор, вершковий сир, огірок, жовта редька, кунжут",
+        "image": "/imgs/Rolls/CaliforniaEelSesame.png"
       },
       {
         "id": "cal-shrimp-tobiko",
         "name": "Каліфорнія з креветкою в панко",
         "price": "40 PLN",
-        "desc": "креветка в панко"
+        "desc": "Креветка, вершковий сир, жовта редька, огірок, тобіко",
+        "image": "/imgs/Rolls/CaliforniaShrimpPanko.png"
       },
       {
         "id": "cal-tuna-sesame",
         "name": "Каліфорнія з тунцем у кунжуті",
         "price": "39 PLN",
-        "desc": "Тунець, вершковий сир, огірок, жовта редька, кунжут"
+        "desc": "Тунець, вершковий сир, огірок, жовта редька, кунжут",
+        "image": "/imgs/Rolls/CaliforniaTunaSesame.png"
       }
     ],
     "Uramak": [
@@ -1342,19 +1405,22 @@
         "id": "ura-unagi",
         "name": "Unagi",
         "price": "38 PLN",
-        "desc": "Рис, норі, вершковий сир, огірок, вугор, теріякі, кунжут"
+        "desc": "Рис, норі, вершковий сир, огірок, вугор, теріякі, кунжут",
+        "image": "/imgs/Rolls/Uramak.jpg"
       },
       {
         "id": "ura-tokio",
         "name": "Tokyo",
         "price": "58 PLN",
-        "desc": "Рис, норі, вершковий сир, огірок, варена креветка, тобіко, лосось"
+        "desc": "Рис, норі, вершковий сир, огірок, варена креветка, тобіко, лосось",
+        "image": "/imgs/Rolls/TokyoRoll.png"
       },
       {
         "id": "ura-three-rubies",
         "name": "Три риби",
         "price": "49 PLN",
-        "desc": "Лосось, тунець, вугор, авокадо, кунжут"
+        "desc": "Лосось, тунець, вугор, авокадо, кунжут",
+        "image": "/imgs/Rolls/ThreeFishRoll.png"
       }
     ],
     "Hosomak": [

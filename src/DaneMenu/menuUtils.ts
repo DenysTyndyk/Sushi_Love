@@ -6,10 +6,6 @@ export const MENU_CATEGORY_KEYS = Object.keys(
 );
 
 export const CATEGORY_IMAGES: Partial<Record<string, string>> = {
-  Futomak: '/imgs/Rolls/Futomak.jpg',
-  Philadelphia: '/imgs/PhilaRolls/PhilaClassic.jpg',
-  Kalifornia: '/imgs/Rolls/Kalifornia.jpg',
-  Uramak: '/imgs/Rolls/Uramak.jpg',
   Hosomak: '/imgs/sets_img/Maki_set_5.jpg'
 };
 

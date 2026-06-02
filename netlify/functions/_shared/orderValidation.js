@@ -182,7 +182,8 @@ var menuByLang_default = {
         id: "futo-shrimp-panko",
         name: "Z krewetkami w panko",
         price: "42 PLN",
-        desc: "Ry\u017C, nori, krewetka, og\xF3rek, \u017C\xF3\u0142ta rzepa, philadelphia, panko"
+        desc: "Ry\u017C, nori, krewetka, og\xF3rek, \u017C\xF3\u0142ta rzepa, philadelphia, panko",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
@@ -724,7 +725,8 @@ var menuByLang_default = {
         id: "futo-shrimp-panko",
         name: "Shrimp in panko",
         price: "42 PLN",
-        desc: "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko"
+        desc: "Rice, nori, shrimp, cucumber, yellow radish, cream cheese, panko",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
@@ -1266,7 +1268,8 @@ var menuByLang_default = {
         id: "futo-shrimp-panko",
         name: "\u041A\u0440\u0435\u0432\u0435\u0442\u043A\u0430 \u0443 \u043F\u0430\u043D\u043A\u043E",
         price: "42 PLN",
-        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043F\u0430\u043D\u043A\u043E"
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430, \u043E\u0433\u0456\u0440\u043E\u043A, \u0436\u043E\u0432\u0442\u0430 \u0440\u0435\u0434\u044C\u043A\u0430, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u043F\u0430\u043D\u043A\u043E",
+        image: "/imgs/Rolls/FutoShrimpPanko.png"
       },
       {
         id: "futo-salmon-tartar",
