@@ -459,6 +459,16 @@ export const menuI18n = {
     en: { name: 'Gunkan Shrimp', desc: '2 pcs' },
     uk: { name: 'Гункан креветка', desc: '2 шт' }
   },
+  mochi: {
+    en: {
+      name: 'Mochi',
+      desc: 'A delicate Japanese dessert made from rice dough with a soft creamy or fruity filling inside'
+    },
+    uk: {
+      name: 'Моті',
+      desc: "Ніжний японський десерт із рисового тіста з м'якою кремовою або фруктовою начинкою всередині"
+    }
+  },
   'drink-coca-033': {
     en: { name: 'Coca-Cola 0.33', desc: '0.33 l' },
     uk: { name: 'Coca-Cola 0.33', desc: '0.33 л' }

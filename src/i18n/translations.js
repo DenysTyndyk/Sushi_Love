@@ -82,7 +82,7 @@ const pl = {
       { day: 'Niedziela', time: '12:00 – 21:00' }
     ],
     drinksDepositNote:
-      'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,59 zł',
+      'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,50 zł',
     seoAboutSummary: 'Sushi Love — sushi Częstochowa',
     seoIntro: [
       'Najlepsze sushi w Częstochowie — na miejscu, na wynos i z dostawą (delivery). Aleja Najświętszej Maryi Panny 10.',
@@ -216,7 +216,7 @@ const en = {
       { day: 'Sunday', time: '12:00 – 21:00' }
     ],
     drinksDepositNote:
-      'Drink prices do not include a returnable deposit of PLN 0.59',
+      'Drink prices do not include a returnable deposit of PLN 0.50',
     seoAboutSummary: 'Sushi Love — sushi Częstochowa',
     seoIntro: [
       'The best sushi in Częstochowa — dine in, takeaway and delivery. Aleja Najświętszej Maryi Panny 10.',
@@ -350,7 +350,7 @@ const uk = {
       { day: 'Неділя', time: '12:00 – 21:00' }
     ],
     drinksDepositNote:
-      'Ціни на напої не включають зворотний застав у розмірі 0,59 zł',
+      'Ціни на напої не включають зворотний застав у розмірі 0,50 zł',
     seoAboutSummary: 'Sushi Love — суші Ченстохова',
     seoIntro: [
       'Суші в Ченстохові — у закладі, на винос і з доставкою. Aleja Najświętszej Maryi Panny 10.',

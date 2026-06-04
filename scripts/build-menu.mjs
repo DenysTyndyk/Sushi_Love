@@ -62,7 +62,8 @@ const ITEM_IMAGES = {
   'burger-tuna-wakame': '/imgs/Burgers/BurgerTuna.jpg',
   'burger-shrimp-avocado': '/imgs/Burgers/BurgerShrimp.jpg',
   'shrimp-panko': '/imgs/Starters/PankoShrimp.jpg',
-  'fries-large': '/imgs/Starters/Frenchfries.jpg'
+  'fries-large': '/imgs/Starters/Frenchfries.jpg',
+  mochi: '/imgs/Starters/Mochi.png'
 };
 
 const CATEGORY_KEYS = [
@@ -255,7 +256,13 @@ const pl = {
     { id: 'gunkan-tuna', name: 'Gunkan Tuńczyk', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-salmon', name: 'Gunkan Łosoś', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-eel', name: 'Gunkan Węgorz', price: '30 PLN', desc: '2 szt' },
-    { id: 'gunkan-shrimp', name: 'Gunkan Krewetki', price: '30 PLN', desc: '2 szt' }
+    { id: 'gunkan-shrimp', name: 'Gunkan Krewetki', price: '30 PLN', desc: '2 szt' },
+    {
+      id: 'mochi',
+      name: 'Mochi',
+      price: '10 PLN',
+      desc: 'Delikatny japoński deser z ciasta ryżowego z miękkim kremowym lub owocowym nadzieniem w środku'
+    }
   ],
   Napoje: [
     { id: 'drink-h-033', kind: 'section', name: '0.33 l' },

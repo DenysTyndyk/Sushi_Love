@@ -579,6 +579,13 @@ var menuByLang_default = {
         name: "Gunkan Krewetki",
         price: "30 PLN",
         desc: "2 szt"
+      },
+      {
+        id: "mochi",
+        name: "Mochi",
+        price: "10 PLN",
+        desc: "Delikatny japo\u0144ski deser z ciasta ry\u017Cowego z mi\u0119kkim kremowym lub owocowym nadzieniem w \u015Brodku",
+        image: "/imgs/Starters/Mochi.png"
       }
     ],
     Napoje: [
@@ -1145,6 +1152,13 @@ var menuByLang_default = {
         name: "Gunkan Shrimp",
         price: "30 PLN",
         desc: "2 pcs"
+      },
+      {
+        id: "mochi",
+        name: "Mochi",
+        price: "10 PLN",
+        desc: "A delicate Japanese dessert made from rice dough with a soft creamy or fruity filling inside",
+        image: "/imgs/Starters/Mochi.png"
       }
     ],
     Napoje: [
@@ -1711,6 +1725,13 @@ var menuByLang_default = {
         name: "\u0413\u0443\u043D\u043A\u0430\u043D \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430",
         price: "30 PLN",
         desc: "2 \u0448\u0442"
+      },
+      {
+        id: "mochi",
+        name: "\u041C\u043E\u0442\u0456",
+        price: "10 PLN",
+        desc: "\u041D\u0456\u0436\u043D\u0438\u0439 \u044F\u043F\u043E\u043D\u0441\u044C\u043A\u0438\u0439 \u0434\u0435\u0441\u0435\u0440\u0442 \u0456\u0437 \u0440\u0438\u0441\u043E\u0432\u043E\u0433\u043E \u0442\u0456\u0441\u0442\u0430 \u0437 \u043C'\u044F\u043A\u043E\u044E \u043A\u0440\u0435\u043C\u043E\u0432\u043E\u044E \u0430\u0431\u043E \u0444\u0440\u0443\u043A\u0442\u043E\u0432\u043E\u044E \u043D\u0430\u0447\u0438\u043D\u043A\u043E\u044E \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456",
+        image: "/imgs/Starters/Mochi.png"
       }
     ],
     Napoje: [

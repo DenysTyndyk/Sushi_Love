@@ -468,6 +468,13 @@
         "name": "Gunkan Krewetki",
         "price": "30 PLN",
         "desc": "2 szt"
+      },
+      {
+        "id": "mochi",
+        "name": "Mochi",
+        "price": "10 PLN",
+        "desc": "Delikatny japoński deser z ciasta ryżowego z miękkim kremowym lub owocowym nadzieniem w środku",
+        "image": "/imgs/Starters/Mochi.png"
       }
     ],
     "Napoje": [
@@ -1034,6 +1041,13 @@
         "name": "Gunkan Shrimp",
         "price": "30 PLN",
         "desc": "2 pcs"
+      },
+      {
+        "id": "mochi",
+        "name": "Mochi",
+        "price": "10 PLN",
+        "desc": "A delicate Japanese dessert made from rice dough with a soft creamy or fruity filling inside",
+        "image": "/imgs/Starters/Mochi.png"
       }
     ],
     "Napoje": [
@@ -1600,6 +1614,13 @@
         "name": "Гункан креветка",
         "price": "30 PLN",
         "desc": "2 шт"
+      },
+      {
+        "id": "mochi",
+        "name": "Моті",
+        "price": "10 PLN",
+        "desc": "Ніжний японський десерт із рисового тіста з м'якою кремовою або фруктовою начинкою всередині",
+        "image": "/imgs/Starters/Mochi.png"
       }
     ],
     "Napoje": [
