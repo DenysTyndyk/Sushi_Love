@@ -1,8 +1,16 @@
 'use strict';
 
+const { loadLocalEnv } = require('./_shared/loadEnv');
+loadLocalEnv();
+
 const { validateOrderPayload } = require('./_shared/orderValidation');
 const { log } = require('./_shared/log');
 const { buildOrderTelegramMessage, sendOrderMessage } = require('./_shared/orderTelegram');
+const {
+  buildPendingRecord,
+  savePendingOrder
+} = require('./_shared/pendingOrders');
+const { expirePendingOrders } = require('./_shared/expirePending');
 
 exports.handler = async (event) => {
   const { randomUUID } = require('crypto');
@@ -74,9 +82,32 @@ exports.handler = async (event) => {
       };
     }
 
+    if (tg.messageId != null) {
+      const pending = buildPendingRecord({
+        chatId: String(chatId).trim(),
+        messageId: tg.messageId,
+        messageThreadId: tg.messageThreadId,
+        text: messageText,
+        email: validation.data.emailTrim,
+        customerName: validation.data.name
+      });
+      await savePendingOrder(pending, async (record) => {
+        await expirePendingOrders();
+      });
+      log('create-order', 'info', {
+        correlationId,
+        status: 'pending_registered',
+        messageId: tg.messageId,
+        expiresAt: pending.expiresAt,
+        timeoutMinutes: Math.round((pending.expiresAt - pending.createdAt) / 60000),
+        storage: process.env.NETLIFY_BLOBS_CONTEXT ? 'blobs' : 'memory'
+      });
+    }
+
     log('create-order', 'info', {
       correlationId,
-      status: 'telegram_sent'
+      status: 'telegram_sent',
+      messageId: tg.messageId ?? null
     });
 
     return {

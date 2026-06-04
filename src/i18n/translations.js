@@ -71,6 +71,16 @@ const pl = {
     orderFormLink: 'strona koszyka',
     mapTitle: 'Znajdź nas',
     mapIframeTitle: 'Lokalizacja Sushi Love',
+    hoursTitle: 'Godziny otwarcia',
+    hours: [
+      { day: 'Poniedziałek', time: '12:00 – 21:00' },
+      { day: 'Wtorek', time: '12:00 – 21:00' },
+      { day: 'Środa', time: '12:00 – 21:00' },
+      { day: 'Czwartek', time: '12:00 – 21:00' },
+      { day: 'Piątek', time: '11:00 – 22:00' },
+      { day: 'Sobota', time: '11:00 – 22:00' },
+      { day: 'Niedziela', time: '12:00 – 21:00' }
+    ],
     drinksDepositNote:
       'Cena napojów nie zawiera kaucji zwrotnej w wysokości 0,59 zł',
     seoAboutSummary: 'Sushi Love — sushi Częstochowa',
@@ -101,7 +111,9 @@ const pl = {
     timeModeLabel: 'Czas realizacji',
     timeModeAsap: 'Jak najszybciej',
     timeModeScheduled: 'Konkretna godzina',
-    timeScheduledPlaceholder: 'Godzina (np. 19:30)',
+    timeScheduledPlaceholder: 'Godzina 13:00–20:00 (np. 19:30)',
+    timeCallBanner:
+      'Dla dostawy po godzinie 20:00 zadzwoń — potwierdzimy, czy możemy zrealizować zamówienie:',
     emailPlaceholder: 'E-mail (do potwierdzenia zamówienia)',
     privacyCheckbox:
       'Akceptuję przetwarzanie danych osobowych niezbędne do realizacji zamówienia (RODO).',
@@ -144,6 +156,14 @@ const pl = {
     errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.',
     errorAddressRequired: 'Podaj adres dostawy.',
     errorTimeRequired: 'Podaj godzinę realizacji zamówienia.',
+    errorTimeOutOfRange:
+      'Godzina realizacji musi być między 13:00 a 20:00 (w godzinach otwarcia restauracji).',
+    errorTimeCallRequired:
+      'Dla godziny po 20:00 zadzwoń, aby potwierdzić zamówienie.',
+    closedBanner:
+      'Zamówienia online są możliwe tylko w godzinach otwarcia (pn–cz i nd 12:00–21:00, pt–sb 11:00–22:00). Teraz restauracja jest zamknięta.',
+    errorRestaurantClosed:
+      'Restauracja jest teraz zamknięta. Zamówienia online przyjmujemy tylko w godzinach otwarcia.',
     errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.',
     errorCartPricing:
       'Ceny w koszyku nie zgadzają się z menu. Odśwież stronę i spróbuj ponownie.'
@@ -185,6 +205,16 @@ const en = {
     orderFormLink: 'cart page',
     mapTitle: 'Find us',
     mapIframeTitle: 'Sushi Love location',
+    hoursTitle: 'Opening hours',
+    hours: [
+      { day: 'Monday', time: '12:00 – 21:00' },
+      { day: 'Tuesday', time: '12:00 – 21:00' },
+      { day: 'Wednesday', time: '12:00 – 21:00' },
+      { day: 'Thursday', time: '12:00 – 21:00' },
+      { day: 'Friday', time: '11:00 – 22:00' },
+      { day: 'Saturday', time: '11:00 – 22:00' },
+      { day: 'Sunday', time: '12:00 – 21:00' }
+    ],
     drinksDepositNote:
       'Drink prices do not include a returnable deposit of PLN 0.59',
     seoAboutSummary: 'Sushi Love — sushi Częstochowa',
@@ -215,7 +245,9 @@ const en = {
     timeModeLabel: 'Time',
     timeModeAsap: 'As soon as possible',
     timeModeScheduled: 'Specific time',
-    timeScheduledPlaceholder: 'Time (e.g. 19:30)',
+    timeScheduledPlaceholder: 'Time 13:00–20:00 (e.g. 19:30)',
+    timeCallBanner:
+      'For delivery after 8:00 PM, please call so we can confirm we can fulfil your order:',
     emailPlaceholder: 'Email (for order confirmation)',
     privacyCheckbox:
       'I accept processing of personal data necessary to fulfil this order (GDPR).',
@@ -258,6 +290,14 @@ const en = {
     errorCashAmountMin: 'Cash amount must be at least the order total.',
     errorAddressRequired: 'Please enter a delivery address.',
     errorTimeRequired: 'Please enter the preferred time.',
+    errorTimeOutOfRange:
+      'Fulfilment time must be between 1:00 PM and 8:00 PM (within opening hours).',
+    errorTimeCallRequired:
+      'For times after 8:00 PM, please call to confirm your order.',
+    closedBanner:
+      'Online orders are only accepted during opening hours (Mon–Thu & Sun 12:00–9:00 PM, Fri–Sat 11:00 AM–10:00 PM). We are closed now.',
+    errorRestaurantClosed:
+      'The restaurant is closed now. Online orders are only accepted during opening hours.',
     errorInvalidPayload: 'Please fill in all required order fields.',
     errorCartPricing:
       'Cart prices do not match the menu. Refresh the page and try again.'
@@ -299,6 +339,16 @@ const uk = {
     orderFormLink: 'сторінка кошика',
     mapTitle: 'Як нас знайти',
     mapIframeTitle: 'Локація Sushi Love',
+    hoursTitle: 'Години роботи',
+    hours: [
+      { day: 'Понеділок', time: '12:00 – 21:00' },
+      { day: 'Вівторок', time: '12:00 – 21:00' },
+      { day: 'Середа', time: '12:00 – 21:00' },
+      { day: 'Четвер', time: '12:00 – 21:00' },
+      { day: "П'ятниця", time: '11:00 – 22:00' },
+      { day: 'Субота', time: '11:00 – 22:00' },
+      { day: 'Неділя', time: '12:00 – 21:00' }
+    ],
     drinksDepositNote:
       'Ціни на напої не включають зворотний застав у розмірі 0,59 zł',
     seoAboutSummary: 'Sushi Love — суші Ченстохова',
@@ -329,7 +379,9 @@ const uk = {
     timeModeLabel: 'Час',
     timeModeAsap: 'Якомога швидше',
     timeModeScheduled: 'Конкретний час',
-    timeScheduledPlaceholder: 'Час (наприклад, 19:30)',
+    timeScheduledPlaceholder: 'Час 13:00–20:00 (наприклад, 19:30)',
+    timeCallBanner:
+      'Для доставки після 20:00 зателефонуйте — підтвердимо, чи можемо виконати замовлення:',
     emailPlaceholder: 'Email (для підтвердження замовлення)',
     privacyCheckbox:
       'Погоджуюсь на обробку персональних даних, необхідну для виконання замовлення (GDPR/RODO).',
@@ -372,6 +424,14 @@ const uk = {
     errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.',
     errorAddressRequired: 'Вкажи адресу доставки.',
     errorTimeRequired: 'Вкажи бажаний час замовлення.',
+    errorTimeOutOfRange:
+      'Час виконання має бути між 13:00 та 20:00 (у межах годин роботи).',
+    errorTimeCallRequired:
+      'Для часу після 20:00 зателефонуйте, щоб підтвердити замовлення.',
+    closedBanner:
+      'Онлайн-замовлення лише в години роботи (пн–чт і нд 12:00–21:00, пт–сб 11:00–22:00). Зараз ресторан закритий.',
+    errorRestaurantClosed:
+      'Зараз ресторан закритий. Онлайн-замовлення приймаємо лише в години роботи.',
     errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.',
     errorCartPricing:
       'Ціни в кошику не збігаються з меню. Онови сторінку та спробуй ще раз.'

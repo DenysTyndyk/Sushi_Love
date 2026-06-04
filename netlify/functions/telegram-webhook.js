@@ -1,5 +1,8 @@
 'use strict';
 
+const { loadLocalEnv } = require('./_shared/loadEnv');
+loadLocalEnv();
+
 const {
   LABEL_EMAIL,
   LABEL_NAME,
@@ -23,9 +26,13 @@ const {
   formatEtaUk,
   formatResendFailure,
   extractOrderSummary,
-  buildCustomerEmail,
-  buildCustomerRejectionEmail
+  buildCustomerEmail
 } = require('./_shared/customerEmail');
+const {
+  updatePendingOrder,
+  removePendingOrder
+} = require('./_shared/pendingOrders');
+const { rejectOrderAndNotifyCustomer } = require('./_shared/orderReject');
 
 exports.handler = async (event) => {
   const { randomUUID } = require('crypto');
@@ -204,6 +211,8 @@ exports.handler = async (event) => {
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
+    await removePendingOrder(chatId, messageId);
+
     log('telegram-webhook', 'info', {
       correlationId,
       status: 'order_confirmed',
@@ -252,33 +261,29 @@ exports.handler = async (event) => {
     const emailTo = extractLineValue(text, LABEL_EMAIL);
     const customerName = extractLineValue(text, LABEL_NAME);
 
-    const suffix = `\n\n${MARKER_REJECTED}${who ? ` (${who})` : ''}`;
-    const newText = appendWithinTelegramLimit(text, suffix);
-
-    const editRes = await tgApi(token, 'editMessageText', {
-      chat_id: chatId,
-      message_id: messageId,
-      ...threadPayload,
-      text: newText,
-      reply_markup: { inline_keyboard: [] }
+    const result = await rejectOrderAndNotifyCustomer({
+      token,
+      chatId,
+      messageId,
+      text,
+      messageThreadId: msg.message_thread_id,
+      emailTo,
+      customerName,
+      who,
+      correlationId,
+      reason: 'manual'
     });
-    const editData = await readJsonResponse(editRes);
 
-    if (!editRes.ok) {
-      await tgApi(token, 'editMessageReplyMarkup', {
-        chat_id: chatId,
-        message_id: messageId,
-        ...threadPayload,
-        reply_markup: { inline_keyboard: [] }
-      });
+    if (!result.ok && !result.skipped) {
       await tgApi(token, 'answerCallbackQuery', {
         callback_query_id: cq.id,
-        text: (editData.description || 'Не вдалося оновити повідомлення').slice(0, 200),
+        text: (result.detail || 'Не вдалося оновити повідомлення').slice(0, 200),
         show_alert: true
       });
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
+    await removePendingOrder(chatId, messageId);
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
     log('telegram-webhook', 'info', {
@@ -288,33 +293,6 @@ exports.handler = async (event) => {
       chatId,
       hasEmail: Boolean(emailTo)
     });
-
-    if (emailTo) {
-      const subject =
-        process.env.RESEND_SUBJECT_REJECTED ||
-        'Sushi Love — zamówienie anulowane / замовлення не прийнято';
-
-      const mail = await sendTransactionalEmail({
-        to: emailTo,
-        subject,
-        text: buildCustomerRejectionEmail({ name: customerName })
-      });
-
-      if (!mail.ok && !mail.skipped) {
-        await tgApi(token, 'sendMessage', {
-          chat_id: chatId,
-          text: formatResendFailure(mail, emailTo)
-        });
-      }
-
-      if (mail.skipped) {
-        await tgApi(token, 'sendMessage', {
-          chat_id: chatId,
-          text:
-            '⚠️ Resend не налаштовано — клієнт не отримав листа про відмову.'
-        });
-      }
-    }
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
@@ -362,6 +340,8 @@ exports.handler = async (event) => {
     }
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
+
+    await updatePendingOrder(chatId, messageId, { status: 'waiting_eta' });
 
     log('telegram-webhook', 'info', {
       correlationId,

@@ -146,22 +146,23 @@ async function sendOrderMessage({ token, chatId, messageText }) {
     })
   });
 
-  if (!tgResponse.ok) {
-    let detail = '';
-    try {
-      const errJson = await tgResponse.json();
-      detail = errJson.description || String(errJson.error_code || '');
-    } catch {
-      try {
-        detail = await tgResponse.text();
-      } catch {
-        detail = '';
-      }
-    }
-    return { ok: false, detail: detail || 'Telegram API request failed' };
+  let tgJson = null;
+  try {
+    tgJson = await tgResponse.json();
+  } catch {
+    tgJson = null;
   }
 
-  return { ok: true };
+  if (!tgResponse.ok) {
+    const detail =
+      tgJson?.description || String(tgJson?.error_code || '') || 'Telegram API request failed';
+    return { ok: false, detail };
+  }
+
+  const messageId = tgJson?.result?.message_id ?? null;
+  const messageThreadId = tgJson?.result?.message_thread_id ?? null;
+
+  return { ok: true, messageId, messageThreadId };
 }
 
 module.exports = {

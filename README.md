@@ -34,6 +34,7 @@
 - **Безкоштовні додатки:** васабі, палички, соєвий соус, імбир (кількість порцій)
 - **Замовлення → Telegram:** повідомлення в чат з кнопками «Прийняти / Відхилити / ETA 45·60·90 хв»
 - **Після прийняття** — лист клієнту на email через Resend
+- **Авто-відхилення** — якщо адмін не натиснув «Прийняти» / «Відхилити» протягом 10 хв, замовлення скасовується автоматично (лист клієнту + оновлення в Telegram)
 - **SEO / FOUC:** статичний fallback у `public/index.html`, клас `app-ready` після гідрації React
 
 ---
@@ -61,6 +62,11 @@ create-order.js
               ├─ перевірка TELEGRAM_ADMIN_IDS (якщо налаштовано)
               ├─ оновлення повідомлення в Telegram
               └─ sendTransactionalEmail → Resend API
+
+create-order також зберігає «очікуюче» замовлення в Netlify Blobs.
+Якщо за 10 хв ніхто не натиснув «Прийняти» / «Відхилити», scheduled-функція
+`expire-pending-orders` (кожну хвилину) автоматично відхиляє замовлення,
+оновлює повідомлення в Telegram і надсилає лист клієнту (Resend).
 ```
 
 **Важливо:** логіка валідації замовлення єдина для фронтенду та бекенду. Джерело правди — `src/shared/orderValidation.ts`, яке збирається в `netlify/functions/_shared/orderValidation.js` через esbuild (`npm run build:shared`).
@@ -73,7 +79,7 @@ create-order.js
 |-----|------------|
 | Frontend | React 18 (Create React App), TypeScript (частково), CSS |
 | Хостинг | Netlify (статика + serverless functions) |
-| Functions | `create-order`, `telegram-webhook`, спільні модулі в `_shared/` |
+| Functions | `create-order`, `telegram-webhook`, `expire-pending-orders` (cron), `_shared/` |
 | Інтеграції | Telegram Bot API, Resend |
 | Меню | `scripts/build-menu.mjs` → `src/DaneMenu/menuByLang.json` |
 
@@ -175,6 +181,7 @@ npm run dev
 | `RESEND_SUBJECT_CONFIRMED` | Тема листа «замовлення прийнято» |
 | `RESEND_SUBJECT_REJECTED` | Тема листа «замовлення відхилено» |
 | `TELEGRAM_API_BASE` | Базовий URL Telegram API (за замовчуванням офіційний; для нестандартних середовищ) |
+| `ORDER_PENDING_TIMEOUT_MINUTES` | Через скільки хвилин без реакції адміна замовлення авто-відхиляється (за замовчуванням **10**). Для тесту локально постав **1** у `.env` і **перезапусти** `npm run dev`. |
 | `REACT_APP_ORDER_ENDPOINT` | URL endpoint замовлень для CRA (за замовчуванням `/.netlify/functions/create-order`) |
 | `REACT_APP_CART_STORAGE_KEY` | Ключ `localStorage` для кошика |
 | `REACT_APP_LANGUAGE_STORAGE_KEY` | Ключ `localStorage` для мови |
@@ -466,6 +473,10 @@ netlify.toml            build, publish, functions
 | 401 на webhook | Secret не збігається | Однаковий `TELEGRAM_WEBHOOK_SECRET` у curl і Netlify |
 | Email не приходить | Resend не налаштований / домен не верифікований | Resend dashboard, логи function |
 | Після зміни env нічого не змінилось | Netlify кешує env | Trigger redeploy |
+| Авто-відхилення «не працює» локально | `functions:serve` не читав `.env` → таймер **10 хв**, не 1 | `ORDER_PENDING_TIMEOUT_MINUTES=1` у `.env`, **перезапусти** `npm run dev`; у логах `timeoutMinutes: 1` |
+| Авто-відхилення на production | Потрібні deploy + env на Netlify + cron `expire-pending-orders` | Змінна на Netlify, redeploy; у Functions → scheduled runs перевір виконання |
+
+**Локальний тест авто-відхилення:** після замовлення в логах `[0]` має бути `pending_registered` з `"timeoutMinutes":1`. Через ~1 хв — `order_auto_rejected`. Або вручну: `curl http://localhost:9999/.netlify/functions/expire-pending-orders` (після закінчення таймауту).
 
 ---
 

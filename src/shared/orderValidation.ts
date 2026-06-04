@@ -1,3 +1,4 @@
+import { getScheduledTimeStatus, isRestaurantOpen } from './orderTimeRules';
 import { validateAndPriceCart } from './menuCatalog';
 import {
   ValidationError,
@@ -80,8 +81,22 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     return { ok: false, error: ValidationError.ADDRESS };
   }
 
+  if (!isRestaurantOpen()) {
+    return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
+  }
+
   if (timeMode === 'scheduled' && !String(preferredTime || '').trim()) {
     return { ok: false, error: ValidationError.TIME };
+  }
+
+  if (timeMode === 'scheduled') {
+    const timeStatus = getScheduledTimeStatus(String(preferredTime));
+    if (timeStatus === 'invalid' || timeStatus === 'out_of_range') {
+      return { ok: false, error: ValidationError.TIME_OUT_OF_RANGE };
+    }
+    if (timeStatus === 'call_required') {
+      return { ok: false, error: ValidationError.TIME_CALL_REQUIRED };
+    }
   }
 
   const cartPricing = validateAndPriceCart(cart, total, String(lang));

@@ -123,6 +123,9 @@ export const ValidationError = {
   EMAIL: 'Valid email is required',
   ADDRESS: 'Address is required for delivery',
   TIME: 'Time is required when scheduling',
+  TIME_OUT_OF_RANGE: 'Scheduled time is outside allowed window',
+  TIME_CALL_REQUIRED: 'Scheduled time requires phone confirmation',
+  RESTAURANT_CLOSED: 'Restaurant is currently closed',
   CASH_REQUIRED: 'Cash amount required',
   CASH_COVER: 'Cash amount must cover order total',
   CART_PRICING: 'Cart items or total do not match menu prices'

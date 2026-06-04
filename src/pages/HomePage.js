@@ -156,6 +156,18 @@ const HomePage = () => {
             />
           </div>
         </div>
+
+        <div className="opening-hours">
+          <h3 className="opening-hours__title">{t('home.hoursTitle')}</h3>
+          <ul className="opening-hours__list">
+            {(t('home.hours') || []).map((row) => (
+              <li key={row.day} className="opening-hours__row">
+                <span className="opening-hours__day">{row.day}</span>
+                <span className="opening-hours__time">{row.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <details className="seo-about-subtle">

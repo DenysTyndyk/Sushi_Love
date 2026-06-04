@@ -25,6 +25,89 @@ __export(orderValidation_exports, {
 });
 module.exports = __toCommonJS(orderValidation_exports);
 
+// src/shared/orderTimeRules.ts
+var SCHEDULED_MIN_MINUTES = 13 * 60;
+var SCHEDULED_MAX_ONLINE_MINUTES = 20 * 60;
+var TIME_RE = /^(\d{1,2})[:.](\d{2})$/;
+var TIME_COMPACT_RE = /^(\d{1,2})(\d{2})$/;
+function parsePreferredTime(raw) {
+  const s = String(raw || "").trim();
+  if (!s) return null;
+  let hours;
+  let minutes;
+  const colonMatch = s.match(TIME_RE);
+  if (colonMatch) {
+    hours = Number(colonMatch[1]);
+    minutes = Number(colonMatch[2]);
+  } else {
+    const compactMatch = s.match(TIME_COMPACT_RE);
+    if (!compactMatch) return null;
+    hours = Number(compactMatch[1]);
+    minutes = Number(compactMatch[2]);
+  }
+  if (!Number.isInteger(hours) || !Number.isInteger(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    return null;
+  }
+  return { hours, minutes, totalMinutes: hours * 60 + minutes };
+}
+function getHoursForDay(dayOfWeek) {
+  if (dayOfWeek === 5 || dayOfWeek === 6) {
+    return { openMinutes: 11 * 60, closeMinutes: 22 * 60 };
+  }
+  return { openMinutes: 12 * 60, closeMinutes: 21 * 60 };
+}
+function getClosingMinutesForDay(dayOfWeek) {
+  return getHoursForDay(dayOfWeek).closeMinutes;
+}
+function getWarsawMinutesNow(now = /* @__PURE__ */ new Date()) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Warsaw",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false
+  }).formatToParts(now);
+  const hour = Number(parts.find((p) => p.type === "hour")?.value ?? 0);
+  const minute = Number(parts.find((p) => p.type === "minute")?.value ?? 0);
+  return hour * 60 + minute;
+}
+function isRestaurantOpen(now = /* @__PURE__ */ new Date()) {
+  const day = getWarsawDayOfWeek(now);
+  const { openMinutes, closeMinutes } = getHoursForDay(day);
+  const nowMinutes = getWarsawMinutesNow(now);
+  return nowMinutes >= openMinutes && nowMinutes < closeMinutes;
+}
+var WEEKDAY_PART = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6
+};
+function getWarsawDayOfWeek(now = /* @__PURE__ */ new Date()) {
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Warsaw",
+    weekday: "short"
+  }).format(now);
+  return WEEKDAY_PART[weekday] ?? 0;
+}
+function getScheduledTimeStatus(preferredTime, now = /* @__PURE__ */ new Date()) {
+  const trimmed = String(preferredTime || "").trim();
+  if (!trimmed) return "idle";
+  const parsed = parsePreferredTime(trimmed);
+  if (!parsed) return "invalid";
+  const { totalMinutes } = parsed;
+  const closing = getClosingMinutesForDay(getWarsawDayOfWeek(now));
+  if (totalMinutes < SCHEDULED_MIN_MINUTES || totalMinutes > closing) {
+    return "out_of_range";
+  }
+  if (totalMinutes > SCHEDULED_MAX_ONLINE_MINUTES) {
+    return "call_required";
+  }
+  return "ok";
+}
+
 // src/DaneMenu/menuByLang.json
 var menuByLang_default = {
   pl: {
@@ -1834,6 +1917,9 @@ var ValidationError = {
   EMAIL: "Valid email is required",
   ADDRESS: "Address is required for delivery",
   TIME: "Time is required when scheduling",
+  TIME_OUT_OF_RANGE: "Scheduled time is outside allowed window",
+  TIME_CALL_REQUIRED: "Scheduled time requires phone confirmation",
+  RESTAURANT_CLOSED: "Restaurant is currently closed",
   CASH_REQUIRED: "Cash amount required",
   CASH_COVER: "Cash amount must cover order total",
   CART_PRICING: "Cart items or total do not match menu prices"
@@ -1892,8 +1978,20 @@ function validateOrderPayload(payload) {
   if (orderType === "delivery" && (!String(address || "").trim() || !String(streetNumber || "").trim())) {
     return { ok: false, error: ValidationError.ADDRESS };
   }
+  if (!isRestaurantOpen()) {
+    return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
+  }
   if (timeMode === "scheduled" && !String(preferredTime || "").trim()) {
     return { ok: false, error: ValidationError.TIME };
+  }
+  if (timeMode === "scheduled") {
+    const timeStatus = getScheduledTimeStatus(String(preferredTime));
+    if (timeStatus === "invalid" || timeStatus === "out_of_range") {
+      return { ok: false, error: ValidationError.TIME_OUT_OF_RANGE };
+    }
+    if (timeStatus === "call_required") {
+      return { ok: false, error: ValidationError.TIME_CALL_REQUIRED };
+    }
   }
   const cartPricing = validateAndPriceCart(cart, total, String(lang));
   if (!cartPricing.ok) {

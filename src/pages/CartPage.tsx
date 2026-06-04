@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   useMemo,
   useState,
   type ChangeEvent,
@@ -7,6 +8,10 @@ import React, {
 import { findMenuItemById } from '../DaneMenu/menuUtils';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import {
+  getScheduledTimeStatus,
+  isRestaurantOpen
+} from '../shared/orderTimeRules';
 import { validateOrderPayload } from '../shared/orderValidation';
 import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
@@ -25,6 +30,9 @@ const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
   [ValidationError.CASH_COVER]: 'cart.errorCashAmountMin',
   [ValidationError.ADDRESS]: 'cart.errorAddressRequired',
   [ValidationError.TIME]: 'cart.errorTimeRequired',
+  [ValidationError.TIME_OUT_OF_RANGE]: 'cart.errorTimeOutOfRange',
+  [ValidationError.TIME_CALL_REQUIRED]: 'cart.errorTimeCallRequired',
+  [ValidationError.RESTAURANT_CLOSED]: 'cart.errorRestaurantClosed',
   [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload',
   [ValidationError.CART_PRICING]: 'cart.errorCartPricing'
 };
@@ -83,6 +91,14 @@ const CartPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [restaurantOpen, setRestaurantOpen] = useState(() => isRestaurantOpen());
+
+  useEffect(() => {
+    const tick = () => setRestaurantOpen(isRestaurantOpen());
+    tick();
+    const id = window.setInterval(tick, 60_000);
+    return () => window.clearInterval(id);
+  }, []);
 
   const orderEndpoint =
     process.env.REACT_APP_ORDER_ENDPOINT || '/.netlify/functions/create-order';
@@ -117,6 +133,18 @@ const CartPage = () => {
       })),
     [cart, lang]
   );
+
+  const scheduledTimeStatus = useMemo(() => {
+    if (formData.timeMode !== 'scheduled') return 'idle' as const;
+    return getScheduledTimeStatus(formData.preferredTime);
+  }, [formData.timeMode, formData.preferredTime]);
+
+  const scheduledTimeBlocked =
+    scheduledTimeStatus === 'call_required' ||
+    scheduledTimeStatus === 'out_of_range' ||
+    scheduledTimeStatus === 'invalid';
+
+  const checkoutBlocked = !restaurantOpen || scheduledTimeBlocked;
 
   const onExtraChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -346,6 +374,11 @@ const CartPage = () => {
           <div className="cart-checkout">
             <h3 className="cart-checkout-title">{t('cart.checkoutTitle')}</h3>
             <p className="cart-checkout-desc">{t('cart.checkoutDesc')}</p>
+            {!restaurantOpen && (
+              <div className="cart-closed-banner" role="status">
+                <p>{t('cart.closedBanner')}</p>
+              </div>
+            )}
             <form className="contact-form" onSubmit={sendTelegram}>
               <label>
                 {t('cart.deliveryTypeLabel')}
@@ -464,14 +497,32 @@ const CartPage = () => {
                 </select>
               </label>
               {formData.timeMode === 'scheduled' && (
-                <input
-                  type="text"
-                  name="preferredTime"
-                  value={formData.preferredTime}
-                  onChange={onInputChange}
-                  placeholder={t('cart.timeScheduledPlaceholder')}
-                  required
-                />
+                <>
+                  <input
+                    type="text"
+                    name="preferredTime"
+                    value={formData.preferredTime}
+                    onChange={onInputChange}
+                    placeholder={t('cart.timeScheduledPlaceholder')}
+                    required
+                    aria-invalid={scheduledTimeBlocked}
+                  />
+                  {scheduledTimeStatus === 'call_required' && (
+                    <div className="cart-time-call-banner" role="status">
+                      <p>{t('cart.timeCallBanner')}</p>
+                      <a href="tel:+48664454433" className="cart-time-call-banner__phone">
+                        +48 664 454 433
+                      </a>
+                    </div>
+                  )}
+                  {(scheduledTimeStatus === 'out_of_range' ||
+                    scheduledTimeStatus === 'invalid') &&
+                    formData.preferredTime.trim() && (
+                      <p className="cart-time-hint cart-time-hint--error" role="alert">
+                        {t('cart.errorTimeOutOfRange')}
+                      </p>
+                    )}
+                </>
               )}
               <fieldset className="cart-extras">
                 <legend>{t('cart.extrasTitle')}</legend>
@@ -520,7 +571,11 @@ const CartPage = () => {
                 placeholder={t('cart.commentPlaceholder')}
                 rows={3}
               />
-              <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={isSubmitting || checkoutBlocked}
+              >
                 {isSubmitting ? t('cart.submitting') : t('cart.submit')}
               </button>
             </form>
