@@ -29,12 +29,17 @@ const {
   buildCustomerEmail
 } = require('./_shared/customerEmail');
 const {
+  initPendingContext,
   updatePendingOrder,
   removePendingOrder
 } = require('./_shared/pendingOrders');
+const { expirePendingOrders } = require('./_shared/expirePending');
 const { rejectOrderAndNotifyCustomer } = require('./_shared/orderReject');
 
 exports.handler = async (event) => {
+  initPendingContext(event);
+  await expirePendingOrders().catch(() => {});
+
   const { randomUUID } = require('crypto');
   const correlationId = randomUUID();
 

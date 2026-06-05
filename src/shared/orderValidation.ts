@@ -1,5 +1,8 @@
+import { DELIVERY_FEE_PLN } from './deliveryFee';
 import { getScheduledTimeStatus, isRestaurantOpen } from './orderTimeRules';
 import { validateAndPriceCart } from './menuCatalog';
+
+export { DELIVERY_FEE_PLN } from './deliveryFee';
 import {
   ValidationError,
   type OrderExtras,
@@ -99,12 +102,21 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     }
   }
 
-  const cartPricing = validateAndPriceCart(cart, total, String(lang));
+  const cartSubtotalClaim =
+    p.subtotal != null ? Number(p.subtotal) : Number(total);
+  const cartPricing = validateAndPriceCart(cart, cartSubtotalClaim, String(lang));
   if (!cartPricing.ok) {
     return { ok: false, error: ValidationError.CART_PRICING };
   }
 
-  const orderTotal = cartPricing.total;
+  const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
+  const orderTotal =
+    Math.round((cartPricing.total + deliveryFee) * 100) / 100;
+  const claimedTotal = Math.round(Number(total) * 100) / 100;
+
+  if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 0.001) {
+    return { ok: false, error: ValidationError.CART_PRICING };
+  }
   let cashTendered: number | null = null;
   let cashChange: number | null = null;
 
@@ -142,6 +154,8 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
       extras: normalizeExtras(p),
       lang: String(lang),
       cart: cartPricing.cart,
+      subtotal: cartPricing.total,
+      deliveryFee,
       total: orderTotal,
       currency,
       cashTendered,

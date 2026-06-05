@@ -3,10 +3,11 @@
 const { loadLocalEnv } = require('./_shared/loadEnv');
 loadLocalEnv();
 
+const { initPendingContext } = require('./_shared/pendingOrders');
 const { expirePendingOrders } = require('./_shared/expirePending');
 
-/** Netlify scheduled function: auto-reject orders with no admin action within timeout. */
-exports.handler = async () => {
+exports.handler = async (event) => {
+  initPendingContext(event);
   const result = await expirePendingOrders();
   return {
     statusCode: 200,

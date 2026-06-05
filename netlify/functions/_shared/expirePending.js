@@ -3,17 +3,18 @@
 const { randomUUID } = require('crypto');
 const { log } = require('./log');
 const {
-  listExpiredPendingOrders,
-  claimPendingForExpiry,
-  removePendingOrder,
-  orderKey
-} = require('./pendingOrders');
-const {
-  AUTO_REJECT_WHO,
+  getAutoRejectWho,
   rejectOrderAndNotifyCustomer
 } = require('./orderReject');
 
 async function expirePendingOrders() {
+  const {
+    listExpiredPendingOrders,
+    claimPendingForExpiry,
+    removePendingOrder,
+    orderKey
+  } = require('./pendingOrders');
+
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {
     log('expire-pending', 'error', { status: 'config_missing' });
@@ -37,7 +38,7 @@ async function expirePendingOrders() {
       messageThreadId: claimed.messageThreadId,
       emailTo: claimed.email,
       customerName: claimed.customerName,
-      who: AUTO_REJECT_WHO,
+      who: getAutoRejectWho(),
       correlationId,
       reason: 'auto_timeout'
     });

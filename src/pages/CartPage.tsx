@@ -12,7 +12,7 @@ import {
   getScheduledTimeStatus,
   isRestaurantOpen
 } from '../shared/orderTimeRules';
-import { validateOrderPayload } from '../shared/orderValidation';
+import { DELIVERY_FEE_PLN, validateOrderPayload } from '../shared/orderValidation';
 import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -134,6 +134,14 @@ const CartPage = () => {
     [cart, lang]
   );
 
+  const deliveryFee =
+    formData.orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
+
+  const orderTotal = useMemo(
+    () => Number((cartTotal + deliveryFee).toFixed(2)),
+    [cartTotal, deliveryFee]
+  );
+
   const scheduledTimeStatus = useMemo(() => {
     if (formData.timeMode !== 'scheduled') return 'idle' as const;
     return getScheduledTimeStatus(formData.preferredTime);
@@ -215,7 +223,8 @@ const CartPage = () => {
       extraGinger: formData.extraGinger,
       lang,
       cart: cartLines,
-      total: Number(cartTotal.toFixed(2)),
+      subtotal: Number(cartTotal.toFixed(2)),
+      total: orderTotal,
       currency: 'PLN'
     };
 
@@ -363,8 +372,21 @@ const CartPage = () => {
                   </div>
                 ))}
               </div>
-              <div className="cart-total">
-                {t('cart.total')} <strong>{cartTotal.toFixed(2)} PLN</strong>
+              <div className="cart-summary">
+                <div className="cart-summary__row">
+                  <span>{t('cart.subtotal')}</span>
+                  <strong>{cartTotal.toFixed(2)} PLN</strong>
+                </div>
+                {formData.orderType === 'delivery' && (
+                  <div className="cart-summary__row">
+                    <span>{t('cart.deliveryFee')}</span>
+                    <strong>{deliveryFee.toFixed(2)} PLN</strong>
+                  </div>
+                )}
+                <div className="cart-summary__row cart-summary__row--total">
+                  <span>{t('cart.total')}</span>
+                  <strong>{orderTotal.toFixed(2)} PLN</strong>
+                </div>
               </div>
             </>
           )}
@@ -479,7 +501,7 @@ const CartPage = () => {
                     value={formData.cashAmount}
                     onChange={onInputChange}
                     placeholder={t('cart.cashAmountPlaceholder')}
-                    min={cartTotal > 0 ? cartTotal : 0.01}
+                    min={orderTotal > 0 ? orderTotal : 0.01}
                     step="0.01"
                     inputMode="decimal"
                   />

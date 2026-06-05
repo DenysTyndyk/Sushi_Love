@@ -11,6 +11,7 @@ const categories = {
     'Sushi Burger': 'Sushi Burger',
     Nigiri: 'Nigiri',
     'Przystawki / Inne': 'Przystawki / Inne',
+    Desery: 'Desery',
     Napoje: 'Napoje'
   },
   en: {
@@ -25,6 +26,7 @@ const categories = {
     'Sushi Burger': 'Sushi burger',
     Nigiri: 'Nigiri',
     'Przystawki / Inne': 'Starters / Other',
+    Desery: 'Desserts',
     Napoje: 'Drinks'
   },
   uk: {
@@ -39,11 +41,11 @@ const categories = {
     'Sushi Burger': 'Суші-бургер',
     Nigiri: 'Нігірі',
     'Przystawki / Inne': 'Закуски / Інше',
+    Desery: 'Десерти',
     Napoje: 'Напої'
   }
 };
 
-/** In-section heading (e.g. Hosomak shows piece count here, not in the tab). */
 const categorySectionTitles = {
   pl: { Hosomak: 'Hosomak 6 szt' },
   en: { Hosomak: 'Hosomaki 6 pcs' },
@@ -96,7 +98,9 @@ const pl = {
     clear: 'Wyczyść',
     empty: 'Koszyk jest pusty.',
     toMenu: 'Przejdź do menu',
-    total: 'Razem:',
+    subtotal: 'Produkty:',
+    deliveryFee: 'Dostawa:',
+    total: 'Do zapłaty:',
     checkoutTitle: 'Dane kontaktowe',
     checkoutDesc:
       'Podaj dane kontaktowe — oddzwonimy w celu potwierdzenia. Na e-mail wyślemy potwierdzenie po akceptacji zamówienia przez restaurację.',
@@ -230,7 +234,9 @@ const en = {
     clear: 'Clear',
     empty: 'Your cart is empty.',
     toMenu: 'Browse menu',
-    total: 'Total:',
+    subtotal: 'Items:',
+    deliveryFee: 'Delivery:',
+    total: 'Total due:',
     checkoutTitle: 'Contact details',
     checkoutDesc:
       'Leave your contact details — we will call to confirm. We will email confirmation after the restaurant accepts your order.',
@@ -364,7 +370,9 @@ const uk = {
     clear: 'Очистити',
     empty: 'Кошик порожній.',
     toMenu: 'До меню',
-    total: 'Разом:',
+    subtotal: 'Продукти:',
+    deliveryFee: 'Доставка:',
+    total: 'До сплати:',
     checkoutTitle: 'Контактні дані',
     checkoutDesc:
       'Залиште контакти — передзвонимо для підтвердження. На email надішлемо підтвердження після прийняття замовлення закладом.',

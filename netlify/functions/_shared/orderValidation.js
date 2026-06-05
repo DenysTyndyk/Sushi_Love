@@ -20,10 +20,14 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/shared/orderValidation.ts
 var orderValidation_exports = {};
 __export(orderValidation_exports, {
+  DELIVERY_FEE_PLN: () => DELIVERY_FEE_PLN,
   EMAIL_RE: () => EMAIL_RE,
   validateOrderPayload: () => validateOrderPayload
 });
 module.exports = __toCommonJS(orderValidation_exports);
+
+// src/shared/deliveryFee.ts
+var DELIVERY_FEE_PLN = 10;
 
 // src/shared/orderTimeRules.ts
 var SCHEDULED_MIN_MINUTES = 13 * 60;
@@ -579,10 +583,12 @@ var menuByLang_default = {
         name: "Gunkan Krewetki",
         price: "30 PLN",
         desc: "2 szt"
-      },
+      }
+    ],
+    Desery: [
       {
         id: "mochi",
-        name: "Mochi",
+        name: "Mochi w asortymencie",
         price: "10 PLN",
         desc: "Delikatny japo\u0144ski deser z ciasta ry\u017Cowego z mi\u0119kkim kremowym lub owocowym nadzieniem w \u015Brodku",
         image: "/imgs/Starters/Mochi.png"
@@ -1152,10 +1158,12 @@ var menuByLang_default = {
         name: "Gunkan Shrimp",
         price: "30 PLN",
         desc: "2 pcs"
-      },
+      }
+    ],
+    Desery: [
       {
         id: "mochi",
-        name: "Mochi",
+        name: "Mochi \u2014 assorted",
         price: "10 PLN",
         desc: "A delicate Japanese dessert made from rice dough with a soft creamy or fruity filling inside",
         image: "/imgs/Starters/Mochi.png"
@@ -1725,10 +1733,12 @@ var menuByLang_default = {
         name: "\u0413\u0443\u043D\u043A\u0430\u043D \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0430",
         price: "30 PLN",
         desc: "2 \u0448\u0442"
-      },
+      }
+    ],
+    Desery: [
       {
         id: "mochi",
-        name: "\u041C\u043E\u0442\u0456",
+        name: "\u041C\u043E\u0442\u0456 \u0432 \u0430\u0441\u043E\u0440\u0442\u0438\u043C\u0435\u043D\u0442\u0456",
         price: "10 PLN",
         desc: "\u041D\u0456\u0436\u043D\u0438\u0439 \u044F\u043F\u043E\u043D\u0441\u044C\u043A\u0438\u0439 \u0434\u0435\u0441\u0435\u0440\u0442 \u0456\u0437 \u0440\u0438\u0441\u043E\u0432\u043E\u0433\u043E \u0442\u0456\u0441\u0442\u0430 \u0437 \u043C'\u044F\u043A\u043E\u044E \u043A\u0440\u0435\u043C\u043E\u0432\u043E\u044E \u0430\u0431\u043E \u0444\u0440\u0443\u043A\u0442\u043E\u0432\u043E\u044E \u043D\u0430\u0447\u0438\u043D\u043A\u043E\u044E \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456",
         image: "/imgs/Starters/Mochi.png"
@@ -2014,11 +2024,17 @@ function validateOrderPayload(payload) {
       return { ok: false, error: ValidationError.TIME_CALL_REQUIRED };
     }
   }
-  const cartPricing = validateAndPriceCart(cart, total, String(lang));
+  const cartSubtotalClaim = p.subtotal != null ? Number(p.subtotal) : Number(total);
+  const cartPricing = validateAndPriceCart(cart, cartSubtotalClaim, String(lang));
   if (!cartPricing.ok) {
     return { ok: false, error: ValidationError.CART_PRICING };
   }
-  const orderTotal = cartPricing.total;
+  const deliveryFee = orderType === "delivery" ? DELIVERY_FEE_PLN : 0;
+  const orderTotal = Math.round((cartPricing.total + deliveryFee) * 100) / 100;
+  const claimedTotal = Math.round(Number(total) * 100) / 100;
+  if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 1e-3) {
+    return { ok: false, error: ValidationError.CART_PRICING };
+  }
   let cashTendered = null;
   let cashChange = null;
   if (paymentMethod === "cash") {
@@ -2052,6 +2068,8 @@ function validateOrderPayload(payload) {
       extras: normalizeExtras(p),
       lang: String(lang),
       cart: cartPricing.cart,
+      subtotal: cartPricing.total,
+      deliveryFee,
       total: orderTotal,
       currency,
       cashTendered,
@@ -2061,6 +2079,7 @@ function validateOrderPayload(payload) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  DELIVERY_FEE_PLN,
   EMAIL_RE,
   validateOrderPayload
 });

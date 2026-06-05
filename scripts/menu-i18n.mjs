@@ -461,11 +461,11 @@ export const menuI18n = {
   },
   mochi: {
     en: {
-      name: 'Mochi',
+      name: 'Mochi — assorted',
       desc: 'A delicate Japanese dessert made from rice dough with a soft creamy or fruity filling inside'
     },
     uk: {
-      name: 'Моті',
+      name: 'Моті в асортименті',
       desc: "Ніжний японський десерт із рисового тіста з м'якою кремовою або фруктовою начинкою всередині"
     }
   },

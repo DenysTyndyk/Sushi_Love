@@ -9,7 +9,12 @@ const {
   formatResendFailure
 } = require('./customerEmail');
 
-const AUTO_REJECT_WHO = '⏱️ Авто (10 хв без відповіді)';
+const { getTimeoutMs } = require('./pendingOrderConfig');
+
+function getAutoRejectWho() {
+  const minutes = Math.max(1, Math.round(getTimeoutMs() / 60_000));
+  return `⏱️ Авто (${minutes} хв без відповіді)`;
+}
 
 function buildRejectSuffix(who) {
   return `\n\n${MARKER_REJECTED}${who ? ` (${who})` : ''}`;
@@ -102,7 +107,7 @@ async function rejectOrderAndNotifyCustomer({
 }
 
 module.exports = {
-  AUTO_REJECT_WHO,
+  getAutoRejectWho,
   buildRejectSuffix,
   rejectOrderAndNotifyCustomer
 };

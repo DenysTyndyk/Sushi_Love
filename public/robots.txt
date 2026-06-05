@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /.netlify/
+
+Sitemap: https://sushilove-czestochowa.pl/sitemap.xml

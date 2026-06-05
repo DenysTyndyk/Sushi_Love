@@ -73,6 +73,8 @@ function buildOrderTelegramMessage(data) {
     comment,
     extras,
     cart,
+    subtotal,
+    deliveryFee,
     total,
     currency
   } = data;
@@ -120,7 +122,17 @@ function buildOrderTelegramMessage(data) {
     messageParts.push(`📝 Komentarz: ${comment.trim()}`);
   }
 
-  messageParts.push('', '🛒 Koszyk:', lines, '', `💰 Razem: ${Number(total).toFixed(2)} ${currency}`);
+  messageParts.push('', '🛒 Koszyk:', lines);
+
+  if (orderType === 'delivery' && Number(deliveryFee) > 0) {
+    messageParts.push(`🚚 Dostawa: ${Number(deliveryFee).toFixed(2)} ${currency}`);
+  }
+
+  if (subtotal != null && orderType === 'delivery' && Number(deliveryFee) > 0) {
+    messageParts.push(`📦 Produkty: ${Number(subtotal).toFixed(2)} ${currency}`);
+  }
+
+  messageParts.push('', `💰 Razem: ${Number(total).toFixed(2)} ${currency}`);
 
   return messageParts.join('\n');
 }

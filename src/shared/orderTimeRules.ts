@@ -46,7 +46,6 @@ export function parsePreferredTime(raw: string): ParsedTime | null {
 
 export type DayHours = { openMinutes: number; closeMinutes: number };
 
-/** Opening hours (Europe/Warsaw): Mon–Thu & Sun 12:00–21:00; Fri–Sat 11:00–22:00. */
 export function getHoursForDay(dayOfWeek: number): DayHours {
   if (dayOfWeek === 5 || dayOfWeek === 6) {
     return { openMinutes: 11 * 60, closeMinutes: 22 * 60 };
@@ -74,7 +73,6 @@ export function getWarsawMinutesNow(now: Date = new Date()): number {
   return hour * 60 + minute;
 }
 
-/** True if the restaurant is open right now (Warsaw time). */
 export function isRestaurantOpen(now: Date = new Date()): boolean {
   const day = getWarsawDayOfWeek(now);
   const { openMinutes, closeMinutes } = getHoursForDay(day);

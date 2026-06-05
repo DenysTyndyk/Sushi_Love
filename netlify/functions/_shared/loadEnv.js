@@ -5,7 +5,6 @@ const path = require('path');
 
 let loaded = false;
 
-/** Load root `.env` for local `functions:serve` (Netlify injects env in production). */
 function loadLocalEnv() {
   if (loaded) return;
   loaded = true;

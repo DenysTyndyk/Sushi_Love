@@ -7,12 +7,15 @@ const { validateOrderPayload } = require('./_shared/orderValidation');
 const { log } = require('./_shared/log');
 const { buildOrderTelegramMessage, sendOrderMessage } = require('./_shared/orderTelegram');
 const {
+  initPendingContext,
   buildPendingRecord,
   savePendingOrder
 } = require('./_shared/pendingOrders');
 const { expirePendingOrders } = require('./_shared/expirePending');
 
 exports.handler = async (event) => {
+  initPendingContext(event);
+
   const { randomUUID } = require('crypto');
   const correlationId = randomUUID();
 
@@ -91,7 +94,7 @@ exports.handler = async (event) => {
         email: validation.data.emailTrim,
         customerName: validation.data.name
       });
-      await savePendingOrder(pending, async (record) => {
+      const storage = await savePendingOrder(pending, async () => {
         await expirePendingOrders();
       });
       log('create-order', 'info', {
@@ -100,9 +103,11 @@ exports.handler = async (event) => {
         messageId: tg.messageId,
         expiresAt: pending.expiresAt,
         timeoutMinutes: Math.round((pending.expiresAt - pending.createdAt) / 60000),
-        storage: process.env.NETLIFY_BLOBS_CONTEXT ? 'blobs' : 'memory'
+        storage
       });
     }
+
+    await expirePendingOrders();
 
     log('create-order', 'info', {
       correlationId,

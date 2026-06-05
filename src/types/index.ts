@@ -88,6 +88,7 @@ export interface OrderPayload {
   extraGinger?: number;
   lang?: Lang | string;
   cart?: OrderCartLine[];
+  subtotal?: number;
   total?: number;
   currency?: string;
 }
@@ -107,6 +108,8 @@ export interface ValidatedOrder {
   extras: OrderExtras;
   lang: string;
   cart: OrderCartLine[];
+  subtotal: number;
+  deliveryFee: number;
   total: number;
   currency: string;
   cashTendered: number | null;

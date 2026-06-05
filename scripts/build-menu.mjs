@@ -78,6 +78,7 @@ const CATEGORY_KEYS = [
   'Sushi Burger',
   'Nigiri',
   'Przystawki / Inne',
+  'Desery',
   'Napoje'
 ];
 
@@ -256,10 +257,12 @@ const pl = {
     { id: 'gunkan-tuna', name: 'Gunkan Tuńczyk', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-salmon', name: 'Gunkan Łosoś', price: '30 PLN', desc: '2 szt' },
     { id: 'gunkan-eel', name: 'Gunkan Węgorz', price: '30 PLN', desc: '2 szt' },
-    { id: 'gunkan-shrimp', name: 'Gunkan Krewetki', price: '30 PLN', desc: '2 szt' },
+    { id: 'gunkan-shrimp', name: 'Gunkan Krewetki', price: '30 PLN', desc: '2 szt' }
+  ],
+  Desery: [
     {
       id: 'mochi',
-      name: 'Mochi',
+      name: 'Mochi w asortymencie',
       price: '10 PLN',
       desc: 'Delikatny japoński deser z ciasta ryżowego z miękkim kremowym lub owocowym nadzieniem w środku'
     }

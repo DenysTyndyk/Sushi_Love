@@ -68,7 +68,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
       }
     } catch {
-      /* ignore quota / private mode */
     }
   }, [cart]);
 
