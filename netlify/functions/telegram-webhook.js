@@ -17,7 +17,9 @@ const {
   readJsonResponse,
   appendWithinTelegramLimit,
   getHeader,
-  parseEtaMinutes
+  parseEtaMinutes,
+  isMessageNotModified,
+  showEtaPrompt
 } = require('./_shared/telegram');
 
 const { sendTransactionalEmail } = require('./_shared/resend');
@@ -28,18 +30,9 @@ const {
   extractOrderSummary,
   buildCustomerEmail
 } = require('./_shared/customerEmail');
-const {
-  initPendingContext,
-  updatePendingOrder,
-  removePendingOrder
-} = require('./_shared/pendingOrders');
-const { expirePendingOrders } = require('./_shared/expirePending');
 const { rejectOrderAndNotifyCustomer } = require('./_shared/orderReject');
 
 exports.handler = async (event) => {
-  initPendingContext(event);
-  await expirePendingOrders().catch(() => {});
-
   const { randomUUID } = require('crypto');
   const correlationId = randomUUID();
 
@@ -162,15 +155,6 @@ exports.handler = async (event) => {
   }
 
   if (isEta) {
-    if (!text.includes(MARKER_WAIT_ETA)) {
-      await tgApi(token, 'answerCallbackQuery', {
-        callback_query_id: cq.id,
-        text: 'Спочатку натисніть «Прийняти».',
-        show_alert: true
-      });
-      return { statusCode: 200, body: JSON.stringify({ ok: true }) };
-    }
-
     const minutes = parseEtaMinutes(data);
     const emailTo = extractLineValue(text, LABEL_EMAIL);
     const customerName = extractLineValue(text, LABEL_NAME);
@@ -199,7 +183,7 @@ exports.handler = async (event) => {
     });
     let editData = await readJsonResponse(editRes);
 
-    if (!editRes.ok) {
+    if (!editRes.ok && !isMessageNotModified(editData.description)) {
       await tgApi(token, 'editMessageReplyMarkup', {
         chat_id: chatId,
         message_id: messageId,
@@ -211,25 +195,30 @@ exports.handler = async (event) => {
         text: (editData.description || 'Не вдалося оновити повідомлення').slice(0, 200),
         show_alert: true
       });
+      log('telegram-webhook', 'error', {
+        correlationId,
+        status: 'confirm_edit_failed',
+        messageId,
+        chatId,
+        detail: String(editData.description || '').slice(0, 200)
+      });
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+    }
+
+    if (!editRes.ok) {
+      await tgApi(token, 'editMessageReplyMarkup', {
+        chat_id: chatId,
+        message_id: messageId,
+        ...threadPayload,
+        reply_markup: { inline_keyboard: [] }
+      });
     }
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
-    await removePendingOrder(chatId, messageId);
-
-    log('telegram-webhook', 'info', {
-      correlationId,
-      status: 'order_confirmed',
-      messageId,
-      chatId,
-      minutes,
-      callbackQueryId: cq.id
-    });
-
     const subject =
       process.env.RESEND_SUBJECT_CONFIRMED ||
-      'Sushi Love — замовлення підтверджено / zamówienie potwierdzone';
+      'Sushi Love — zamовлення підтверджено / zamówienie potwierdzone';
 
     const mail = await sendTransactionalEmail({
       to: emailTo,
@@ -258,6 +247,15 @@ exports.handler = async (event) => {
           '⚠️ Resend не налаштовано (RESEND_API_KEY / RESEND_FROM). Клієнт не отримав листа.'
       });
     }
+
+    log('telegram-webhook', 'info', {
+      correlationId,
+      status: 'order_confirmed',
+      messageId,
+      chatId,
+      minutes,
+      callbackQueryId: cq.id
+    });
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
@@ -288,8 +286,14 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
-    await removePendingOrder(chatId, messageId);
-    await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
+    if (result.skipped) {
+      await tgApi(token, 'answerCallbackQuery', {
+        callback_query_id: cq.id,
+        text: 'Це замовлення вже оброблено.'
+      });
+    } else {
+      await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
+    }
 
     log('telegram-webhook', 'info', {
       correlationId,
@@ -312,47 +316,39 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
-    const waitBlock = `\n\n${MARKER_WAIT_ETA}`;
-    const newText = appendWithinTelegramLimit(text, waitBlock);
-
-    const editRes = await tgApi(token, 'editMessageText', {
-      chat_id: chatId,
-      message_id: messageId,
-      ...threadPayload,
-      text: newText,
-      reply_markup: {
-        inline_keyboard: [
-          [
-            { text: '45 хв', callback_data: 'eta_45' },
-            { text: '1 год', callback_data: 'eta_60' },
-            { text: '1,5 год', callback_data: 'eta_90' }
-          ]
-        ]
-      }
+    const prompt = await showEtaPrompt({
+      token,
+      chatId,
+      messageId,
+      text,
+      threadPayload,
+      waitMarker: MARKER_WAIT_ETA
     });
-    const editData = await readJsonResponse(editRes);
 
-    if (!editRes.ok) {
+    if (!prompt.ok) {
       await tgApi(token, 'answerCallbackQuery', {
         callback_query_id: cq.id,
-        text: (editData.description || 'Не вдалося показати вибір часу. Перевірте довжину замовлення або redeploy функції telegram-webhook.').slice(
-          0,
-          200
-        ),
+        text: (prompt.detail || 'Не вдалося показати вибір часу.').slice(0, 200),
         show_alert: true
+      });
+      log('telegram-webhook', 'error', {
+        correlationId,
+        status: 'accept_edit_failed',
+        messageId,
+        chatId,
+        detail: String(prompt.detail || '').slice(0, 200)
       });
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
     await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
 
-    await updatePendingOrder(chatId, messageId, { status: 'waiting_eta' });
-
     log('telegram-webhook', 'info', {
       correlationId,
       status: 'accept_eta_prompt_shown',
       messageId,
-      chatId
+      chatId,
+      mode: prompt.mode
     });
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };

@@ -6,16 +6,8 @@ loadLocalEnv();
 const { validateOrderPayload } = require('./_shared/orderValidation');
 const { log } = require('./_shared/log');
 const { buildOrderTelegramMessage, sendOrderMessage } = require('./_shared/orderTelegram');
-const {
-  initPendingContext,
-  buildPendingRecord,
-  savePendingOrder
-} = require('./_shared/pendingOrders');
-const { expirePendingOrders } = require('./_shared/expirePending');
 
 exports.handler = async (event) => {
-  initPendingContext(event);
-
   const { randomUUID } = require('crypto');
   const correlationId = randomUUID();
 
@@ -85,30 +77,6 @@ exports.handler = async (event) => {
       };
     }
 
-    if (tg.messageId != null) {
-      const pending = buildPendingRecord({
-        chatId: String(chatId).trim(),
-        messageId: tg.messageId,
-        messageThreadId: tg.messageThreadId,
-        text: messageText,
-        email: validation.data.emailTrim,
-        customerName: validation.data.name
-      });
-      const storage = await savePendingOrder(pending, async () => {
-        await expirePendingOrders();
-      });
-      log('create-order', 'info', {
-        correlationId,
-        status: 'pending_registered',
-        messageId: tg.messageId,
-        expiresAt: pending.expiresAt,
-        timeoutMinutes: Math.round((pending.expiresAt - pending.createdAt) / 60000),
-        storage
-      });
-    }
-
-    await expirePendingOrders();
-
     log('create-order', 'info', {
       correlationId,
       status: 'telegram_sent',
@@ -119,10 +87,11 @@ exports.handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({ ok: true })
     };
-  } catch {
+  } catch (err) {
     log('create-order', 'error', {
       correlationId,
-      status: 'exception'
+      status: 'exception',
+      detail: String(err?.message || err).slice(0, 200)
     });
     return {
       statusCode: 500,

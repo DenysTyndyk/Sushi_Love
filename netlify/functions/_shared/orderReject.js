@@ -1,20 +1,18 @@
 'use strict';
 
 const { MARKER_REJECTED } = require('../constants');
-const { tgApi, readJsonResponse, appendWithinTelegramLimit } = require('./telegram');
+const {
+  tgApi,
+  readJsonResponse,
+  appendWithinTelegramLimit,
+  isMessageNotModified
+} = require('./telegram');
 const { sendTransactionalEmail } = require('./resend');
 const { log } = require('./log');
 const {
   buildCustomerRejectionEmail,
   formatResendFailure
 } = require('./customerEmail');
-
-const { getTimeoutMs } = require('./pendingOrderConfig');
-
-function getAutoRejectWho() {
-  const minutes = Math.max(1, Math.round(getTimeoutMs() / 60_000));
-  return `⏱️ Авто (${minutes} хв без відповіді)`;
-}
 
 function buildRejectSuffix(who) {
   return `\n\n${MARKER_REJECTED}${who ? ` (${who})` : ''}`;
@@ -52,6 +50,9 @@ async function rejectOrderAndNotifyCustomer({
   const editData = await readJsonResponse(editRes);
 
   if (!editRes.ok) {
+    if (isMessageNotModified(editData.description)) {
+      return { ok: true, skipped: true, reason: 'already_rejected' };
+    }
     await tgApi(token, 'editMessageReplyMarkup', {
       chat_id: chatId,
       message_id: messageId,
@@ -107,7 +108,6 @@ async function rejectOrderAndNotifyCustomer({
 }
 
 module.exports = {
-  getAutoRejectWho,
   buildRejectSuffix,
   rejectOrderAndNotifyCustomer
 };
