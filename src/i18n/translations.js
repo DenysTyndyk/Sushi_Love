@@ -107,6 +107,7 @@ const pl = {
     deliveryTypeLabel: 'Sposób odbioru',
     deliveryTypeDelivery: 'Dostawa',
     deliveryTypePickup: 'Odbiór osobisty',
+    deliveryMinimumHint: 'Minimalna suma dla dostawy to 80 PLN.',
     paymentLabel: 'Płatność',
     paymentCard: 'Karta',
     paymentCash: 'Gotówka',
@@ -137,8 +138,8 @@ const pl = {
     submitting: 'Wysyłanie...',
     successTitle: 'Dziękujemy! Zamówienie wysłane.',
     successEmailHint:
-      'Na podany adres e-mail wyślemy potwierdzenie po zaakceptowaniu zamówienia wraz z szacowanym czasem dostawy.',
-    phoneCta: 'Lub zadzwoń: +48 664 454 433',
+      'Na podany adres e-mail wyślemy potwierdzenie po zaakceptowaniu zamówienia wraz z szacowanym czasem realizacji. Jeśli w ciągu 10 minut nie otrzymasz wiadomości, prosimy o kontakt telefoniczny.',
+    phoneCta: 'Zadzwoń: +48 664 454 433',
     telegramEmpty: 'Koszyk pusty',
     telegramNew: 'Nowe zamówienie!',
     telegramName: 'Imię',
@@ -170,7 +171,8 @@ const pl = {
       'Restauracja jest teraz zamknięta. Zamówienia online przyjmujemy tylko w godzinach otwarcia.',
     errorInvalidPayload: 'Uzupełnij wszystkie wymagane pola zamówienia.',
     errorCartPricing:
-      'Ceny w koszyku nie zgadzają się z menu. Odśwież stronę i spróbuj ponownie.'
+      'Ceny w koszyku nie zgadzają się z menu. Odśwież stronę i spróbuj ponownie.',
+    errorDeliveryMinimum: 'Minimalna suma dla dostawy to 80 PLN.'
   },
   footer: {
     logoAlt: 'Logo Sushi Love',
@@ -243,6 +245,7 @@ const en = {
     deliveryTypeLabel: 'Order type',
     deliveryTypeDelivery: 'Delivery',
     deliveryTypePickup: 'Pickup',
+    deliveryMinimumHint: 'Minimum order for delivery is 80 PLN.',
     paymentLabel: 'Payment',
     paymentCard: 'Card',
     paymentCash: 'Cash',
@@ -273,8 +276,8 @@ const en = {
     submitting: 'Sending...',
     successTitle: 'Thank you! Your order has been sent.',
     successEmailHint:
-      'We will email you a confirmation after the restaurant accepts the order, including an estimated delivery time.',
-    phoneCta: 'Or call us: +48 664 454 433',
+      'We will email you a confirmation after the restaurant accepts the order, including an estimated ready time. If you do not receive confirmation within 10 minutes, please call us.',
+    phoneCta: 'Call us: +48 664 454 433',
     telegramEmpty: 'Cart empty',
     telegramNew: 'New order!',
     telegramName: 'Name',
@@ -306,7 +309,8 @@ const en = {
       'The restaurant is closed now. Online orders are only accepted during opening hours.',
     errorInvalidPayload: 'Please fill in all required order fields.',
     errorCartPricing:
-      'Cart prices do not match the menu. Refresh the page and try again.'
+      'Cart prices do not match the menu. Refresh the page and try again.',
+    errorDeliveryMinimum: 'Minimum order for delivery is 80 PLN.'
   },
   footer: {
     logoAlt: 'Sushi Love logo',
@@ -379,6 +383,7 @@ const uk = {
     deliveryTypeLabel: 'Тип замовлення',
     deliveryTypeDelivery: 'Доставка',
     deliveryTypePickup: 'Самовивіз',
+    deliveryMinimumHint: 'Мінімальна сума для доставки — 80 PLN.',
     paymentLabel: 'Оплата',
     paymentCard: 'Карта',
     paymentCash: 'Готівка',
@@ -409,8 +414,8 @@ const uk = {
     submitting: 'Надсилаємо...',
     successTitle: 'Дякуємо! Замовлення надіслано.',
     successEmailHint:
-      'На вказаний email надішлемо підтвердження після прийняття замовлення та орієнтовний час доставки.',
-    phoneCta: 'Або зателефонуйте: +48 664 454 433',
+      'На вказаний email надішлемо підтвердження після прийняття замовлення та орієнтовний час готовності. Якщо протягом 10 хвилин підтвердження не надійде, просимо зателефонувати нам.',
+    phoneCta: 'Телефон: +48 664 454 433',
     telegramEmpty: 'Кошик порожній',
     telegramNew: 'Нове замовлення!',
     telegramName: 'Ім’я',
@@ -442,7 +447,8 @@ const uk = {
       'Зараз ресторан закритий. Онлайн-замовлення приймаємо лише в години роботи.',
     errorInvalidPayload: 'Заповни всі обовʼязкові поля замовлення.',
     errorCartPricing:
-      'Ціни в кошику не збігаються з меню. Онови сторінку та спробуй ще раз.'
+      'Ціни в кошику не збігаються з меню. Онови сторінку та спробуй ще раз.',
+    errorDeliveryMinimum: 'Мінімальна сума для доставки — 80 PLN.'
   },
   footer: {
     logoAlt: 'Логотип Sushi Love',

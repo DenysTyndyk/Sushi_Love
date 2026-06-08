@@ -125,6 +125,7 @@ export const ValidationError = {
   PRIVACY: 'Privacy consent required',
   EMAIL: 'Valid email is required',
   ADDRESS: 'Address is required for delivery',
+  DELIVERY_MINIMUM: 'Order subtotal below delivery minimum',
   TIME: 'Time is required when scheduling',
   TIME_OUT_OF_RANGE: 'Scheduled time is outside allowed window',
   TIME_CALL_REQUIRED: 'Scheduled time requires phone confirmation',

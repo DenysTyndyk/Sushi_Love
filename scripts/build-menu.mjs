@@ -63,7 +63,12 @@ const ITEM_IMAGES = {
   'burger-shrimp-avocado': '/imgs/Burgers/BurgerShrimp.jpg',
   'shrimp-panko': '/imgs/Starters/PankoShrimp.jpg',
   'fries-large': '/imgs/Starters/Frenchfries.jpg',
-  mochi: '/imgs/Starters/Mochi.png'
+  mochi: '/imgs/Starters/Mochi.png',
+  'sweet-roll-kiwi': '/imgs/Desery/SweetRollKiwi.png',
+  'sweet-roll-mix': '/imgs/Desery/SweetRollMix.png',
+  'sweet-roll-truskawka': '/imgs/Desery/SweetRollTruskawka.png',
+  'sweet-roll-banan': '/imgs/Desery/SweetRollBanan.png',
+  'zestaw-tropik': '/imgs/Desery/ZestawTropik.png'
 };
 
 const CATEGORY_KEYS = [
@@ -260,6 +265,36 @@ const pl = {
     { id: 'gunkan-shrimp', name: 'Gunkan Krewetki', price: '30 PLN', desc: '2 szt' }
   ],
   Desery: [
+    {
+      id: 'zestaw-tropik',
+      name: 'Zestaw Tropik',
+      price: '100 PLN',
+      desc: '32 szt: Mix 8 szt, Banan 8 szt, Kiwi 8 szt, Truskawka 8 szt'
+    },
+    {
+      id: 'sweet-roll-mix',
+      name: 'Rolka słodka — miks',
+      price: '35 PLN',
+      desc: 'Papier ryżowy, kiwi, banan, truskawki, słodki serek, ryż, polewa owocowa, wiórki kokosowe'
+    },
+    {
+      id: 'sweet-roll-kiwi',
+      name: 'Rolka słodka — kiwi',
+      price: '25 PLN',
+      desc: 'Papier sojowy, kiwi, słodki serek, ryż, wiórki kokosowe'
+    },
+    {
+      id: 'sweet-roll-truskawka',
+      name: 'Rolka słodka — truskawka',
+      price: '25 PLN',
+      desc: 'Papier sojowy, truskawki, słodki serek, ryż, polewa czekoladowa, wiórki kokosowe'
+    },
+    {
+      id: 'sweet-roll-banan',
+      name: 'Rolka słodka — banan',
+      price: '25 PLN',
+      desc: 'Papier sojowy, banan, słodki serek, ryż, polewa czekoladowa, wiórki kokosowe'
+    },
     {
       id: 'mochi',
       name: 'Mochi w asortymencie',

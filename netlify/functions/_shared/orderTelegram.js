@@ -1,6 +1,6 @@
 'use strict';
 
-const { LABEL_EMAIL } = require('../constants');
+const { LABEL_EMAIL, LABEL_ORDER_TYPE } = require('../constants');
 
 function formatOrderType(value, lang) {
   if (value === 'pickup') {
@@ -93,7 +93,7 @@ function buildOrderTelegramMessage(data) {
     `👤 Imię: ${name}`,
     `📞 Telefon: ${phone}`,
     `${LABEL_EMAIL} ${emailTrim}`,
-    `📦 Typ: ${formatOrderType(orderType, lang)}`,
+    `${LABEL_ORDER_TYPE} ${formatOrderType(orderType, lang)}`,
     `💳 Płatność: ${formatPayment(paymentMethod, lang)}`,
     formatTimeLine(timeMode, preferredTime, lang)
   ];

@@ -1,8 +1,15 @@
-import { DELIVERY_FEE_PLN } from './deliveryFee';
+import {
+  DELIVERY_FEE_PLN,
+  isDeliveryAvailable
+} from './deliveryFee';
 import { getScheduledTimeStatus, isRestaurantOpen } from './orderTimeRules';
 import { validateAndPriceCart } from './menuCatalog';
 
-export { DELIVERY_FEE_PLN } from './deliveryFee';
+export {
+  DELIVERY_FEE_PLN,
+  DELIVERY_MIN_SUBTOTAL_PLN,
+  isDeliveryAvailable
+} from './deliveryFee';
 import {
   ValidationError,
   type OrderExtras,
@@ -77,6 +84,17 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     return { ok: false, error: ValidationError.INVALID_PAYLOAD };
   }
 
+  const cartSubtotalClaim =
+    p.subtotal != null ? Number(p.subtotal) : Number(total);
+  const cartPricing = validateAndPriceCart(cart, cartSubtotalClaim, String(lang));
+  if (!cartPricing.ok) {
+    return { ok: false, error: ValidationError.CART_PRICING };
+  }
+
+  if (orderType === 'delivery' && !isDeliveryAvailable(cartPricing.total)) {
+    return { ok: false, error: ValidationError.DELIVERY_MINIMUM };
+  }
+
   if (
     orderType === 'delivery' &&
     (!String(address || '').trim() || !String(streetNumber || '').trim())
@@ -100,13 +118,6 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     if (timeStatus === 'call_required') {
       return { ok: false, error: ValidationError.TIME_CALL_REQUIRED };
     }
-  }
-
-  const cartSubtotalClaim =
-    p.subtotal != null ? Number(p.subtotal) : Number(total);
-  const cartPricing = validateAndPriceCart(cart, cartSubtotalClaim, String(lang));
-  if (!cartPricing.ok) {
-    return { ok: false, error: ValidationError.CART_PRICING };
   }
 
   const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;

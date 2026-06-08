@@ -12,7 +12,11 @@ import {
   getScheduledTimeStatus,
   isRestaurantOpen
 } from '../shared/orderTimeRules';
-import { DELIVERY_FEE_PLN, validateOrderPayload } from '../shared/orderValidation';
+import {
+  DELIVERY_FEE_PLN,
+  isDeliveryAvailable,
+  validateOrderPayload
+} from '../shared/orderValidation';
 import Footer from '../components/Footer';
 import NavLink from '../components/NavLink';
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -34,7 +38,8 @@ const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
   [ValidationError.TIME_CALL_REQUIRED]: 'cart.errorTimeCallRequired',
   [ValidationError.RESTAURANT_CLOSED]: 'cart.errorRestaurantClosed',
   [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload',
-  [ValidationError.CART_PRICING]: 'cart.errorCartPricing'
+  [ValidationError.CART_PRICING]: 'cart.errorCartPricing',
+  [ValidationError.DELIVERY_MINIMUM]: 'cart.errorDeliveryMinimum'
 };
 
 const initialFormData: OrderFormData = {
@@ -134,6 +139,8 @@ const CartPage = () => {
     [cart, lang]
   );
 
+  const deliveryEligible = isDeliveryAvailable(cartTotal);
+
   const deliveryFee =
     formData.orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
 
@@ -152,7 +159,11 @@ const CartPage = () => {
     scheduledTimeStatus === 'out_of_range' ||
     scheduledTimeStatus === 'invalid';
 
-  const checkoutBlocked = !restaurantOpen || scheduledTimeBlocked;
+  const deliveryBlocked =
+    formData.orderType === 'delivery' && !deliveryEligible;
+
+  const checkoutBlocked =
+    !restaurantOpen || scheduledTimeBlocked || deliveryBlocked;
 
   const onExtraChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -413,6 +424,11 @@ const CartPage = () => {
                   <option value="pickup">{t('cart.deliveryTypePickup')}</option>
                 </select>
               </label>
+              {deliveryBlocked && (
+                <p className="cart-checkout-desc cart-delivery-minimum" role="status">
+                  {t('cart.deliveryMinimumHint')}
+                </p>
+              )}
               <input
                 type="text"
                 name="name"

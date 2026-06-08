@@ -6,10 +6,12 @@ loadLocalEnv();
 const {
   LABEL_EMAIL,
   LABEL_NAME,
-  MARKER_WAIT_ETA,
   MARKER_CONFIRMED,
   MARKER_REJECTED,
-  extractLineValue
+  extractLineValue,
+  extractOrderType,
+  waitEtaMarker,
+  isWaitingForEta
 } = require('./constants');
 
 const {
@@ -25,10 +27,10 @@ const {
 const { sendTransactionalEmail } = require('./_shared/resend');
 const { log } = require('./_shared/log');
 const {
-  formatEtaUk,
   formatResendFailure,
   extractOrderSummary,
-  buildCustomerEmail
+  buildCustomerEmail,
+  formatConfirmedSuffixUk
 } = require('./_shared/customerEmail');
 const { rejectOrderAndNotifyCustomer } = require('./_shared/orderReject');
 
@@ -169,9 +171,8 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     }
 
-    const suffix = `\n\n${MARKER_CONFIRMED}. Орієнтовна доставка: ${formatEtaUk(minutes)}.${
-      who ? ` (${who})` : ''
-    }`;
+    const orderType = extractOrderType(text);
+    const suffix = formatConfirmedSuffixUk(orderType, minutes, who);
     const newText = appendWithinTelegramLimit(text, suffix);
 
     let editRes = await tgApi(token, 'editMessageText', {
@@ -223,7 +224,12 @@ exports.handler = async (event) => {
     const mail = await sendTransactionalEmail({
       to: emailTo,
       subject,
-      text: buildCustomerEmail({ name: customerName, minutes, orderSummary })
+      text: buildCustomerEmail({
+        name: customerName,
+        minutes,
+        orderSummary,
+        orderType
+      })
     });
 
     log('telegram-webhook', mail.ok ? 'info' : 'error', {
@@ -307,10 +313,16 @@ exports.handler = async (event) => {
   }
 
   if (isAccept) {
-    if (text.includes(MARKER_WAIT_ETA)) {
+    const orderType = extractOrderType(text);
+    const waitMarker = waitEtaMarker(orderType);
+
+    if (isWaitingForEta(text)) {
       await tgApi(token, 'answerCallbackQuery', {
         callback_query_id: cq.id,
-        text: 'Оберіть час доставки кнопками нижче.',
+        text:
+          orderType === 'pickup'
+            ? 'Оберіть час самовивозу кнопками нижче.'
+            : 'Оберіть час доставки кнопками нижче.',
         show_alert: false
       });
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
@@ -322,7 +334,7 @@ exports.handler = async (event) => {
       messageId,
       text,
       threadPayload,
-      waitMarker: MARKER_WAIT_ETA
+      waitMarker
     });
 
     if (!prompt.ok) {

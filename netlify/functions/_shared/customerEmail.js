@@ -1,5 +1,7 @@
 'use strict';
 
+const { MARKER_CONFIRMED } = require('../constants');
+
 function formatEtaPl(minutes) {
   if (minutes === 45) return 'ok. 45 min.';
   if (minutes === 60) return 'ok. 1 godz.';
@@ -48,21 +50,40 @@ function extractOrderSummary(text) {
   return [...itemLines, totalLine].filter(Boolean).join('\n');
 }
 
-function buildCustomerEmail({ name, minutes, orderSummary }) {
+function etaLabelPl(orderType) {
+  return orderType === 'pickup'
+    ? 'Szacowany czas odbioru'
+    : 'Szacowany czas dostawy';
+}
+
+function etaLabelUk(orderType) {
+  return orderType === 'pickup'
+    ? 'Орієнтовний час самовивозу'
+    : 'Орієнтовний час доставки';
+}
+
+function formatConfirmedSuffixUk(orderType, minutes, who) {
+  const eta = `${etaLabelUk(orderType)}: ${formatEtaUk(minutes)}`;
+  const admin = who ? ` (${who})` : '';
+  return `\n\n${MARKER_CONFIRMED}. ${eta}.${admin}`;
+}
+
+function buildCustomerEmail({ name, minutes, orderSummary, orderType = 'delivery' }) {
   const n = name || 'Клієнте';
+  const type = orderType === 'pickup' ? 'pickup' : 'delivery';
   const orderBlock = orderSummary
     ? `\n\nTwoje zamówienie:\n${orderSummary}\n\n---\n\nВаше замовлення:\n${orderSummary}\n`
     : '';
   return (
     `Witaj / Вітаємо, ${n}!\n\n` +
     `Twoje zamówienie zostało potwierdzone przez restaurację Sushi Love.\n` +
-    `Szacowany czas dostawy: ${formatEtaPl(minutes)}` +
+    `${etaLabelPl(type)}: ${formatEtaPl(minutes)}` +
     orderBlock +
     `\n` +
     `---\n` +
     `Ваше замовлення підтверджено рестораном Sushi Love.\n` +
-    `Орієнтовний час доставки: ${formatEtaUk(minutes)}.\n\n` +
-    `Dziękujemy! / Дякуємо!`
+    `${etaLabelUk(type)}: ${formatEtaUk(minutes)}.\n\n` +
+    `Thank you! / Dziękujemy! / Дякуємо!`
   );
 }
 
@@ -84,6 +105,9 @@ function buildCustomerRejectionEmail({ name }) {
 module.exports = {
   formatEtaPl,
   formatEtaUk,
+  etaLabelPl,
+  etaLabelUk,
+  formatConfirmedSuffixUk,
   formatResendFailure,
   extractOrderSummary,
   buildCustomerEmail,

@@ -472,6 +472,41 @@
     ],
     "Desery": [
       {
+        "id": "zestaw-tropik",
+        "name": "Zestaw Tropik",
+        "price": "100 PLN",
+        "desc": "32 szt: Mix 8 szt, Banan 8 szt, Kiwi 8 szt, Truskawka 8 szt",
+        "image": "/imgs/Desery/ZestawTropik.png"
+      },
+      {
+        "id": "sweet-roll-mix",
+        "name": "Rolka słodka — miks",
+        "price": "35 PLN",
+        "desc": "Papier ryżowy, kiwi, banan, truskawki, słodki serek, ryż, polewa owocowa, wiórki kokosowe",
+        "image": "/imgs/Desery/SweetRollMix.png"
+      },
+      {
+        "id": "sweet-roll-kiwi",
+        "name": "Rolka słodka — kiwi",
+        "price": "25 PLN",
+        "desc": "Papier sojowy, kiwi, słodki serek, ryż, wiórki kokosowe",
+        "image": "/imgs/Desery/SweetRollKiwi.png"
+      },
+      {
+        "id": "sweet-roll-truskawka",
+        "name": "Rolka słodka — truskawka",
+        "price": "25 PLN",
+        "desc": "Papier sojowy, truskawki, słodki serek, ryż, polewa czekoladowa, wiórki kokosowe",
+        "image": "/imgs/Desery/SweetRollTruskawka.png"
+      },
+      {
+        "id": "sweet-roll-banan",
+        "name": "Rolka słodka — banan",
+        "price": "25 PLN",
+        "desc": "Papier sojowy, banan, słodki serek, ryż, polewa czekoladowa, wiórki kokosowe",
+        "image": "/imgs/Desery/SweetRollBanan.png"
+      },
+      {
         "id": "mochi",
         "name": "Mochi w asortymencie",
         "price": "10 PLN",
@@ -1047,6 +1082,41 @@
     ],
     "Desery": [
       {
+        "id": "zestaw-tropik",
+        "name": "Tropic Set",
+        "price": "100 PLN",
+        "desc": "32 pcs: mixed sweet roll ×8, banana ×8, kiwi ×8, strawberry ×8",
+        "image": "/imgs/Desery/ZestawTropik.png"
+      },
+      {
+        "id": "sweet-roll-mix",
+        "name": "Sweet Roll — Mix",
+        "price": "35 PLN",
+        "desc": "Rice paper, kiwi, banana, strawberries, sweet cream cheese, rice, fruit glaze, coconut flakes",
+        "image": "/imgs/Desery/SweetRollMix.png"
+      },
+      {
+        "id": "sweet-roll-kiwi",
+        "name": "Sweet Roll — Kiwi",
+        "price": "25 PLN",
+        "desc": "Soy paper, kiwi, sweet cream cheese, rice, coconut flakes",
+        "image": "/imgs/Desery/SweetRollKiwi.png"
+      },
+      {
+        "id": "sweet-roll-truskawka",
+        "name": "Sweet Roll — Strawberry",
+        "price": "25 PLN",
+        "desc": "Soy paper, strawberries, sweet cream cheese, rice, chocolate glaze, coconut flakes",
+        "image": "/imgs/Desery/SweetRollTruskawka.png"
+      },
+      {
+        "id": "sweet-roll-banan",
+        "name": "Sweet Roll — Banana",
+        "price": "25 PLN",
+        "desc": "Soy paper, banana, sweet cream cheese, rice, chocolate glaze, coconut flakes",
+        "image": "/imgs/Desery/SweetRollBanan.png"
+      },
+      {
         "id": "mochi",
         "name": "Mochi — assorted",
         "price": "10 PLN",
@@ -1621,6 +1691,41 @@
       }
     ],
     "Desery": [
+      {
+        "id": "zestaw-tropik",
+        "name": "Сет «Тропік»",
+        "price": "100 PLN",
+        "desc": "32 шт: мікс ×8, банан ×8, ківі ×8, полуниця ×8",
+        "image": "/imgs/Desery/ZestawTropik.png"
+      },
+      {
+        "id": "sweet-roll-mix",
+        "name": "Солодкий рол — мікс",
+        "price": "35 PLN",
+        "desc": "Рисовий папір, ківі, банан, полуниця, солодкий сирок, рис, фруктова глазур, кокосова стружка",
+        "image": "/imgs/Desery/SweetRollMix.png"
+      },
+      {
+        "id": "sweet-roll-kiwi",
+        "name": "Солодкий рол — ківі",
+        "price": "25 PLN",
+        "desc": "Сойовий папір, ківі, солодкий сирок, рис, кокосова стружка",
+        "image": "/imgs/Desery/SweetRollKiwi.png"
+      },
+      {
+        "id": "sweet-roll-truskawka",
+        "name": "Солодкий рол — полуниця",
+        "price": "25 PLN",
+        "desc": "Сойовий папір, полуниця, солодкий сирок, рис, шоколадна глазур, кокосова стружка",
+        "image": "/imgs/Desery/SweetRollTruskawka.png"
+      },
+      {
+        "id": "sweet-roll-banan",
+        "name": "Солодкий рол — банан",
+        "price": "25 PLN",
+        "desc": "Сойовий папір, банан, солодкий сирок, рис, шоколадна глазур, кокосова стружка",
+        "image": "/imgs/Desery/SweetRollBanan.png"
+      },
       {
         "id": "mochi",
         "name": "Моті в асортименті",
