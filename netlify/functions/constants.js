@@ -42,10 +42,7 @@ exports.isWaitingForEta = (text) =>
 exports.extractScheduledWhen = (text) => {
   const lines = String(text || '').split('\n');
   const line = lines.find(
-    (l) =>
-      l.includes('⏰ Termin:') ||
-      (l.includes('⏰ Time:') && /\d{2}\.\d{2}\.\d{4}/.test(l)) ||
-      (l.includes('⏰ Час:') && /\d{2}\.\d{2}\.\d{4}/.test(l))
+    (l) => /⏰\s*(Termin|Time|Час)\s*:\s*\d{2}\.\d{2}\.\d{4}/.test(l)
   );
   if (!line) return '';
   const idx = line.indexOf(':');

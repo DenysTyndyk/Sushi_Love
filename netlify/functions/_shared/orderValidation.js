@@ -171,7 +171,8 @@ function getScheduledTimeStatus(preferredTime, preferredDate, now = /* @__PURE__
   const dayOfWeek = getDayOfWeekFromDateString(parsedDate);
   const { openMinutes, closeMinutes } = getHoursForDay(dayOfWeek);
   const { totalMinutes } = parsed;
-  if (totalMinutes < SCHEDULED_MIN_MINUTES || totalMinutes < openMinutes || totalMinutes > closeMinutes) {
+  const earliestAllowedMinutes = Math.max(openMinutes, SCHEDULED_MIN_MINUTES);
+  if (totalMinutes < earliestAllowedMinutes || totalMinutes > closeMinutes) {
     return "out_of_range";
   }
   if (parsedDate === today) {

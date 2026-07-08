@@ -1,3 +1,5 @@
+// Online scheduled orders are accepted starting from 13:00,
+// even on days when the restaurant opens earlier.
 export const SCHEDULED_MIN_MINUTES = 13 * 60;
 export const SCHEDULED_MAX_ONLINE_MINUTES = 20 * 60;
 export const SCHEDULED_MAX_DAYS_AHEAD = 14;
@@ -166,10 +168,10 @@ export function getScheduledTimeStatus(
   const dayOfWeek = getDayOfWeekFromDateString(parsedDate);
   const { openMinutes, closeMinutes } = getHoursForDay(dayOfWeek);
   const { totalMinutes } = parsed;
+  const earliestAllowedMinutes = Math.max(openMinutes, SCHEDULED_MIN_MINUTES);
 
   if (
-    totalMinutes < SCHEDULED_MIN_MINUTES ||
-    totalMinutes < openMinutes ||
+    totalMinutes < earliestAllowedMinutes ||
     totalMinutes > closeMinutes
   ) {
     return 'out_of_range';
