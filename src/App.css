@@ -763,6 +763,12 @@ html, body {
   line-height: 1.45;
 }
 
+.cart-scheduled-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .cart-time-call-banner {
   margin: 0 0 16px;
   padding: 14px 16px;

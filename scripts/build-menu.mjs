@@ -61,6 +61,7 @@ const ITEM_IMAGES = {
   'burger-salmon': '/imgs/Burgers/BurgerLosos.jpg',
   'burger-tuna-wakame': '/imgs/Burgers/BurgerTuna.jpg',
   'burger-shrimp-avocado': '/imgs/Burgers/BurgerShrimp.jpg',
+  'burger-king': '/imgs/Burgers/BurgerKing.png',
   'shrimp-panko': '/imgs/Starters/PankoShrimp.jpg',
   'fries-large': '/imgs/Starters/Frenchfries.jpg',
   mochi: '/imgs/Starters/Mochi.png',
@@ -237,6 +238,12 @@ const pl = {
     { id: 'prem-dubai', name: 'Roll Dubaj', price: '80 PLN', desc: 'Ryż, nori, łosoś XL, wakame' }
   ],
   'Sushi Burger': [
+    {
+      id: 'burger-king',
+      name: 'Sushi Burger King',
+      price: '69 PLN',
+      desc: 'Ryż, nori, ser Philadelphia, tobiko, krewetki gotowane, łosoś, awokado, ser cheddar'
+    },
     { id: 'burger-salmon', name: 'Burger z łososiem', price: '45 PLN', desc: 'Ryż, nori, philadelphia, ogórek, łosoś' },
     { id: 'burger-tuna-wakame', name: 'Burger z tuńczykiem i wakame', price: '45 PLN', desc: 'Ryż, nori, philadelphia, wakame, tuńczyk, teriyaki' },
     { id: 'burger-shrimp-avocado', name: 'Burger z krewetkami i awokado', price: '50 PLN', desc: 'Ryż, nori, philadelphia, krewetka gotowana, awokado, teriyaki, tobiko' }
@@ -307,52 +314,72 @@ const pl = {
     {
       id: 'drink-coca-033',
       name: 'Coca-Cola 0.33',
-      price: '6 PLN',
+      price: '5 PLN',
       desc: '0.33 l',
       image: DRINK_IMAGES.coca
     },
     {
       id: 'drink-fanta-033',
       name: 'Fanta 0.33',
-      price: '6 PLN',
+      price: '5 PLN',
       desc: '0.33 l',
       image: DRINK_IMAGES.fanta
     },
+    { id: 'drink-h-04', kind: 'section', name: '0.4 l' },
     {
-      id: 'drink-sprite-033',
-      name: 'Sprite 0.33',
+      id: 'drink-lemonade-04',
+      name: 'Limonada 0.4',
       price: '6 PLN',
-      desc: '0.33 l',
-      image: DRINK_IMAGES.sprite
+      desc: '0.4 l',
+      image: DRINK_IMAGES.cappy
     },
     { id: 'drink-h-05', kind: 'section', name: '0.5 l' },
     {
       id: 'drink-coca-05',
       name: 'Coca-Cola 0.5',
-      price: '8 PLN',
+      price: '7 PLN',
       desc: '0.5 l',
       image: DRINK_IMAGES.coca
     },
     {
       id: 'drink-fanta-05',
       name: 'Fanta 0.5',
-      price: '8 PLN',
+      price: '7 PLN',
       desc: '0.5 l',
       image: DRINK_IMAGES.fanta
     },
     {
       id: 'drink-sprite-05',
       name: 'Sprite 0.5',
-      price: '8 PLN',
+      price: '7 PLN',
       desc: '0.5 l',
       image: DRINK_IMAGES.sprite
     },
     {
-      id: 'drink-cappy-05',
-      name: 'Cappy 0.5',
+      id: 'drink-tea',
+      name: 'Herbata 0.5',
       price: '8 PLN',
       desc: '0.5 l',
-      image: DRINK_IMAGES.cappy
+      image: DRINK_IMAGES.tea
+    },
+    {
+      id: 'drink-water-sparkling-05',
+      name: 'Woda gazowana 0.5',
+      price: '3 PLN',
+      desc: '0.5 l'
+    },
+    {
+      id: 'drink-water-still-05',
+      name: 'Woda niegazowana 0.5',
+      price: '3 PLN',
+      desc: '0.5 l'
+    },
+    { id: 'drink-h-07', kind: 'section', name: '0.7 l' },
+    {
+      id: 'drink-water-still-07',
+      name: 'Woda niegazowana 0.7',
+      price: '6 PLN',
+      desc: '0.7 l'
     },
     { id: 'drink-h-085', kind: 'section', name: '0.85 l' },
     {
@@ -375,13 +402,6 @@ const pl = {
       price: '10 PLN',
       desc: '0.85 l',
       image: DRINK_IMAGES.sprite
-    },
-    {
-      id: 'drink-tea',
-      name: 'Herbata',
-      price: '10 PLN',
-      desc: 'Herbata',
-      image: DRINK_IMAGES.tea
     }
   ]
 };

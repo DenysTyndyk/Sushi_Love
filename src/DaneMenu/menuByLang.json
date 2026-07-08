@@ -371,6 +371,13 @@
     ],
     "Sushi Burger": [
       {
+        "id": "burger-king",
+        "name": "Sushi Burger King",
+        "price": "69 PLN",
+        "desc": "Ryż, nori, ser Philadelphia, tobiko, krewetki gotowane, łosoś, awokado, ser cheddar",
+        "image": "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         "id": "burger-salmon",
         "name": "Burger z łososiem",
         "price": "45 PLN",
@@ -523,23 +530,28 @@
       {
         "id": "drink-coca-033",
         "name": "Coca-Cola 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 l",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-033",
         "name": "Fanta 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 l",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
-        "id": "drink-sprite-033",
-        "name": "Sprite 0.33",
+        "id": "drink-h-04",
+        "kind": "section",
+        "name": "0.4 l"
+      },
+      {
+        "id": "drink-lemonade-04",
+        "name": "Limonada 0.4",
         "price": "6 PLN",
-        "desc": "0.33 l",
-        "image": "/imgs/drinks/Sprite.jpg"
+        "desc": "0.4 l",
+        "image": "/imgs/drinks/Cappy.jpg"
       },
       {
         "id": "drink-h-05",
@@ -549,30 +561,53 @@
       {
         "id": "drink-coca-05",
         "name": "Coca-Cola 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-05",
         "name": "Fanta 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
         "id": "drink-sprite-05",
         "name": "Sprite 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/Sprite.jpg"
       },
       {
-        "id": "drink-cappy-05",
-        "name": "Cappy 0.5",
+        "id": "drink-tea",
+        "name": "Herbata 0.5",
         "price": "8 PLN",
         "desc": "0.5 l",
-        "image": "/imgs/drinks/Cappy.jpg"
+        "image": "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        "id": "drink-water-sparkling-05",
+        "name": "Woda gazowana 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 l"
+      },
+      {
+        "id": "drink-water-still-05",
+        "name": "Woda niegazowana 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 l"
+      },
+      {
+        "id": "drink-h-07",
+        "kind": "section",
+        "name": "0.7 l"
+      },
+      {
+        "id": "drink-water-still-07",
+        "name": "Woda niegazowana 0.7",
+        "price": "6 PLN",
+        "desc": "0.7 l"
       },
       {
         "id": "drink-h-085",
@@ -599,13 +634,6 @@
         "price": "10 PLN",
         "desc": "0.85 l",
         "image": "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        "id": "drink-tea",
-        "name": "Herbata",
-        "price": "10 PLN",
-        "desc": "Herbata",
-        "image": "/imgs/drinks/fuzetea.jpg"
       }
     ]
   },
@@ -981,6 +1009,13 @@
     ],
     "Sushi Burger": [
       {
+        "id": "burger-king",
+        "name": "Sushi Burger King",
+        "price": "69 PLN",
+        "desc": "Rice, nori, cream cheese, tobiko, cooked shrimp, salmon, avocado, cheddar",
+        "image": "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         "id": "burger-salmon",
         "name": "Burger with salmon",
         "price": "45 PLN",
@@ -1133,23 +1168,28 @@
       {
         "id": "drink-coca-033",
         "name": "Coca-Cola 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 l",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-033",
         "name": "Fanta 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 l",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
-        "id": "drink-sprite-033",
-        "name": "Sprite 0.33",
+        "id": "drink-h-04",
+        "kind": "section",
+        "name": "0.4 l"
+      },
+      {
+        "id": "drink-lemonade-04",
+        "name": "Lemonade 0.4",
         "price": "6 PLN",
-        "desc": "0.33 l",
-        "image": "/imgs/drinks/Sprite.jpg"
+        "desc": "0.4 l",
+        "image": "/imgs/drinks/Cappy.jpg"
       },
       {
         "id": "drink-h-05",
@@ -1159,30 +1199,53 @@
       {
         "id": "drink-coca-05",
         "name": "Coca-Cola 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-05",
         "name": "Fanta 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
         "id": "drink-sprite-05",
         "name": "Sprite 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 l",
         "image": "/imgs/drinks/Sprite.jpg"
       },
       {
-        "id": "drink-cappy-05",
-        "name": "Cappy 0.5",
+        "id": "drink-tea",
+        "name": "Tea 0.5",
         "price": "8 PLN",
         "desc": "0.5 l",
-        "image": "/imgs/drinks/Cappy.jpg"
+        "image": "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        "id": "drink-water-sparkling-05",
+        "name": "Sparkling water 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 l"
+      },
+      {
+        "id": "drink-water-still-05",
+        "name": "Still water 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 l"
+      },
+      {
+        "id": "drink-h-07",
+        "kind": "section",
+        "name": "0.7 l"
+      },
+      {
+        "id": "drink-water-still-07",
+        "name": "Still water 0.7",
+        "price": "6 PLN",
+        "desc": "0.7 l"
       },
       {
         "id": "drink-h-085",
@@ -1209,13 +1272,6 @@
         "price": "10 PLN",
         "desc": "0.85 l",
         "image": "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        "id": "drink-tea",
-        "name": "Tea",
-        "price": "10 PLN",
-        "desc": "Tea",
-        "image": "/imgs/drinks/fuzetea.jpg"
       }
     ]
   },
@@ -1591,6 +1647,13 @@
     ],
     "Sushi Burger": [
       {
+        "id": "burger-king",
+        "name": "Суші-бургер King",
+        "price": "69 PLN",
+        "desc": "Рис, норі, вершковий сир, тобіко, варені креветки, лосось, авокадо, чеддер",
+        "image": "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         "id": "burger-salmon",
         "name": "Бургер з лососем",
         "price": "45 PLN",
@@ -1743,23 +1806,28 @@
       {
         "id": "drink-coca-033",
         "name": "Coca-Cola 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 л",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-033",
         "name": "Fanta 0.33",
-        "price": "6 PLN",
+        "price": "5 PLN",
         "desc": "0.33 л",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
-        "id": "drink-sprite-033",
-        "name": "Sprite 0.33",
+        "id": "drink-h-04",
+        "kind": "section",
+        "name": "0.4 l"
+      },
+      {
+        "id": "drink-lemonade-04",
+        "name": "Лимонад 0.4",
         "price": "6 PLN",
-        "desc": "0.33 л",
-        "image": "/imgs/drinks/Sprite.jpg"
+        "desc": "0.4 л",
+        "image": "/imgs/drinks/Cappy.jpg"
       },
       {
         "id": "drink-h-05",
@@ -1769,30 +1837,53 @@
       {
         "id": "drink-coca-05",
         "name": "Coca-Cola 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 л",
         "image": "/imgs/drinks/CocaCola.jpg"
       },
       {
         "id": "drink-fanta-05",
         "name": "Fanta 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 л",
         "image": "/imgs/drinks/Fanta.jpg"
       },
       {
         "id": "drink-sprite-05",
         "name": "Sprite 0.5",
-        "price": "8 PLN",
+        "price": "7 PLN",
         "desc": "0.5 л",
         "image": "/imgs/drinks/Sprite.jpg"
       },
       {
-        "id": "drink-cappy-05",
-        "name": "Cappy 0.5",
+        "id": "drink-tea",
+        "name": "Чай 0.5",
         "price": "8 PLN",
         "desc": "0.5 л",
-        "image": "/imgs/drinks/Cappy.jpg"
+        "image": "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        "id": "drink-water-sparkling-05",
+        "name": "Вода газована 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 л"
+      },
+      {
+        "id": "drink-water-still-05",
+        "name": "Вода негазована 0.5",
+        "price": "3 PLN",
+        "desc": "0.5 л"
+      },
+      {
+        "id": "drink-h-07",
+        "kind": "section",
+        "name": "0.7 l"
+      },
+      {
+        "id": "drink-water-still-07",
+        "name": "Вода негазована 0.7",
+        "price": "6 PLN",
+        "desc": "0.7 л"
       },
       {
         "id": "drink-h-085",
@@ -1819,13 +1910,6 @@
         "price": "10 PLN",
         "desc": "0.85 л",
         "image": "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        "id": "drink-tea",
-        "name": "Чай",
-        "price": "10 PLN",
-        "desc": "Чай",
-        "image": "/imgs/drinks/fuzetea.jpg"
       }
     ]
   }

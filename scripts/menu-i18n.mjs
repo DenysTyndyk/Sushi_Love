@@ -381,6 +381,16 @@ export const menuI18n = {
     en: { name: 'Dubai Roll', desc: 'Rice, nori, salmon XL, wakame' },
     uk: { name: 'Рол Dubai', desc: 'Рис, норі, лосось XL, вакаме' }
   },
+  'burger-king': {
+    en: {
+      name: 'Sushi Burger King',
+      desc: 'Rice, nori, cream cheese, tobiko, cooked shrimp, salmon, avocado, cheddar'
+    },
+    uk: {
+      name: 'Суші-бургер King',
+      desc: 'Рис, норі, вершковий сир, тобіко, варені креветки, лосось, авокадо, чеддер'
+    }
+  },
   'burger-salmon': {
     en: { name: 'Burger with salmon', desc: 'Rice, nori, cream cheese, cucumber, salmon' },
     uk: { name: 'Бургер з лососем', desc: 'Рис, норі, вершковий сир, огірок, лосось' }
@@ -527,9 +537,9 @@ export const menuI18n = {
     en: { name: 'Fanta 0.33', desc: '0.33 l' },
     uk: { name: 'Fanta 0.33', desc: '0.33 л' }
   },
-  'drink-sprite-033': {
-    en: { name: 'Sprite 0.33', desc: '0.33 l' },
-    uk: { name: 'Sprite 0.33', desc: '0.33 л' }
+  'drink-lemonade-04': {
+    en: { name: 'Lemonade 0.4', desc: '0.4 l' },
+    uk: { name: 'Лимонад 0.4', desc: '0.4 л' }
   },
   'drink-coca-05': {
     en: { name: 'Coca-Cola 0.5', desc: '0.5 l' },
@@ -543,6 +553,22 @@ export const menuI18n = {
     en: { name: 'Sprite 0.5', desc: '0.5 l' },
     uk: { name: 'Sprite 0.5', desc: '0.5 л' }
   },
+  'drink-tea': {
+    en: { name: 'Tea 0.5', desc: '0.5 l' },
+    uk: { name: 'Чай 0.5', desc: '0.5 л' }
+  },
+  'drink-water-sparkling-05': {
+    en: { name: 'Sparkling water 0.5', desc: '0.5 l' },
+    uk: { name: 'Вода газована 0.5', desc: '0.5 л' }
+  },
+  'drink-water-still-05': {
+    en: { name: 'Still water 0.5', desc: '0.5 l' },
+    uk: { name: 'Вода негазована 0.5', desc: '0.5 л' }
+  },
+  'drink-water-still-07': {
+    en: { name: 'Still water 0.7', desc: '0.7 l' },
+    uk: { name: 'Вода негазована 0.7', desc: '0.7 л' }
+  },
   'drink-coca-085': {
     en: { name: 'Coca-Cola 0.85', desc: '0.85 l' },
     uk: { name: 'Coca-Cola 0.85', desc: '0.85 л' }
@@ -554,13 +580,5 @@ export const menuI18n = {
   'drink-sprite-085': {
     en: { name: 'Sprite 0.85', desc: '0.85 l' },
     uk: { name: 'Sprite 0.85', desc: '0.85 л' }
-  },
-  'drink-cappy-05': {
-    en: { name: 'Cappy 0.5', desc: '0.5 l' },
-    uk: { name: 'Cappy 0.5', desc: '0.5 л' }
-  },
-  'drink-tea': {
-    en: { name: 'Tea', desc: 'Tea' },
-    uk: { name: 'Чай', desc: 'Чай' }
   }
 };
