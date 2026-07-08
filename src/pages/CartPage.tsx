@@ -9,9 +9,13 @@ import { findMenuItemById } from '../DaneMenu/menuUtils';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import {
+  getScheduledMaxDateString,
   getScheduledTimeStatus,
+  getWarsawDateString,
   isRestaurantOpen
 } from '../shared/orderTimeRules';
+import { trackGoogleAdsOrderConversions } from '../shared/googleAds';
+import { calculateBottleDepositPln } from '../shared/bottleDeposit';
 import {
   DELIVERY_FEE_PLN,
   isDeliveryAvailable,
@@ -34,6 +38,7 @@ const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
   [ValidationError.CASH_COVER]: 'cart.errorCashAmountMin',
   [ValidationError.ADDRESS]: 'cart.errorAddressRequired',
   [ValidationError.TIME]: 'cart.errorTimeRequired',
+  [ValidationError.TIME_DATE]: 'cart.errorTimeDateRequired',
   [ValidationError.TIME_OUT_OF_RANGE]: 'cart.errorTimeOutOfRange',
   [ValidationError.TIME_CALL_REQUIRED]: 'cart.errorTimeCallRequired',
   [ValidationError.RESTAURANT_CLOSED]: 'cart.errorRestaurantClosed',
@@ -53,6 +58,7 @@ const initialFormData: OrderFormData = {
   address: '',
   streetNumber: '',
   apartmentNumber: '',
+  preferredDate: '',
   preferredTime: '',
   comment: '',
   cashAmount: '',
@@ -141,18 +147,29 @@ const CartPage = () => {
 
   const deliveryEligible = isDeliveryAvailable(cartTotal);
 
+  const bottleDeposit = useMemo(
+    () => calculateBottleDepositPln(cart),
+    [cart]
+  );
+
   const deliveryFee =
     formData.orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
 
   const orderTotal = useMemo(
-    () => Number((cartTotal + deliveryFee).toFixed(2)),
-    [cartTotal, deliveryFee]
+    () => Number((cartTotal + bottleDeposit + deliveryFee).toFixed(2)),
+    [cartTotal, bottleDeposit, deliveryFee]
   );
+
+  const warsawToday = getWarsawDateString();
+  const warsawMaxDate = getScheduledMaxDateString();
 
   const scheduledTimeStatus = useMemo(() => {
     if (formData.timeMode !== 'scheduled') return 'idle' as const;
-    return getScheduledTimeStatus(formData.preferredTime);
-  }, [formData.timeMode, formData.preferredTime]);
+    return getScheduledTimeStatus(
+      formData.preferredTime,
+      formData.preferredDate
+    );
+  }, [formData.timeMode, formData.preferredDate, formData.preferredTime]);
 
   const scheduledTimeBlocked =
     scheduledTimeStatus === 'call_required' ||
@@ -197,7 +214,11 @@ const CartPage = () => {
     setFormData((prev) => {
       const next = { ...prev, [name]: value } as OrderFormData;
       if (name === 'timeMode' && value === 'asap') {
+        next.preferredDate = '';
         next.preferredTime = '';
+      }
+      if (name === 'timeMode' && value === 'scheduled' && !next.preferredDate) {
+        next.preferredDate = getWarsawDateString();
       }
       if (name === 'paymentMethod' && value !== 'cash') {
         next.cashAmount = '';
@@ -224,6 +245,7 @@ const CartPage = () => {
       address: formData.address,
       streetNumber: formData.streetNumber,
       apartmentNumber: formData.apartmentNumber,
+      preferredDate: formData.preferredDate,
       preferredTime: formData.preferredTime,
       comment: formData.comment,
       cashAmount:
@@ -248,6 +270,8 @@ const CartPage = () => {
     }
 
     setIsSubmitting(true);
+    const transactionId = crypto.randomUUID();
+    const isScheduledOrder = formData.timeMode === 'scheduled';
 
     try {
       const response = await fetch(orderEndpoint, {
@@ -298,6 +322,11 @@ const CartPage = () => {
         setErrorMessage(t('cart.alertError'));
         return;
       }
+
+      trackGoogleAdsOrderConversions({
+        transactionId,
+        isScheduled: isScheduledOrder
+      });
 
       setSubmitState('success');
       setFormData(initialFormData);
@@ -388,6 +417,12 @@ const CartPage = () => {
                   <span>{t('cart.subtotal')}</span>
                   <strong>{cartTotal.toFixed(2)} PLN</strong>
                 </div>
+                {bottleDeposit > 0 && (
+                  <div className="cart-summary__row">
+                    <span>{t('cart.bottleDeposit')}</span>
+                    <strong>{bottleDeposit.toFixed(2)} PLN</strong>
+                  </div>
+                )}
                 {formData.orderType === 'delivery' && (
                   <div className="cart-summary__row">
                     <span>{t('cart.deliveryFee')}</span>
@@ -535,16 +570,32 @@ const CartPage = () => {
                 </select>
               </label>
               {formData.timeMode === 'scheduled' && (
-                <>
-                  <input
-                    type="text"
-                    name="preferredTime"
-                    value={formData.preferredTime}
-                    onChange={onInputChange}
-                    placeholder={t('cart.timeScheduledPlaceholder')}
-                    required
-                    aria-invalid={scheduledTimeBlocked}
-                  />
+                <div className="cart-scheduled-fields">
+                  <label>
+                    {t('cart.timeScheduledDateLabel')}
+                    <input
+                      type="date"
+                      name="preferredDate"
+                      value={formData.preferredDate}
+                      onChange={onInputChange}
+                      min={warsawToday}
+                      max={warsawMaxDate}
+                      required
+                      aria-invalid={scheduledTimeBlocked}
+                    />
+                  </label>
+                  <label>
+                    {t('cart.timeScheduledTimeLabel')}
+                    <input
+                      type="text"
+                      name="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={onInputChange}
+                      placeholder={t('cart.timeScheduledPlaceholder')}
+                      required
+                      aria-invalid={scheduledTimeBlocked}
+                    />
+                  </label>
                   {scheduledTimeStatus === 'call_required' && (
                     <div className="cart-time-call-banner" role="status">
                       <p>{t('cart.timeCallBanner')}</p>
@@ -560,7 +611,7 @@ const CartPage = () => {
                         {t('cart.errorTimeOutOfRange')}
                       </p>
                     )}
-                </>
+                </div>
               )}
               <fieldset className="cart-extras">
                 <legend>{t('cart.extrasTitle')}</legend>
@@ -628,6 +679,7 @@ const CartPage = () => {
           <div className="cart-checkout">
             <h3 className="cart-checkout-title">{t('cart.successTitle')}</h3>
             <p className="cart-checkout-desc">{t('cart.successEmailHint')}</p>
+            <p className="cart-checkout-desc">{t('cart.successEmailSpamHint')}</p>
             <p className="cart-checkout-desc">{t('cart.phoneCta')}</p>
           </div>
         )}

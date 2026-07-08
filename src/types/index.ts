@@ -63,6 +63,7 @@ export interface OrderFormData extends OrderExtras {
   address: string;
   streetNumber: string;
   apartmentNumber: string;
+  preferredDate: string;
   preferredTime: string;
   comment: string;
   cashAmount: string;
@@ -79,6 +80,7 @@ export interface OrderPayload {
   address?: string;
   streetNumber?: string;
   apartmentNumber?: string;
+  preferredDate?: string;
   preferredTime?: string;
   comment?: string;
   cashAmount?: string | number;
@@ -103,12 +105,14 @@ export interface ValidatedOrder {
   address: string;
   streetNumber: string;
   apartmentNumber: string;
+  preferredDate: string;
   preferredTime: string;
   comment: string;
   extras: OrderExtras;
   lang: string;
   cart: OrderCartLine[];
   subtotal: number;
+  bottleDeposit: number;
   deliveryFee: number;
   total: number;
   currency: string;
@@ -127,6 +131,7 @@ export const ValidationError = {
   ADDRESS: 'Address is required for delivery',
   DELIVERY_MINIMUM: 'Order subtotal below delivery minimum',
   TIME: 'Time is required when scheduling',
+  TIME_DATE: 'Date is required when scheduling',
   TIME_OUT_OF_RANGE: 'Scheduled time is outside allowed window',
   TIME_CALL_REQUIRED: 'Scheduled time requires phone confirmation',
   RESTAURANT_CLOSED: 'Restaurant is currently closed',

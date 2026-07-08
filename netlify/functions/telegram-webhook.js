@@ -10,6 +10,8 @@ const {
   MARKER_REJECTED,
   extractLineValue,
   extractOrderType,
+  extractScheduledWhen,
+  isScheduledOrder,
   waitEtaMarker,
   isWaitingForEta
 } = require('./constants');
@@ -30,7 +32,9 @@ const {
   formatResendFailure,
   extractOrderSummary,
   buildCustomerEmail,
-  formatConfirmedSuffixUk
+  buildCustomerEmailScheduled,
+  formatConfirmedSuffixUk,
+  formatConfirmedSuffixScheduledUk
 } = require('./_shared/customerEmail');
 const { rejectOrderAndNotifyCustomer } = require('./_shared/orderReject');
 
@@ -313,6 +317,121 @@ exports.handler = async (event) => {
   }
 
   if (isAccept) {
+    if (isScheduledOrder(text)) {
+      const emailTo = extractLineValue(text, LABEL_EMAIL);
+      const customerName = extractLineValue(text, LABEL_NAME);
+      const orderSummary = extractOrderSummary(text);
+      const scheduledWhen = extractScheduledWhen(text);
+      const orderType = extractOrderType(text);
+
+      if (!emailTo) {
+        await tgApi(token, 'answerCallbackQuery', {
+          callback_query_id: cq.id,
+          text: 'У повідомленні немає email (старе замовлення?).',
+          show_alert: true
+        });
+        return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+      }
+
+      const suffix = formatConfirmedSuffixScheduledUk(
+        orderType,
+        scheduledWhen,
+        who
+      );
+      const newText = appendWithinTelegramLimit(text, suffix);
+
+      let editRes = await tgApi(token, 'editMessageText', {
+        chat_id: chatId,
+        message_id: messageId,
+        ...threadPayload,
+        text: newText,
+        reply_markup: { inline_keyboard: [] }
+      });
+      let editData = await readJsonResponse(editRes);
+
+      if (!editRes.ok && !isMessageNotModified(editData.description)) {
+        await tgApi(token, 'editMessageReplyMarkup', {
+          chat_id: chatId,
+          message_id: messageId,
+          ...threadPayload,
+          reply_markup: { inline_keyboard: [] }
+        });
+        await tgApi(token, 'answerCallbackQuery', {
+          callback_query_id: cq.id,
+          text: (editData.description || 'Не вдалося оновити повідомлення').slice(0, 200),
+          show_alert: true
+        });
+        log('telegram-webhook', 'error', {
+          correlationId,
+          status: 'scheduled_confirm_edit_failed',
+          messageId,
+          chatId,
+          detail: String(editData.description || '').slice(0, 200)
+        });
+        return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+      }
+
+      if (!editRes.ok) {
+        await tgApi(token, 'editMessageReplyMarkup', {
+          chat_id: chatId,
+          message_id: messageId,
+          ...threadPayload,
+          reply_markup: { inline_keyboard: [] }
+        });
+      }
+
+      await tgApi(token, 'answerCallbackQuery', { callback_query_id: cq.id });
+
+      const subject =
+        process.env.RESEND_SUBJECT_CONFIRMED ||
+        'Sushi Love — zamówлення підтверджено / zamówienie potwierdzone';
+
+      const mail = await sendTransactionalEmail({
+        to: emailTo,
+        subject,
+        text: buildCustomerEmailScheduled({
+          name: customerName,
+          scheduledWhen,
+          orderSummary,
+          orderType
+        })
+      });
+
+      log('telegram-webhook', mail.ok ? 'info' : 'error', {
+        correlationId,
+        status: mail.skipped ? 'email_skipped' : mail.ok ? 'email_sent' : 'email_failed',
+        messageId,
+        toDomain: emailTo.split('@')[1] || 'unknown'
+      });
+
+      if (!mail.ok && !mail.skipped) {
+        await tgApi(token, 'sendMessage', {
+          chat_id: chatId,
+          text: formatResendFailure(mail, emailTo)
+        });
+      }
+
+      if (mail.skipped && emailTo) {
+        await tgApi(token, 'sendMessage', {
+          chat_id: chatId,
+          text:
+            '⚠️ Resend не налаштовано (RESEND_API_KEY / RESEND_FROM). Клієнт не отримав листа.'
+        });
+      }
+
+      log('telegram-webhook', 'info', {
+        correlationId,
+        status: 'order_confirmed',
+        messageId,
+        chatId,
+        scheduledWhen,
+        mode: 'scheduled',
+        callbackQueryId: cq.id
+      });
+
+      return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+    }
+
     const orderType = extractOrderType(text);
     const waitMarker = waitEtaMarker(orderType);
 

@@ -99,6 +99,7 @@ const pl = {
     empty: 'Koszyk jest pusty.',
     toMenu: 'Przejdź do menu',
     subtotal: 'Produkty:',
+    bottleDeposit: 'Kaucja za butelki (0,50 zł/szt.):',
     deliveryFee: 'Dostawa:',
     total: 'Do zapłaty:',
     checkoutTitle: 'Dane kontaktowe',
@@ -115,8 +116,10 @@ const pl = {
     cashAmountPlaceholder: 'Kwota gotówki (np. 100)',
     timeModeLabel: 'Czas realizacji',
     timeModeAsap: 'Jak najszybciej',
-    timeModeScheduled: 'Konkretna godzina',
-    timeScheduledPlaceholder: 'Godzina 13:00–20:00 (np. 19:30)',
+    timeModeScheduled: 'Konkretny termin',
+    timeScheduledDateLabel: 'Dzień realizacji',
+    timeScheduledTimeLabel: 'Godzina',
+    timeScheduledPlaceholder: '13:00–20:00 (np. 19:30)',
     timeCallBanner:
       'Dla dostawy po godzinie 20:00 zadzwoń — potwierdzimy, czy możemy zrealizować zamówienie:',
     emailPlaceholder: 'E-mail (do potwierdzenia zamówienia)',
@@ -139,6 +142,8 @@ const pl = {
     successTitle: 'Dziękujemy! Zamówienie wysłane.',
     successEmailHint:
       'Na podany adres e-mail wyślemy potwierdzenie po zaakceptowaniu zamówienia wraz z szacowanym czasem realizacji. Jeśli w ciągu 10 minut nie otrzymasz wiadomości, prosimy o kontakt telefoniczny.',
+    successEmailSpamHint:
+      'Jeśli nie widzisz wiadomości, sprawdź poprawność podanego adresu e-mail oraz folder spam lub oferty.',
     phoneCta: 'Zadzwoń: +48 664 454 433',
     telegramEmpty: 'Koszyk pusty',
     telegramNew: 'Nowe zamówienie!',
@@ -161,8 +166,9 @@ const pl = {
     errorCashAmountMin: 'Kwota gotówki musi być nie mniejsza niż suma zamówienia.',
     errorAddressRequired: 'Podaj adres dostawy.',
     errorTimeRequired: 'Podaj godzinę realizacji zamówienia.',
+    errorTimeDateRequired: 'Wybierz dzień realizacji zamówienia.',
     errorTimeOutOfRange:
-      'Godzina realizacji musi być między 13:00 a 20:00 (w godzinach otwarcia restauracji).',
+      'Wybierz poprawny dzień i godzinę (13:00–20:00 online, w godzinach otwarcia restauracji).',
     errorTimeCallRequired:
       'Dla godziny po 20:00 zadzwoń, aby potwierdzić zamówienie.',
     closedBanner:
@@ -237,6 +243,7 @@ const en = {
     empty: 'Your cart is empty.',
     toMenu: 'Browse menu',
     subtotal: 'Items:',
+    bottleDeposit: 'Bottle deposit (PLN 0.50 each):',
     deliveryFee: 'Delivery:',
     total: 'Total due:',
     checkoutTitle: 'Contact details',
@@ -253,8 +260,10 @@ const en = {
     cashAmountPlaceholder: 'Cash you will pay (e.g. 100)',
     timeModeLabel: 'Time',
     timeModeAsap: 'As soon as possible',
-    timeModeScheduled: 'Specific time',
-    timeScheduledPlaceholder: 'Time 13:00–20:00 (e.g. 19:30)',
+    timeModeScheduled: 'Specific date & time',
+    timeScheduledDateLabel: 'Date',
+    timeScheduledTimeLabel: 'Time',
+    timeScheduledPlaceholder: '13:00–20:00 (e.g. 19:30)',
     timeCallBanner:
       'For delivery after 8:00 PM, please call so we can confirm we can fulfil your order:',
     emailPlaceholder: 'Email (for order confirmation)',
@@ -277,6 +286,8 @@ const en = {
     successTitle: 'Thank you! Your order has been sent.',
     successEmailHint:
       'We will email you a confirmation after the restaurant accepts the order, including an estimated ready time. If you do not receive confirmation within 10 minutes, please call us.',
+    successEmailSpamHint:
+      'If you do not see the email, check that your address is correct and look in your spam or junk folder.',
     phoneCta: 'Call us: +48 664 454 433',
     telegramEmpty: 'Cart empty',
     telegramNew: 'New order!',
@@ -299,8 +310,9 @@ const en = {
     errorCashAmountMin: 'Cash amount must be at least the order total.',
     errorAddressRequired: 'Please enter a delivery address.',
     errorTimeRequired: 'Please enter the preferred time.',
+    errorTimeDateRequired: 'Please select the order date.',
     errorTimeOutOfRange:
-      'Fulfilment time must be between 1:00 PM and 8:00 PM (within opening hours).',
+      'Choose a valid date and time (1:00–8:00 PM online, within opening hours).',
     errorTimeCallRequired:
       'For times after 8:00 PM, please call to confirm your order.',
     closedBanner:
@@ -375,6 +387,7 @@ const uk = {
     empty: 'Кошик порожній.',
     toMenu: 'До меню',
     subtotal: 'Продукти:',
+    bottleDeposit: 'Застава за пляшки (0,50 zł/шт.):',
     deliveryFee: 'Доставка:',
     total: 'До сплати:',
     checkoutTitle: 'Контактні дані',
@@ -391,8 +404,10 @@ const uk = {
     cashAmountPlaceholder: 'Сума готівкою (напр. 100)',
     timeModeLabel: 'Час',
     timeModeAsap: 'Якомога швидше',
-    timeModeScheduled: 'Конкретний час',
-    timeScheduledPlaceholder: 'Час 13:00–20:00 (наприклад, 19:30)',
+    timeModeScheduled: 'Конкретний день і час',
+    timeScheduledDateLabel: 'День',
+    timeScheduledTimeLabel: 'Година',
+    timeScheduledPlaceholder: '13:00–20:00 (наприклад, 19:30)',
     timeCallBanner:
       'Для доставки після 20:00 зателефонуйте — підтвердимо, чи можемо виконати замовлення:',
     emailPlaceholder: 'Email (для підтвердження замовлення)',
@@ -415,6 +430,8 @@ const uk = {
     successTitle: 'Дякуємо! Замовлення надіслано.',
     successEmailHint:
       'На вказаний email надішлемо підтвердження після прийняття замовлення та орієнтовний час готовності. Якщо протягом 10 хвилин підтвердження не надійде, просимо зателефонувати нам.',
+    successEmailSpamHint:
+      'Якщо листа немає — перевір правильність email і теку «Спам» або «Небажана пошта».',
     phoneCta: 'Телефон: +48 664 454 433',
     telegramEmpty: 'Кошик порожній',
     telegramNew: 'Нове замовлення!',
@@ -437,8 +454,9 @@ const uk = {
     errorCashAmountMin: 'Сума готівкою не може бути меншою за суму замовлення.',
     errorAddressRequired: 'Вкажи адресу доставки.',
     errorTimeRequired: 'Вкажи бажаний час замовлення.',
+    errorTimeDateRequired: 'Обери день замовлення.',
     errorTimeOutOfRange:
-      'Час виконання має бути між 13:00 та 20:00 (у межах годин роботи).',
+      'Обери коректний день і час (13:00–20:00 онлайн, у межах годин роботи).',
     errorTimeCallRequired:
       'Для часу після 20:00 зателефонуйте, щоб підтвердити замовлення.',
     closedBanner:

@@ -41,14 +41,22 @@ function formatExtrasLine(extras, lang) {
   return `${title}: ${picked.join(', ')}`;
 }
 
-function formatTimeLine(timeMode, preferredTime, lang) {
+function formatDateDisplay(dateStr) {
+  const [y, m, d] = String(dateStr || '').split('-');
+  if (!y || !m || !d) return '';
+  return `${d}.${m}.${y}`;
+}
+
+function formatTimeLine(timeMode, preferredDate, preferredTime, lang) {
   if (timeMode === 'scheduled' && String(preferredTime || '').trim()) {
     const t = String(preferredTime).trim();
+    const datePart = formatDateDisplay(preferredDate);
+    const when = datePart ? `${datePart}, ${t}` : t;
     return lang === 'uk'
-      ? `⏰ Czas: ${t}`
+      ? `⏰ Час: ${when}`
       : lang === 'en'
-        ? `⏰ Time: ${t}`
-        : `⏰ Godzina: ${t}`;
+        ? `⏰ Time: ${when}`
+        : `⏰ Termin: ${when}`;
   }
   if (lang === 'uk') return '⏰ Czas: якомога швидше';
   if (lang === 'en') return '⏰ Time: as soon as possible';
@@ -63,6 +71,7 @@ function buildOrderTelegramMessage(data) {
     orderType,
     paymentMethod,
     timeMode,
+    preferredDate,
     preferredTime,
     lang,
     cashTendered,
@@ -74,6 +83,7 @@ function buildOrderTelegramMessage(data) {
     extras,
     cart,
     subtotal,
+    bottleDeposit,
     deliveryFee,
     total,
     currency
@@ -95,7 +105,7 @@ function buildOrderTelegramMessage(data) {
     `${LABEL_EMAIL} ${emailTrim}`,
     `${LABEL_ORDER_TYPE} ${formatOrderType(orderType, lang)}`,
     `💳 Płatność: ${formatPayment(paymentMethod, lang)}`,
-    formatTimeLine(timeMode, preferredTime, lang)
+    formatTimeLine(timeMode, preferredDate, preferredTime, lang)
   ];
 
   if (paymentMethod === 'cash' && cashTendered != null) {
@@ -124,12 +134,18 @@ function buildOrderTelegramMessage(data) {
 
   messageParts.push('', '🛒 Koszyk:', lines);
 
-  if (orderType === 'delivery' && Number(deliveryFee) > 0) {
-    messageParts.push(`🚚 Dostawa: ${Number(deliveryFee).toFixed(2)} ${currency}`);
+  if (subtotal != null && (Number(bottleDeposit) > 0 || Number(deliveryFee) > 0)) {
+    messageParts.push(`📦 Produkty: ${Number(subtotal).toFixed(2)} ${currency}`);
   }
 
-  if (subtotal != null && orderType === 'delivery' && Number(deliveryFee) > 0) {
-    messageParts.push(`📦 Produkty: ${Number(subtotal).toFixed(2)} ${currency}`);
+  if (Number(bottleDeposit) > 0) {
+    messageParts.push(
+      `♻️ Kaucja za butelki: ${Number(bottleDeposit).toFixed(2)} ${currency}`
+    );
+  }
+
+  if (orderType === 'delivery' && Number(deliveryFee) > 0) {
+    messageParts.push(`🚚 Dostawa: ${Number(deliveryFee).toFixed(2)} ${currency}`);
   }
 
   messageParts.push('', `💰 Razem: ${Number(total).toFixed(2)} ${currency}`);

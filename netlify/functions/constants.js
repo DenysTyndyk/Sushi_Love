@@ -38,3 +38,19 @@ exports.waitEtaMarker = (orderType) =>
 exports.isWaitingForEta = (text) =>
   String(text || '').includes(exports.MARKER_WAIT_ETA_DELIVERY) ||
   String(text || '').includes(exports.MARKER_WAIT_ETA_PICKUP);
+
+exports.extractScheduledWhen = (text) => {
+  const lines = String(text || '').split('\n');
+  const line = lines.find(
+    (l) =>
+      l.includes('⏰ Termin:') ||
+      (l.includes('⏰ Time:') && /\d{2}\.\d{2}\.\d{4}/.test(l)) ||
+      (l.includes('⏰ Час:') && /\d{2}\.\d{2}\.\d{4}/.test(l))
+  );
+  if (!line) return '';
+  const idx = line.indexOf(':');
+  if (idx === -1) return '';
+  return line.slice(idx + 1).trim();
+};
+
+exports.isScheduledOrder = (text) => Boolean(exports.extractScheduledWhen(text));

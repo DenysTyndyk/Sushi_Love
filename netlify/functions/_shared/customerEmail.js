@@ -2,6 +2,24 @@
 
 const { MARKER_CONFIRMED } = require('../constants');
 
+const DEFAULT_GOOGLE_MAPS_REVIEW_URL =
+  'https://www.google.com/maps/place/Sushi+Love/@50.8120464,19.1211783,17z/data=!4m8!3m7!1s0x4710b5c9a2246381:0xa2dd76336420fe5e!8m2!3d50.8120464!4d19.1237532!9m1!1b1!16s%2Fg%2F11zk2p2g4_';
+
+function getGoogleMapsReviewUrl() {
+  const fromEnv = String(process.env.GOOGLE_MAPS_REVIEW_URL || '').trim();
+  return fromEnv || DEFAULT_GOOGLE_MAPS_REVIEW_URL;
+}
+
+function buildGoogleReviewFooter() {
+  const url = getGoogleMapsReviewUrl();
+  return (
+    `\n---\n` +
+    `Bylibyśmy wdzięczni za opinię w Google Maps:\n${url}\n\n` +
+    `Будемо вдячні за відгук на Google Maps:\n${url}\n\n` +
+    `We would appreciate your review on Google Maps:\n${url}`
+  );
+}
+
 function formatEtaPl(minutes) {
   if (minutes === 45) return 'ok. 45 min.';
   if (minutes === 60) return 'ok. 1 godz.';
@@ -68,6 +86,45 @@ function formatConfirmedSuffixUk(orderType, minutes, who) {
   return `\n\n${MARKER_CONFIRMED}. ${eta}.${admin}`;
 }
 
+function scheduledLabelPl(orderType) {
+  return orderType === 'pickup' ? 'Termin odbioru' : 'Termin dostawy';
+}
+
+function scheduledLabelUk(orderType) {
+  return orderType === 'pickup' ? 'Час самовивозу' : 'Час доставки';
+}
+
+function formatConfirmedSuffixScheduledUk(orderType, scheduledWhen, who) {
+  const label = scheduledLabelUk(orderType);
+  const admin = who ? ` (${who})` : '';
+  return `\n\n${MARKER_CONFIRMED}. ${label}: ${scheduledWhen}.${admin}`;
+}
+
+function buildCustomerEmailScheduled({
+  name,
+  scheduledWhen,
+  orderSummary,
+  orderType = 'delivery'
+}) {
+  const n = name || 'Клієнте';
+  const type = orderType === 'pickup' ? 'pickup' : 'delivery';
+  const orderBlock = orderSummary
+    ? `\n\nTwoje zamówienie:\n${orderSummary}\n\n---\n\nВаше замовлення:\n${orderSummary}\n`
+    : '';
+  return (
+    `Witaj / Вітаємо, ${n}!\n\n` +
+    `Twoje zamówienie zostało potwierdzone przez restaurację Sushi Love.\n` +
+    `${scheduledLabelPl(type)}: ${scheduledWhen}` +
+    orderBlock +
+    `\n` +
+    `---\n` +
+    `Ваше замовлення підтверджено рестораном Sushi Love.\n` +
+    `${scheduledLabelUk(type)}: ${scheduledWhen}.\n\n` +
+    `Thank you! / Dziękujemy! / Дякуємо!` +
+    buildGoogleReviewFooter()
+  );
+}
+
 function buildCustomerEmail({ name, minutes, orderSummary, orderType = 'delivery' }) {
   const n = name || 'Клієнте';
   const type = orderType === 'pickup' ? 'pickup' : 'delivery';
@@ -83,7 +140,8 @@ function buildCustomerEmail({ name, minutes, orderSummary, orderType = 'delivery
     `---\n` +
     `Ваше замовлення підтверджено рестораном Sushi Love.\n` +
     `${etaLabelUk(type)}: ${formatEtaUk(minutes)}.\n\n` +
-    `Thank you! / Dziękujemy! / Дякуємо!`
+    `Thank you! / Dziękujemy! / Дякуємо!` +
+    buildGoogleReviewFooter()
   );
 }
 
@@ -108,8 +166,12 @@ module.exports = {
   etaLabelPl,
   etaLabelUk,
   formatConfirmedSuffixUk,
+  formatConfirmedSuffixScheduledUk,
   formatResendFailure,
   extractOrderSummary,
+  getGoogleMapsReviewUrl,
+  buildGoogleReviewFooter,
   buildCustomerEmail,
+  buildCustomerEmailScheduled,
   buildCustomerRejectionEmail
 };

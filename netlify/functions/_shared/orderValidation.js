@@ -20,13 +20,38 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/shared/orderValidation.ts
 var orderValidation_exports = {};
 __export(orderValidation_exports, {
+  BOTTLE_DEPOSIT_PLN: () => BOTTLE_DEPOSIT_PLN,
   DELIVERY_FEE_PLN: () => DELIVERY_FEE_PLN,
   DELIVERY_MIN_SUBTOTAL_PLN: () => DELIVERY_MIN_SUBTOTAL_PLN,
   EMAIL_RE: () => EMAIL_RE,
+  calculateBottleDepositPln: () => calculateBottleDepositPln,
   isDeliveryAvailable: () => isDeliveryAvailable,
   validateOrderPayload: () => validateOrderPayload
 });
 module.exports = __toCommonJS(orderValidation_exports);
+
+// src/shared/bottleDeposit.ts
+var BOTTLE_DEPOSIT_PLN = 0.5;
+function isDrinkLineId(id) {
+  const base = String(id || "").split("__")[0];
+  return base.startsWith("drink-") && !base.startsWith("drink-h-");
+}
+function countDrinkUnits(cart) {
+  let units = 0;
+  for (const line of cart) {
+    if (!isDrinkLineId(line.id)) continue;
+    const qty = Math.floor(Number(line.quantity));
+    if (Number.isFinite(qty) && qty > 0) {
+      units += qty;
+    }
+  }
+  return units;
+}
+function calculateBottleDepositPln(cart) {
+  const units = countDrinkUnits(cart);
+  if (units <= 0) return 0;
+  return Math.round(units * BOTTLE_DEPOSIT_PLN * 100) / 100;
+}
 
 // src/shared/deliveryFee.ts
 var DELIVERY_FEE_PLN = 10;
@@ -38,6 +63,7 @@ function isDeliveryAvailable(subtotal) {
 // src/shared/orderTimeRules.ts
 var SCHEDULED_MIN_MINUTES = 13 * 60;
 var SCHEDULED_MAX_ONLINE_MINUTES = 20 * 60;
+var SCHEDULED_MAX_DAYS_AHEAD = 14;
 var TIME_RE = /^(\d{1,2})[:.](\d{2})$/;
 var TIME_COMPACT_RE = /^(\d{1,2})(\d{2})$/;
 function parsePreferredTime(raw) {
@@ -65,9 +91,6 @@ function getHoursForDay(dayOfWeek) {
     return { openMinutes: 11 * 60, closeMinutes: 22 * 60 };
   }
   return { openMinutes: 12 * 60, closeMinutes: 21 * 60 };
-}
-function getClosingMinutesForDay(dayOfWeek) {
-  return getHoursForDay(dayOfWeek).closeMinutes;
 }
 function getWarsawMinutesNow(now = /* @__PURE__ */ new Date()) {
   const parts = new Intl.DateTimeFormat("en-GB", {
@@ -102,15 +125,60 @@ function getWarsawDayOfWeek(now = /* @__PURE__ */ new Date()) {
   }).format(now);
   return WEEKDAY_PART[weekday] ?? 0;
 }
-function getScheduledTimeStatus(preferredTime, now = /* @__PURE__ */ new Date()) {
-  const trimmed = String(preferredTime || "").trim();
-  if (!trimmed) return "idle";
-  const parsed = parsePreferredTime(trimmed);
+function getWarsawDateString(now = /* @__PURE__ */ new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Warsaw",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(now);
+}
+function addDaysToDateString(dateStr, days) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return dt.toISOString().slice(0, 10);
+}
+function getScheduledMaxDateString(now = /* @__PURE__ */ new Date()) {
+  return addDaysToDateString(getWarsawDateString(now), SCHEDULED_MAX_DAYS_AHEAD);
+}
+function parsePreferredDate(raw) {
+  const s = String(raw || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+  const [y, m, d] = s.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) {
+    return null;
+  }
+  return s;
+}
+function getDayOfWeekFromDateString(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+}
+function getScheduledTimeStatus(preferredTime, preferredDate, now = /* @__PURE__ */ new Date()) {
+  const trimmedTime = String(preferredTime || "").trim();
+  if (!trimmedTime) return "idle";
+  const trimmedDate = String(preferredDate || "").trim();
+  if (!trimmedDate) return "invalid";
+  const parsed = parsePreferredTime(trimmedTime);
   if (!parsed) return "invalid";
+  const parsedDate = parsePreferredDate(trimmedDate);
+  if (!parsedDate) return "invalid";
+  const today = getWarsawDateString(now);
+  if (parsedDate < today) return "out_of_range";
+  const maxDate = getScheduledMaxDateString(now);
+  if (parsedDate > maxDate) return "out_of_range";
+  const dayOfWeek = getDayOfWeekFromDateString(parsedDate);
+  const { openMinutes, closeMinutes } = getHoursForDay(dayOfWeek);
   const { totalMinutes } = parsed;
-  const closing = getClosingMinutesForDay(getWarsawDayOfWeek(now));
-  if (totalMinutes < SCHEDULED_MIN_MINUTES || totalMinutes > closing) {
+  if (totalMinutes < SCHEDULED_MIN_MINUTES || totalMinutes < openMinutes || totalMinutes > closeMinutes) {
     return "out_of_range";
+  }
+  if (parsedDate === today) {
+    const nowMinutes = getWarsawMinutesNow(now);
+    if (totalMinutes <= nowMinutes) {
+      return "out_of_range";
+    }
   }
   if (totalMinutes > SCHEDULED_MAX_ONLINE_MINUTES) {
     return "call_required";
@@ -492,6 +560,13 @@ var menuByLang_default = {
     ],
     "Sushi Burger": [
       {
+        id: "burger-king",
+        name: "Sushi Burger King",
+        price: "69 PLN",
+        desc: "Ry\u017C, nori, ser Philadelphia, tobiko, krewetki gotowane, \u0142oso\u015B, awokado, ser cheddar",
+        image: "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         id: "burger-salmon",
         name: "Burger z \u0142ososiem",
         price: "45 PLN",
@@ -644,23 +719,28 @@ var menuByLang_default = {
       {
         id: "drink-coca-033",
         name: "Coca-Cola 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 l",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-033",
         name: "Fanta 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 l",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
-        id: "drink-sprite-033",
-        name: "Sprite 0.33",
+        id: "drink-h-04",
+        kind: "section",
+        name: "0.4 l"
+      },
+      {
+        id: "drink-lemonade-04",
+        name: "Limonada 0.4",
         price: "6 PLN",
-        desc: "0.33 l",
-        image: "/imgs/drinks/Sprite.jpg"
+        desc: "0.4 l",
+        image: "/imgs/drinks/Cappy.jpg"
       },
       {
         id: "drink-h-05",
@@ -670,30 +750,53 @@ var menuByLang_default = {
       {
         id: "drink-coca-05",
         name: "Coca-Cola 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-05",
         name: "Fanta 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
         id: "drink-sprite-05",
         name: "Sprite 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/Sprite.jpg"
       },
       {
-        id: "drink-cappy-05",
-        name: "Cappy 0.5",
+        id: "drink-tea",
+        name: "Herbata 0.5",
         price: "8 PLN",
         desc: "0.5 l",
-        image: "/imgs/drinks/Cappy.jpg"
+        image: "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        id: "drink-water-sparkling-05",
+        name: "Woda gazowana 0.5",
+        price: "3 PLN",
+        desc: "0.5 l"
+      },
+      {
+        id: "drink-water-still-05",
+        name: "Woda niegazowana 0.5",
+        price: "3 PLN",
+        desc: "0.5 l"
+      },
+      {
+        id: "drink-h-07",
+        kind: "section",
+        name: "0.7 l"
+      },
+      {
+        id: "drink-water-still-07",
+        name: "Woda niegazowana 0.7",
+        price: "6 PLN",
+        desc: "0.7 l"
       },
       {
         id: "drink-h-085",
@@ -720,13 +823,6 @@ var menuByLang_default = {
         price: "10 PLN",
         desc: "0.85 l",
         image: "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        id: "drink-tea",
-        name: "Herbata",
-        price: "10 PLN",
-        desc: "Herbata",
-        image: "/imgs/drinks/fuzetea.jpg"
       }
     ]
   },
@@ -1102,6 +1198,13 @@ var menuByLang_default = {
     ],
     "Sushi Burger": [
       {
+        id: "burger-king",
+        name: "Sushi Burger King",
+        price: "69 PLN",
+        desc: "Rice, nori, cream cheese, tobiko, cooked shrimp, salmon, avocado, cheddar",
+        image: "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         id: "burger-salmon",
         name: "Burger with salmon",
         price: "45 PLN",
@@ -1254,23 +1357,28 @@ var menuByLang_default = {
       {
         id: "drink-coca-033",
         name: "Coca-Cola 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 l",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-033",
         name: "Fanta 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 l",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
-        id: "drink-sprite-033",
-        name: "Sprite 0.33",
+        id: "drink-h-04",
+        kind: "section",
+        name: "0.4 l"
+      },
+      {
+        id: "drink-lemonade-04",
+        name: "Lemonade 0.4",
         price: "6 PLN",
-        desc: "0.33 l",
-        image: "/imgs/drinks/Sprite.jpg"
+        desc: "0.4 l",
+        image: "/imgs/drinks/Cappy.jpg"
       },
       {
         id: "drink-h-05",
@@ -1280,30 +1388,53 @@ var menuByLang_default = {
       {
         id: "drink-coca-05",
         name: "Coca-Cola 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-05",
         name: "Fanta 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
         id: "drink-sprite-05",
         name: "Sprite 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 l",
         image: "/imgs/drinks/Sprite.jpg"
       },
       {
-        id: "drink-cappy-05",
-        name: "Cappy 0.5",
+        id: "drink-tea",
+        name: "Tea 0.5",
         price: "8 PLN",
         desc: "0.5 l",
-        image: "/imgs/drinks/Cappy.jpg"
+        image: "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        id: "drink-water-sparkling-05",
+        name: "Sparkling water 0.5",
+        price: "3 PLN",
+        desc: "0.5 l"
+      },
+      {
+        id: "drink-water-still-05",
+        name: "Still water 0.5",
+        price: "3 PLN",
+        desc: "0.5 l"
+      },
+      {
+        id: "drink-h-07",
+        kind: "section",
+        name: "0.7 l"
+      },
+      {
+        id: "drink-water-still-07",
+        name: "Still water 0.7",
+        price: "6 PLN",
+        desc: "0.7 l"
       },
       {
         id: "drink-h-085",
@@ -1330,13 +1461,6 @@ var menuByLang_default = {
         price: "10 PLN",
         desc: "0.85 l",
         image: "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        id: "drink-tea",
-        name: "Tea",
-        price: "10 PLN",
-        desc: "Tea",
-        image: "/imgs/drinks/fuzetea.jpg"
       }
     ]
   },
@@ -1712,6 +1836,13 @@ var menuByLang_default = {
     ],
     "Sushi Burger": [
       {
+        id: "burger-king",
+        name: "\u0421\u0443\u0448\u0456-\u0431\u0443\u0440\u0433\u0435\u0440 King",
+        price: "69 PLN",
+        desc: "\u0420\u0438\u0441, \u043D\u043E\u0440\u0456, \u0432\u0435\u0440\u0448\u043A\u043E\u0432\u0438\u0439 \u0441\u0438\u0440, \u0442\u043E\u0431\u0456\u043A\u043E, \u0432\u0430\u0440\u0435\u043D\u0456 \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0438, \u043B\u043E\u0441\u043E\u0441\u044C, \u0430\u0432\u043E\u043A\u0430\u0434\u043E, \u0447\u0435\u0434\u0434\u0435\u0440",
+        image: "/imgs/Burgers/BurgerKing.png"
+      },
+      {
         id: "burger-salmon",
         name: "\u0411\u0443\u0440\u0433\u0435\u0440 \u0437 \u043B\u043E\u0441\u043E\u0441\u0435\u043C",
         price: "45 PLN",
@@ -1864,23 +1995,28 @@ var menuByLang_default = {
       {
         id: "drink-coca-033",
         name: "Coca-Cola 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 \u043B",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-033",
         name: "Fanta 0.33",
-        price: "6 PLN",
+        price: "5 PLN",
         desc: "0.33 \u043B",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
-        id: "drink-sprite-033",
-        name: "Sprite 0.33",
+        id: "drink-h-04",
+        kind: "section",
+        name: "0.4 l"
+      },
+      {
+        id: "drink-lemonade-04",
+        name: "\u041B\u0438\u043C\u043E\u043D\u0430\u0434 0.4",
         price: "6 PLN",
-        desc: "0.33 \u043B",
-        image: "/imgs/drinks/Sprite.jpg"
+        desc: "0.4 \u043B",
+        image: "/imgs/drinks/Cappy.jpg"
       },
       {
         id: "drink-h-05",
@@ -1890,30 +2026,53 @@ var menuByLang_default = {
       {
         id: "drink-coca-05",
         name: "Coca-Cola 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 \u043B",
         image: "/imgs/drinks/CocaCola.jpg"
       },
       {
         id: "drink-fanta-05",
         name: "Fanta 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 \u043B",
         image: "/imgs/drinks/Fanta.jpg"
       },
       {
         id: "drink-sprite-05",
         name: "Sprite 0.5",
-        price: "8 PLN",
+        price: "7 PLN",
         desc: "0.5 \u043B",
         image: "/imgs/drinks/Sprite.jpg"
       },
       {
-        id: "drink-cappy-05",
-        name: "Cappy 0.5",
+        id: "drink-tea",
+        name: "\u0427\u0430\u0439 0.5",
         price: "8 PLN",
         desc: "0.5 \u043B",
-        image: "/imgs/drinks/Cappy.jpg"
+        image: "/imgs/drinks/fuzetea.jpg"
+      },
+      {
+        id: "drink-water-sparkling-05",
+        name: "\u0412\u043E\u0434\u0430 \u0433\u0430\u0437\u043E\u0432\u0430\u043D\u0430 0.5",
+        price: "3 PLN",
+        desc: "0.5 \u043B"
+      },
+      {
+        id: "drink-water-still-05",
+        name: "\u0412\u043E\u0434\u0430 \u043D\u0435\u0433\u0430\u0437\u043E\u0432\u0430\u043D\u0430 0.5",
+        price: "3 PLN",
+        desc: "0.5 \u043B"
+      },
+      {
+        id: "drink-h-07",
+        kind: "section",
+        name: "0.7 l"
+      },
+      {
+        id: "drink-water-still-07",
+        name: "\u0412\u043E\u0434\u0430 \u043D\u0435\u0433\u0430\u0437\u043E\u0432\u0430\u043D\u0430 0.7",
+        price: "6 PLN",
+        desc: "0.7 \u043B"
       },
       {
         id: "drink-h-085",
@@ -1940,13 +2099,6 @@ var menuByLang_default = {
         price: "10 PLN",
         desc: "0.85 \u043B",
         image: "/imgs/drinks/Sprite.jpg"
-      },
-      {
-        id: "drink-tea",
-        name: "\u0427\u0430\u0439",
-        price: "10 PLN",
-        desc: "\u0427\u0430\u0439",
-        image: "/imgs/drinks/fuzetea.jpg"
       }
     ]
   }
@@ -2060,6 +2212,7 @@ var ValidationError = {
   ADDRESS: "Address is required for delivery",
   DELIVERY_MINIMUM: "Order subtotal below delivery minimum",
   TIME: "Time is required when scheduling",
+  TIME_DATE: "Date is required when scheduling",
   TIME_OUT_OF_RANGE: "Scheduled time is outside allowed window",
   TIME_CALL_REQUIRED: "Scheduled time requires phone confirmation",
   RESTAURANT_CLOSED: "Restaurant is currently closed",
@@ -2100,6 +2253,7 @@ function validateOrderPayload(payload) {
     address = "",
     streetNumber = "",
     apartmentNumber = "",
+    preferredDate = "",
     preferredTime = "",
     comment = "",
     cashAmount,
@@ -2132,11 +2286,17 @@ function validateOrderPayload(payload) {
   if (!isRestaurantOpen()) {
     return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
   }
+  if (timeMode === "scheduled" && !String(preferredDate || "").trim()) {
+    return { ok: false, error: ValidationError.TIME_DATE };
+  }
   if (timeMode === "scheduled" && !String(preferredTime || "").trim()) {
     return { ok: false, error: ValidationError.TIME };
   }
   if (timeMode === "scheduled") {
-    const timeStatus = getScheduledTimeStatus(String(preferredTime));
+    const timeStatus = getScheduledTimeStatus(
+      String(preferredTime),
+      String(preferredDate)
+    );
     if (timeStatus === "invalid" || timeStatus === "out_of_range") {
       return { ok: false, error: ValidationError.TIME_OUT_OF_RANGE };
     }
@@ -2144,8 +2304,9 @@ function validateOrderPayload(payload) {
       return { ok: false, error: ValidationError.TIME_CALL_REQUIRED };
     }
   }
+  const bottleDeposit = calculateBottleDepositPln(cart);
   const deliveryFee = orderType === "delivery" ? DELIVERY_FEE_PLN : 0;
-  const orderTotal = Math.round((cartPricing.total + deliveryFee) * 100) / 100;
+  const orderTotal = Math.round((cartPricing.total + bottleDeposit + deliveryFee) * 100) / 100;
   const claimedTotal = Math.round(Number(total) * 100) / 100;
   if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 1e-3) {
     return { ok: false, error: ValidationError.CART_PRICING };
@@ -2178,12 +2339,14 @@ function validateOrderPayload(payload) {
       address: String(address || "").trim(),
       streetNumber: String(streetNumber || "").trim(),
       apartmentNumber: String(apartmentNumber || "").trim(),
+      preferredDate: String(preferredDate || "").trim(),
       preferredTime,
       comment: String(comment || "").trim(),
       extras: normalizeExtras(p),
       lang: String(lang),
       cart: cartPricing.cart,
       subtotal: cartPricing.total,
+      bottleDeposit,
       deliveryFee,
       total: orderTotal,
       currency,
@@ -2194,9 +2357,11 @@ function validateOrderPayload(payload) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  BOTTLE_DEPOSIT_PLN,
   DELIVERY_FEE_PLN,
   DELIVERY_MIN_SUBTOTAL_PLN,
   EMAIL_RE,
+  calculateBottleDepositPln,
   isDeliveryAvailable,
   validateOrderPayload
 });

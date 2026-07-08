@@ -1,5 +1,6 @@
 export const SCHEDULED_MIN_MINUTES = 13 * 60;
 export const SCHEDULED_MAX_ONLINE_MINUTES = 20 * 60;
+export const SCHEDULED_MAX_DAYS_AHEAD = 14;
 
 export type ScheduledTimeStatus =
   | 'idle'
@@ -98,24 +99,92 @@ export function getWarsawDayOfWeek(now: Date = new Date()): number {
   return WEEKDAY_PART[weekday] ?? 0;
 }
 
+export function getWarsawDateString(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(now);
+}
+
+export function addDaysToDateString(dateStr: string, days: number): string {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return dt.toISOString().slice(0, 10);
+}
+
+export function getScheduledMaxDateString(now: Date = new Date()): string {
+  return addDaysToDateString(getWarsawDateString(now), SCHEDULED_MAX_DAYS_AHEAD);
+}
+
+export function parsePreferredDate(raw: string): string | null {
+  const s = String(raw || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+
+  const [y, m, d] = s.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if (
+    dt.getUTCFullYear() !== y ||
+    dt.getUTCMonth() !== m - 1 ||
+    dt.getUTCDate() !== d
+  ) {
+    return null;
+  }
+
+  return s;
+}
+
+export function getDayOfWeekFromDateString(dateStr: string): number {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+}
+
 export function getScheduledTimeStatus(
   preferredTime: string,
+  preferredDate?: string,
   now: Date = new Date()
 ): ScheduledTimeStatus {
-  const trimmed = String(preferredTime || '').trim();
-  if (!trimmed) return 'idle';
+  const trimmedTime = String(preferredTime || '').trim();
+  if (!trimmedTime) return 'idle';
 
-  const parsed = parsePreferredTime(trimmed);
+  const trimmedDate = String(preferredDate || '').trim();
+  if (!trimmedDate) return 'invalid';
+
+  const parsed = parsePreferredTime(trimmedTime);
   if (!parsed) return 'invalid';
 
-  const { totalMinutes } = parsed;
-  const closing = getClosingMinutesForDay(getWarsawDayOfWeek(now));
+  const parsedDate = parsePreferredDate(trimmedDate);
+  if (!parsedDate) return 'invalid';
 
-  if (totalMinutes < SCHEDULED_MIN_MINUTES || totalMinutes > closing) {
+  const today = getWarsawDateString(now);
+  if (parsedDate < today) return 'out_of_range';
+
+  const maxDate = getScheduledMaxDateString(now);
+  if (parsedDate > maxDate) return 'out_of_range';
+
+  const dayOfWeek = getDayOfWeekFromDateString(parsedDate);
+  const { openMinutes, closeMinutes } = getHoursForDay(dayOfWeek);
+  const { totalMinutes } = parsed;
+
+  if (
+    totalMinutes < SCHEDULED_MIN_MINUTES ||
+    totalMinutes < openMinutes ||
+    totalMinutes > closeMinutes
+  ) {
     return 'out_of_range';
   }
+
+  if (parsedDate === today) {
+    const nowMinutes = getWarsawMinutesNow(now);
+    if (totalMinutes <= nowMinutes) {
+      return 'out_of_range';
+    }
+  }
+
   if (totalMinutes > SCHEDULED_MAX_ONLINE_MINUTES) {
     return 'call_required';
   }
+
   return 'ok';
 }

@@ -1,3 +1,4 @@
+import { calculateBottleDepositPln } from './bottleDeposit';
 import {
   DELIVERY_FEE_PLN,
   isDeliveryAvailable
@@ -5,6 +6,7 @@ import {
 import { getScheduledTimeStatus, isRestaurantOpen } from './orderTimeRules';
 import { validateAndPriceCart } from './menuCatalog';
 
+export { BOTTLE_DEPOSIT_PLN, calculateBottleDepositPln } from './bottleDeposit';
 export {
   DELIVERY_FEE_PLN,
   DELIVERY_MIN_SUBTOTAL_PLN,
@@ -55,6 +57,7 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     address = '',
     streetNumber = '',
     apartmentNumber = '',
+    preferredDate = '',
     preferredTime = '',
     comment = '',
     cashAmount,
@@ -106,12 +109,19 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
   }
 
+  if (timeMode === 'scheduled' && !String(preferredDate || '').trim()) {
+    return { ok: false, error: ValidationError.TIME_DATE };
+  }
+
   if (timeMode === 'scheduled' && !String(preferredTime || '').trim()) {
     return { ok: false, error: ValidationError.TIME };
   }
 
   if (timeMode === 'scheduled') {
-    const timeStatus = getScheduledTimeStatus(String(preferredTime));
+    const timeStatus = getScheduledTimeStatus(
+      String(preferredTime),
+      String(preferredDate)
+    );
     if (timeStatus === 'invalid' || timeStatus === 'out_of_range') {
       return { ok: false, error: ValidationError.TIME_OUT_OF_RANGE };
     }
@@ -120,9 +130,10 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     }
   }
 
+  const bottleDeposit = calculateBottleDepositPln(cart);
   const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
   const orderTotal =
-    Math.round((cartPricing.total + deliveryFee) * 100) / 100;
+    Math.round((cartPricing.total + bottleDeposit + deliveryFee) * 100) / 100;
   const claimedTotal = Math.round(Number(total) * 100) / 100;
 
   if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 0.001) {
@@ -160,12 +171,14 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
       address: String(address || '').trim(),
       streetNumber: String(streetNumber || '').trim(),
       apartmentNumber: String(apartmentNumber || '').trim(),
+      preferredDate: String(preferredDate || '').trim(),
       preferredTime,
       comment: String(comment || '').trim(),
       extras: normalizeExtras(p),
       lang: String(lang),
       cart: cartPricing.cart,
       subtotal: cartPricing.total,
+      bottleDeposit,
       deliveryFee,
       total: orderTotal,
       currency,
