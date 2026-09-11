@@ -469,16 +469,6 @@ export const menuI18n = {
     en: { name: 'Gunkan Shrimp', desc: '2 pcs' },
     uk: { name: 'Гункан креветка', desc: '2 шт' }
   },
-  'zestaw-tropik': {
-    en: {
-      name: 'Tropic Set',
-      desc: '32 pcs: mixed sweet roll ×8, banana ×8, kiwi ×8, strawberry ×8'
-    },
-    uk: {
-      name: 'Сет «Тропік»',
-      desc: '32 шт: мікс ×8, банан ×8, ківі ×8, полуниця ×8'
-    }
-  },
   mochi: {
     en: {
       name: 'Mochi — assorted',
@@ -497,26 +487,6 @@ export const menuI18n = {
     uk: {
       name: 'Солодкий рол — ківі',
       desc: 'Сойовий папір, ківі, солодкий сирок, рис, кокосова стружка'
-    }
-  },
-  'sweet-roll-mix': {
-    en: {
-      name: 'Sweet Roll — Mix',
-      desc: 'Rice paper, kiwi, banana, strawberries, sweet cream cheese, rice, fruit glaze, coconut flakes'
-    },
-    uk: {
-      name: 'Солодкий рол — мікс',
-      desc: 'Рисовий папір, ківі, банан, полуниця, солодкий сирок, рис, фруктова глазур, кокосова стружка'
-    }
-  },
-  'sweet-roll-truskawka': {
-    en: {
-      name: 'Sweet Roll — Strawberry',
-      desc: 'Soy paper, strawberries, sweet cream cheese, rice, chocolate glaze, coconut flakes'
-    },
-    uk: {
-      name: 'Солодкий рол — полуниця',
-      desc: 'Сойовий папір, полуниця, солодкий сирок, рис, шоколадна глазур, кокосова стружка'
     }
   },
   'sweet-roll-banan': {

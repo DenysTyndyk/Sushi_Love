@@ -1,6 +1,7 @@
 import React, {
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ChangeEvent,
   type FormEvent
@@ -62,6 +63,7 @@ const initialFormData: OrderFormData = {
   preferredTime: '',
   comment: '',
   cashAmount: '',
+  tipAmount: '',
   extraWasabi: 0,
   extraChopsticks: 0,
   extraSoy: 0,
@@ -103,6 +105,9 @@ const CartPage = () => {
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [restaurantOpen, setRestaurantOpen] = useState(() => isRestaurantOpen());
+  const errorAlertRef = useRef<HTMLParagraphElement | null>(null);
+  const privacyRowRef = useRef<HTMLLabelElement | null>(null);
+  const privacyInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const tick = () => setRestaurantOpen(isRestaurantOpen());
@@ -110,6 +115,25 @@ const CartPage = () => {
     const id = window.setInterval(tick, 60_000);
     return () => window.clearInterval(id);
   }, []);
+
+  const isPrivacyError =
+    submitState === 'error' && errorMessage === t('cart.errorPrivacy');
+
+  useEffect(() => {
+    if (submitState !== 'error' || !errorMessage) return;
+    if (isPrivacyError) {
+      privacyRowRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      privacyInputRef.current?.focus({ preventScroll: true });
+      return;
+    }
+    errorAlertRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }, [submitState, errorMessage, isPrivacyError]);
 
   const orderEndpoint =
     process.env.REACT_APP_ORDER_ENDPOINT || '/.netlify/functions/create-order';
@@ -155,9 +179,19 @@ const CartPage = () => {
   const deliveryFee =
     formData.orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
 
+  const tipPln = useMemo(() => {
+    const raw = String(formData.tipAmount || '')
+      .trim()
+      .replace(',', '.');
+    if (!raw) return 0;
+    const n = Number(raw);
+    if (!Number.isFinite(n) || n < 0) return 0;
+    return Math.round(n * 100) / 100;
+  }, [formData.tipAmount]);
+
   const orderTotal = useMemo(
-    () => Number((cartTotal + bottleDeposit + deliveryFee).toFixed(2)),
-    [cartTotal, bottleDeposit, deliveryFee]
+    () => Number((cartTotal + bottleDeposit + deliveryFee + tipPln).toFixed(2)),
+    [cartTotal, bottleDeposit, deliveryFee, tipPln]
   );
 
   const warsawToday = getWarsawDateString();
@@ -250,6 +284,7 @@ const CartPage = () => {
       comment: formData.comment,
       cashAmount:
         formData.paymentMethod === 'cash' ? formData.cashAmount : undefined,
+      tipAmount: formData.tipAmount,
       extraWasabi: formData.extraWasabi,
       extraChopsticks: formData.extraChopsticks,
       extraSoy: formData.extraSoy,
@@ -429,6 +464,12 @@ const CartPage = () => {
                     <strong>{deliveryFee.toFixed(2)} PLN</strong>
                   </div>
                 )}
+                {tipPln > 0 && (
+                  <div className="cart-summary__row">
+                    <span>{t('cart.tip')}</span>
+                    <strong>{tipPln.toFixed(2)} PLN</strong>
+                  </div>
+                )}
                 <div className="cart-summary__row cart-summary__row--total">
                   <span>{t('cart.total')}</span>
                   <strong>{orderTotal.toFixed(2)} PLN</strong>
@@ -447,7 +488,14 @@ const CartPage = () => {
                 <p>{t('cart.closedBanner')}</p>
               </div>
             )}
-            <form className="contact-form" onSubmit={sendTelegram}>
+            <form
+              className="contact-form"
+              onSubmit={sendTelegram}
+              onInvalid={(e) => {
+                const target = e.target as HTMLElement | null;
+                target?.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+              }}
+            >
               <label>
                 {t('cart.deliveryTypeLabel')}
                 <select
@@ -489,20 +537,37 @@ const CartPage = () => {
                 autoComplete="email"
                 required
               />
-              <label className="cart-privacy-row">
+              <label
+                ref={privacyRowRef}
+                className={`cart-privacy-row${
+                  isPrivacyError ? ' cart-privacy-row--error' : ''
+                }`}
+              >
                 <input
+                  ref={privacyInputRef}
                   type="checkbox"
                   name="privacyAccepted"
                   checked={formData.privacyAccepted}
-                  onChange={(e) =>
+                  aria-invalid={isPrivacyError}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
                     setFormData((prev) => ({
                       ...prev,
-                      privacyAccepted: e.target.checked
-                    }))
-                  }
+                      privacyAccepted: checked
+                    }));
+                    if (checked && isPrivacyError) {
+                      setSubmitState('idle');
+                      setErrorMessage('');
+                    }
+                  }}
                 />
                 <span>{t('cart.privacyCheckbox')}</span>
               </label>
+              {isPrivacyError && (
+                <p className="cart-privacy-error" role="alert">
+                  {errorMessage}
+                </p>
+              )}
               {formData.orderType === 'delivery' && (
                 <>
                   <input
@@ -613,6 +678,19 @@ const CartPage = () => {
                     )}
                 </div>
               )}
+              <label>
+                {t('cart.tipLabel')}
+                <input
+                  type="number"
+                  name="tipAmount"
+                  value={formData.tipAmount}
+                  onChange={onInputChange}
+                  placeholder={t('cart.tipPlaceholder')}
+                  min={0}
+                  step="0.01"
+                  inputMode="decimal"
+                />
+              </label>
               <fieldset className="cart-extras">
                 <legend>{t('cart.extrasTitle')}</legend>
                 <p className="cart-extras-hint">{t('cart.extrasPortionsHint')}</p>
@@ -668,8 +746,12 @@ const CartPage = () => {
                 {isSubmitting ? t('cart.submitting') : t('cart.submit')}
               </button>
             </form>
-            {submitState === 'error' && errorMessage && (
-              <p className="cart-checkout-desc" role="alert">
+            {submitState === 'error' && errorMessage && !isPrivacyError && (
+              <p
+                ref={errorAlertRef}
+                className="cart-checkout-desc cart-submit-error"
+                role="alert"
+              >
                 {errorMessage}
               </p>
             )}

@@ -61,6 +61,7 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
     preferredTime = '',
     comment = '',
     cashAmount,
+    tipAmount,
     lang = 'pl',
     cart = [],
     total = 0,
@@ -132,8 +133,21 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
 
   const bottleDeposit = calculateBottleDepositPln(cart);
   const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE_PLN : 0;
+  const rawTip = String(tipAmount ?? '')
+    .trim()
+    .replace(',', '.');
+  let tipPln = 0;
+  if (rawTip) {
+    tipPln = Number(rawTip);
+    if (!Number.isFinite(tipPln) || tipPln < 0) {
+      return { ok: false, error: ValidationError.INVALID_PAYLOAD };
+    }
+    tipPln = Math.round(tipPln * 100) / 100;
+  }
   const orderTotal =
-    Math.round((cartPricing.total + bottleDeposit + deliveryFee) * 100) / 100;
+    Math.round(
+      (cartPricing.total + bottleDeposit + deliveryFee + tipPln) * 100
+    ) / 100;
   const claimedTotal = Math.round(Number(total) * 100) / 100;
 
   if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 0.001) {
@@ -180,6 +194,7 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
       subtotal: cartPricing.total,
       bottleDeposit,
       deliveryFee,
+      tipAmount: tipPln,
       total: orderTotal,
       currency,
       cashTendered,

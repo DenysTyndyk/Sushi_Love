@@ -101,6 +101,9 @@ const pl = {
     subtotal: 'Produkty:',
     bottleDeposit: 'Kaucja za butelki (0,50 zł/szt.):',
     deliveryFee: 'Dostawa:',
+    tip: 'Napiwek:',
+    tipLabel: 'Napiwek (opcjonalnie)',
+    tipPlaceholder: 'Kwota napiwku (np. 10)',
     total: 'Do zapłaty:',
     checkoutTitle: 'Dane kontaktowe',
     checkoutDesc:
@@ -245,6 +248,9 @@ const en = {
     subtotal: 'Items:',
     bottleDeposit: 'Bottle deposit (PLN 0.50 each):',
     deliveryFee: 'Delivery:',
+    tip: 'Tip:',
+    tipLabel: 'Tip (optional)',
+    tipPlaceholder: 'Tip amount (e.g. 10)',
     total: 'Total due:',
     checkoutTitle: 'Contact details',
     checkoutDesc:
@@ -389,6 +395,9 @@ const uk = {
     subtotal: 'Продукти:',
     bottleDeposit: 'Застава за пляшки (0,50 zł/шт.):',
     deliveryFee: 'Доставка:',
+    tip: 'Чайові:',
+    tipLabel: 'Чайові (необовʼязково)',
+    tipPlaceholder: 'Сума чайових (напр. 10)',
     total: 'До сплати:',
     checkoutTitle: 'Контактні дані',
     checkoutDesc:

@@ -85,6 +85,7 @@ function buildOrderTelegramMessage(data) {
     subtotal,
     bottleDeposit,
     deliveryFee,
+    tipAmount,
     total,
     currency
   } = data;
@@ -134,7 +135,7 @@ function buildOrderTelegramMessage(data) {
 
   messageParts.push('', '🛒 Koszyk:', lines);
 
-  if (subtotal != null && (Number(bottleDeposit) > 0 || Number(deliveryFee) > 0)) {
+  if (subtotal != null && (Number(bottleDeposit) > 0 || Number(deliveryFee) > 0 || Number(tipAmount) > 0)) {
     messageParts.push(`📦 Produkty: ${Number(subtotal).toFixed(2)} ${currency}`);
   }
 
@@ -146,6 +147,10 @@ function buildOrderTelegramMessage(data) {
 
   if (orderType === 'delivery' && Number(deliveryFee) > 0) {
     messageParts.push(`🚚 Dostawa: ${Number(deliveryFee).toFixed(2)} ${currency}`);
+  }
+
+  if (Number(tipAmount) > 0) {
+    messageParts.push(`🙏 Napiwek: ${Number(tipAmount).toFixed(2)} ${currency}`);
   }
 
   messageParts.push('', `💰 Razem: ${Number(total).toFixed(2)} ${currency}`);

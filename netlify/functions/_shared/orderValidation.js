@@ -669,32 +669,11 @@ var menuByLang_default = {
     ],
     Desery: [
       {
-        id: "zestaw-tropik",
-        name: "Zestaw Tropik",
-        price: "100 PLN",
-        desc: "32 szt: Mix 8 szt, Banan 8 szt, Kiwi 8 szt, Truskawka 8 szt",
-        image: "/imgs/Desery/ZestawTropik.png"
-      },
-      {
-        id: "sweet-roll-mix",
-        name: "Rolka s\u0142odka \u2014 miks",
-        price: "35 PLN",
-        desc: "Papier ry\u017Cowy, kiwi, banan, truskawki, s\u0142odki serek, ry\u017C, polewa owocowa, wi\xF3rki kokosowe",
-        image: "/imgs/Desery/SweetRollMix.png"
-      },
-      {
         id: "sweet-roll-kiwi",
         name: "Rolka s\u0142odka \u2014 kiwi",
         price: "25 PLN",
         desc: "Papier sojowy, kiwi, s\u0142odki serek, ry\u017C, wi\xF3rki kokosowe",
         image: "/imgs/Desery/SweetRollKiwi.png"
-      },
-      {
-        id: "sweet-roll-truskawka",
-        name: "Rolka s\u0142odka \u2014 truskawka",
-        price: "25 PLN",
-        desc: "Papier sojowy, truskawki, s\u0142odki serek, ry\u017C, polewa czekoladowa, wi\xF3rki kokosowe",
-        image: "/imgs/Desery/SweetRollTruskawka.png"
       },
       {
         id: "sweet-roll-banan",
@@ -1307,32 +1286,11 @@ var menuByLang_default = {
     ],
     Desery: [
       {
-        id: "zestaw-tropik",
-        name: "Tropic Set",
-        price: "100 PLN",
-        desc: "32 pcs: mixed sweet roll \xD78, banana \xD78, kiwi \xD78, strawberry \xD78",
-        image: "/imgs/Desery/ZestawTropik.png"
-      },
-      {
-        id: "sweet-roll-mix",
-        name: "Sweet Roll \u2014 Mix",
-        price: "35 PLN",
-        desc: "Rice paper, kiwi, banana, strawberries, sweet cream cheese, rice, fruit glaze, coconut flakes",
-        image: "/imgs/Desery/SweetRollMix.png"
-      },
-      {
         id: "sweet-roll-kiwi",
         name: "Sweet Roll \u2014 Kiwi",
         price: "25 PLN",
         desc: "Soy paper, kiwi, sweet cream cheese, rice, coconut flakes",
         image: "/imgs/Desery/SweetRollKiwi.png"
-      },
-      {
-        id: "sweet-roll-truskawka",
-        name: "Sweet Roll \u2014 Strawberry",
-        price: "25 PLN",
-        desc: "Soy paper, strawberries, sweet cream cheese, rice, chocolate glaze, coconut flakes",
-        image: "/imgs/Desery/SweetRollTruskawka.png"
       },
       {
         id: "sweet-roll-banan",
@@ -1945,32 +1903,11 @@ var menuByLang_default = {
     ],
     Desery: [
       {
-        id: "zestaw-tropik",
-        name: "\u0421\u0435\u0442 \xAB\u0422\u0440\u043E\u043F\u0456\u043A\xBB",
-        price: "100 PLN",
-        desc: "32 \u0448\u0442: \u043C\u0456\u043A\u0441 \xD78, \u0431\u0430\u043D\u0430\u043D \xD78, \u043A\u0456\u0432\u0456 \xD78, \u043F\u043E\u043B\u0443\u043D\u0438\u0446\u044F \xD78",
-        image: "/imgs/Desery/ZestawTropik.png"
-      },
-      {
-        id: "sweet-roll-mix",
-        name: "\u0421\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0440\u043E\u043B \u2014 \u043C\u0456\u043A\u0441",
-        price: "35 PLN",
-        desc: "\u0420\u0438\u0441\u043E\u0432\u0438\u0439 \u043F\u0430\u043F\u0456\u0440, \u043A\u0456\u0432\u0456, \u0431\u0430\u043D\u0430\u043D, \u043F\u043E\u043B\u0443\u043D\u0438\u0446\u044F, \u0441\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0441\u0438\u0440\u043E\u043A, \u0440\u0438\u0441, \u0444\u0440\u0443\u043A\u0442\u043E\u0432\u0430 \u0433\u043B\u0430\u0437\u0443\u0440, \u043A\u043E\u043A\u043E\u0441\u043E\u0432\u0430 \u0441\u0442\u0440\u0443\u0436\u043A\u0430",
-        image: "/imgs/Desery/SweetRollMix.png"
-      },
-      {
         id: "sweet-roll-kiwi",
         name: "\u0421\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0440\u043E\u043B \u2014 \u043A\u0456\u0432\u0456",
         price: "25 PLN",
         desc: "\u0421\u043E\u0439\u043E\u0432\u0438\u0439 \u043F\u0430\u043F\u0456\u0440, \u043A\u0456\u0432\u0456, \u0441\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0441\u0438\u0440\u043E\u043A, \u0440\u0438\u0441, \u043A\u043E\u043A\u043E\u0441\u043E\u0432\u0430 \u0441\u0442\u0440\u0443\u0436\u043A\u0430",
         image: "/imgs/Desery/SweetRollKiwi.png"
-      },
-      {
-        id: "sweet-roll-truskawka",
-        name: "\u0421\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0440\u043E\u043B \u2014 \u043F\u043E\u043B\u0443\u043D\u0438\u0446\u044F",
-        price: "25 PLN",
-        desc: "\u0421\u043E\u0439\u043E\u0432\u0438\u0439 \u043F\u0430\u043F\u0456\u0440, \u043F\u043E\u043B\u0443\u043D\u0438\u0446\u044F, \u0441\u043E\u043B\u043E\u0434\u043A\u0438\u0439 \u0441\u0438\u0440\u043E\u043A, \u0440\u0438\u0441, \u0448\u043E\u043A\u043E\u043B\u0430\u0434\u043D\u0430 \u0433\u043B\u0430\u0437\u0443\u0440, \u043A\u043E\u043A\u043E\u0441\u043E\u0432\u0430 \u0441\u0442\u0440\u0443\u0436\u043A\u0430",
-        image: "/imgs/Desery/SweetRollTruskawka.png"
       },
       {
         id: "sweet-roll-banan",
@@ -2258,6 +2195,7 @@ function validateOrderPayload(payload) {
     preferredTime = "",
     comment = "",
     cashAmount,
+    tipAmount,
     lang = "pl",
     cart = [],
     total = 0,
@@ -2307,7 +2245,18 @@ function validateOrderPayload(payload) {
   }
   const bottleDeposit = calculateBottleDepositPln(cart);
   const deliveryFee = orderType === "delivery" ? DELIVERY_FEE_PLN : 0;
-  const orderTotal = Math.round((cartPricing.total + bottleDeposit + deliveryFee) * 100) / 100;
+  const rawTip = String(tipAmount ?? "").trim().replace(",", ".");
+  let tipPln = 0;
+  if (rawTip) {
+    tipPln = Number(rawTip);
+    if (!Number.isFinite(tipPln) || tipPln < 0) {
+      return { ok: false, error: ValidationError.INVALID_PAYLOAD };
+    }
+    tipPln = Math.round(tipPln * 100) / 100;
+  }
+  const orderTotal = Math.round(
+    (cartPricing.total + bottleDeposit + deliveryFee + tipPln) * 100
+  ) / 100;
   const claimedTotal = Math.round(Number(total) * 100) / 100;
   if (!Number.isFinite(claimedTotal) || Math.abs(orderTotal - claimedTotal) > 1e-3) {
     return { ok: false, error: ValidationError.CART_PRICING };
@@ -2349,6 +2298,7 @@ function validateOrderPayload(payload) {
       subtotal: cartPricing.total,
       bottleDeposit,
       deliveryFee,
+      tipAmount: tipPln,
       total: orderTotal,
       currency,
       cashTendered,

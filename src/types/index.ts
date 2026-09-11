@@ -67,6 +67,7 @@ export interface OrderFormData extends OrderExtras {
   preferredTime: string;
   comment: string;
   cashAmount: string;
+  tipAmount: string;
 }
 
 export interface OrderPayload {
@@ -84,6 +85,7 @@ export interface OrderPayload {
   preferredTime?: string;
   comment?: string;
   cashAmount?: string | number;
+  tipAmount?: string | number;
   extraWasabi?: number;
   extraChopsticks?: number;
   extraSoy?: number;
@@ -114,6 +116,7 @@ export interface ValidatedOrder {
   subtotal: number;
   bottleDeposit: number;
   deliveryFee: number;
+  tipAmount: number;
   total: number;
   currency: string;
   cashTendered: number | null;
