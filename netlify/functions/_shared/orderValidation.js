@@ -109,6 +109,10 @@ function isRestaurantOpen(now = /* @__PURE__ */ new Date()) {
   const nowMinutes = getWarsawMinutesNow(now);
   return nowMinutes >= openMinutes && nowMinutes < closeMinutes;
 }
+function isOnlineOrderingOpen(now = /* @__PURE__ */ new Date()) {
+  if (!isRestaurantOpen(now)) return false;
+  return getWarsawMinutesNow(now) < SCHEDULED_MAX_ONLINE_MINUTES;
+}
 var WEEKDAY_PART = {
   Sun: 0,
   Mon: 1,
@@ -2153,6 +2157,7 @@ var ValidationError = {
   TIME_DATE: "Date is required when scheduling",
   TIME_OUT_OF_RANGE: "Scheduled time is outside allowed window",
   TIME_CALL_REQUIRED: "Scheduled time requires phone confirmation",
+  ONLINE_ORDERS_CLOSED: "Online orders closed after 20:00",
   RESTAURANT_CLOSED: "Restaurant is currently closed",
   CASH_REQUIRED: "Cash amount required",
   CASH_COVER: "Cash amount must cover order total",
@@ -2224,6 +2229,9 @@ function validateOrderPayload(payload) {
   }
   if (!isRestaurantOpen()) {
     return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
+  }
+  if (!isOnlineOrderingOpen()) {
+    return { ok: false, error: ValidationError.ONLINE_ORDERS_CLOSED };
   }
   if (timeMode === "scheduled" && !String(preferredDate || "").trim()) {
     return { ok: false, error: ValidationError.TIME_DATE };

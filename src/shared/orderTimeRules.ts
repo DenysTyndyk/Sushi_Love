@@ -83,6 +83,11 @@ export function isRestaurantOpen(now: Date = new Date()): boolean {
   return nowMinutes >= openMinutes && nowMinutes < closeMinutes;
 }
 
+export function isOnlineOrderingOpen(now: Date = new Date()): boolean {
+  if (!isRestaurantOpen(now)) return false;
+  return getWarsawMinutesNow(now) < SCHEDULED_MAX_ONLINE_MINUTES;
+}
+
 const WEEKDAY_PART: Record<string, number> = {
   Sun: 0,
   Mon: 1,

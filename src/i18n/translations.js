@@ -174,6 +174,10 @@ const pl = {
       'Wybierz poprawny dzień i godzinę (13:00–20:00 online, w godzinach otwarcia restauracji).',
     errorTimeCallRequired:
       'Dla godziny po 20:00 zadzwoń, aby potwierdzić zamówienie.',
+    onlineOrdersClosedBanner:
+      'Po godzinie 20:00 zamówienia online są niedostępne. Zadzwoń, aby zamówić:',
+    errorOnlineOrdersClosed:
+      'Po godzinie 20:00 zamówienia online są niedostępne. Zadzwoń, aby zamówić.',
     closedBanner:
       'Zamówienia online są możliwe tylko w godzinach otwarcia (pn–cz i nd 12:00–21:00, pt–sb 11:00–22:00). Teraz restauracja jest zamknięta.',
     errorRestaurantClosed:
@@ -321,6 +325,10 @@ const en = {
       'Choose a valid date and time (1:00–8:00 PM online, within opening hours).',
     errorTimeCallRequired:
       'For times after 8:00 PM, please call to confirm your order.',
+    onlineOrdersClosedBanner:
+      'Online orders are not available after 8:00 PM. Please call to place an order:',
+    errorOnlineOrdersClosed:
+      'Online orders are not available after 8:00 PM. Please call to place an order.',
     closedBanner:
       'Online orders are only accepted during opening hours (Mon–Thu & Sun 12:00–9:00 PM, Fri–Sat 11:00 AM–10:00 PM). We are closed now.',
     errorRestaurantClosed:
@@ -468,6 +476,10 @@ const uk = {
       'Обери коректний день і час (13:00–20:00 онлайн, у межах годин роботи).',
     errorTimeCallRequired:
       'Для часу після 20:00 зателефонуйте, щоб підтвердити замовлення.',
+    onlineOrdersClosedBanner:
+      'Після 20:00 онлайн-замовлення недоступні. Зателефонуйте, щоб замовити:',
+    errorOnlineOrdersClosed:
+      'Після 20:00 онлайн-замовлення недоступні. Зателефонуйте, щоб замовити.',
     closedBanner:
       'Онлайн-замовлення лише в години роботи (пн–чт і нд 12:00–21:00, пт–сб 11:00–22:00). Зараз ресторан закритий.',
     errorRestaurantClosed:

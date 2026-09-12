@@ -13,6 +13,7 @@ import {
   getScheduledMaxDateString,
   getScheduledTimeStatus,
   getWarsawDateString,
+  isOnlineOrderingOpen,
   isRestaurantOpen
 } from '../shared/orderTimeRules';
 import { trackGoogleAdsOrderConversions } from '../shared/googleAds';
@@ -42,6 +43,7 @@ const ORDER_ERROR_KEYS: Record<ValidationErrorCode, string> = {
   [ValidationError.TIME_DATE]: 'cart.errorTimeDateRequired',
   [ValidationError.TIME_OUT_OF_RANGE]: 'cart.errorTimeOutOfRange',
   [ValidationError.TIME_CALL_REQUIRED]: 'cart.errorTimeCallRequired',
+  [ValidationError.ONLINE_ORDERS_CLOSED]: 'cart.errorOnlineOrdersClosed',
   [ValidationError.RESTAURANT_CLOSED]: 'cart.errorRestaurantClosed',
   [ValidationError.INVALID_PAYLOAD]: 'cart.errorInvalidPayload',
   [ValidationError.CART_PRICING]: 'cart.errorCartPricing',
@@ -105,16 +107,25 @@ const CartPage = () => {
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [restaurantOpen, setRestaurantOpen] = useState(() => isRestaurantOpen());
+  const [onlineOrderingOpen, setOnlineOrderingOpen] = useState(() =>
+    isOnlineOrderingOpen()
+  );
   const errorAlertRef = useRef<HTMLParagraphElement | null>(null);
   const privacyRowRef = useRef<HTMLLabelElement | null>(null);
   const privacyInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    const tick = () => setRestaurantOpen(isRestaurantOpen());
+    const tick = () => {
+      setRestaurantOpen(isRestaurantOpen());
+      setOnlineOrderingOpen(isOnlineOrderingOpen());
+    };
     tick();
     const id = window.setInterval(tick, 60_000);
     return () => window.clearInterval(id);
   }, []);
+
+  const onlineOrdersClosedAfterHours =
+    restaurantOpen && !onlineOrderingOpen;
 
   const isPrivacyError =
     submitState === 'error' && errorMessage === t('cart.errorPrivacy');
@@ -214,7 +225,7 @@ const CartPage = () => {
     formData.orderType === 'delivery' && !deliveryEligible;
 
   const checkoutBlocked =
-    !restaurantOpen || scheduledTimeBlocked || deliveryBlocked;
+    !onlineOrderingOpen || scheduledTimeBlocked || deliveryBlocked;
 
   const onExtraChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -745,6 +756,14 @@ const CartPage = () => {
               >
                 {isSubmitting ? t('cart.submitting') : t('cart.submit')}
               </button>
+              {onlineOrdersClosedAfterHours && (
+                <div className="cart-time-call-banner cart-online-closed-banner" role="status">
+                  <p>{t('cart.onlineOrdersClosedBanner')}</p>
+                  <a href="tel:+48664454433" className="cart-time-call-banner__phone">
+                    +48 664 454 433
+                  </a>
+                </div>
+              )}
             </form>
             {submitState === 'error' && errorMessage && !isPrivacyError && (
               <p

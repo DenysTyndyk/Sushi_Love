@@ -3,7 +3,11 @@ import {
   DELIVERY_FEE_PLN,
   isDeliveryAvailable
 } from './deliveryFee';
-import { getScheduledTimeStatus, isRestaurantOpen } from './orderTimeRules';
+import {
+  getScheduledTimeStatus,
+  isOnlineOrderingOpen,
+  isRestaurantOpen
+} from './orderTimeRules';
 import { validateAndPriceCart } from './menuCatalog';
 
 export { BOTTLE_DEPOSIT_PLN, calculateBottleDepositPln } from './bottleDeposit';
@@ -108,6 +112,10 @@ export function validateOrderPayload(payload: unknown): ValidationResult {
 
   if (!isRestaurantOpen()) {
     return { ok: false, error: ValidationError.RESTAURANT_CLOSED };
+  }
+
+  if (!isOnlineOrderingOpen()) {
+    return { ok: false, error: ValidationError.ONLINE_ORDERS_CLOSED };
   }
 
   if (timeMode === 'scheduled' && !String(preferredDate || '').trim()) {

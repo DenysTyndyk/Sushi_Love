@@ -806,6 +806,11 @@ html, body {
   text-decoration: underline;
 }
 
+.cart-online-closed-banner {
+  margin: 16px auto 0;
+  max-width: 520px;
+}
+
 .cart-time-hint {
   margin: -8px 0 12px;
   font-size: 0.9rem;
